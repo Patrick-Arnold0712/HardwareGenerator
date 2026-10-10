@@ -1,7 +1,7 @@
 # 项目约束
 
 - 项目目标：输入受限范围内的硬件需求，输出可在 EasyEDA Pro V4.1+ 打开的 `.eprj3` 工程包。
-- 当前只支持一个模板：`5V LED 指示灯板`。
+- 当前支持两个固定模板：`5V LED 指示灯板` 和 `RC 低通滤波器板`。
 - 运行环境优先 Node.js 18+，不引入非必要 npm 依赖。
 - 优先复用 `vendor/easyeda-eprj3-skill`，不要修改其中的上游代码。
 - `vendor/easyeda-format-skill` 作为格式规范和验证参考保留。

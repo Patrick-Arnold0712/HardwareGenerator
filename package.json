@@ -8,10 +8,16 @@
     "jlc-hardware-agent": "src/generate.js"
   },
   "scripts": {
-    "generate": "node src/generate.js --input \"5V LED 指示灯板\" --out dist --force",
+    "generate": "npm run generate:led",
+    "generate:led": "node src/generate.js --template 5v-led-indicator --input \"5V LED 指示灯板\" --out dist --force",
+    "generate:rc": "node src/generate.js --template rc-low-pass-filter --input \"RC 低通滤波器，输入输出测试点\" --out dist --force",
     "test": "node --test test/mvp.test.js && node vendor/easyeda-eprj3-skill/test/smoke.js",
-    "verify:client": "npm run generate && node src/verify-client.js --project \"dist/led-indicator/led-indicator.eprj3\"",
-    "demo": "powershell -ExecutionPolicy Bypass -File scripts/demo.ps1"
+    "verify:client": "npm run verify:client:led && npm run verify:client:rc",
+    "verify:client:led": "npm run generate:led && node src/verify-client.js --project \"dist/led-indicator/led-indicator.eprj3\"",
+    "verify:client:rc": "npm run generate:rc && node src/verify-client.js --project \"dist/rc-low-pass-filter/rc-low-pass-filter.eprj3\"",
+    "demo": "npm run demo:led",
+    "demo:led": "powershell -ExecutionPolicy Bypass -File scripts/demo.ps1 -Template 5v-led-indicator",
+    "demo:rc": "powershell -ExecutionPolicy Bypass -File scripts/demo.ps1 -Template rc-low-pass-filter"
   },
   "engines": {
     "node": ">=18"

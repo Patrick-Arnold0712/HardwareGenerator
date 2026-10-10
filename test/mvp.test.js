@@ -67,6 +67,7 @@ test('generates a validated 5V LED indicator .eprj3 project', () => {
     const schematic = fs.readFileSync(path.join(projectDir, 'sch', 'Schematic1', 'P1.esch2'), 'utf8');
     assert.match(schematic, /TP1/);
     assert.match(schematic, /TP2/);
+    assert.match(schematic, /需求：5V LED 指示灯板/);
 
     const pcb = fs.readFileSync(path.join(projectDir, 'pcb', 'PCB1.epcb2'), 'utf8');
     assert.match(pcb, /"netName":"5V"/);
@@ -77,6 +78,50 @@ test('generates a validated 5V LED indicator .eprj3 project', () => {
   }
 });
 
+
+test('generates a validated RC low-pass filter .eprj3 project', () => {
+  const tempRoot = makeTempRoot();
+  try {
+    const outDir = path.join(tempRoot, 'dist');
+    const result = spawnSync(process.execPath, [
+      CLI,
+      '--template', 'rc-low-pass-filter',
+      '--input', 'RC 低通滤波器，输入输出测试点',
+      '--out', outDir
+    ], { encoding: 'utf8' });
+
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+
+    const packageDir = path.join(outDir, 'rc-low-pass-filter');
+    const projectDir = packageDir;
+    const projectIndex = path.join(projectDir, 'rc-low-pass-filter.eprj3');
+    const zipPath = path.join(outDir, 'rc-low-pass-filter-eprj3.zip');
+
+    assert.ok(fs.existsSync(projectIndex), 'project index exists');
+    assert.ok(fs.statSync(zipPath).size > 0, 'zip exists and is not empty');
+
+    const validation = spawnSync(process.execPath, [VALIDATOR, '--dir', projectDir], { encoding: 'utf8' });
+    assert.equal(validation.status, 0, `${validation.stdout}\n${validation.stderr}`);
+    assert.match(validation.stdout, /0 errors/);
+
+    const manifest = JSON.parse(fs.readFileSync(path.join(packageDir, 'manifest.json'), 'utf8'));
+    assert.equal(manifest.template, 'rc-low-pass-filter');
+    assert.deepEqual(manifest.verification.nets, ['FILTER_IN', 'FILTER_OUT', 'GND']);
+
+    const bom = fs.readFileSync(path.join(packageDir, 'BOM.csv'), 'utf8');
+    for (const value of ['TP1', 'R1', 'TP2', 'C1', 'TP3']) assert.match(bom, new RegExp(value));
+
+    const schematic = fs.readFileSync(path.join(projectDir, 'sch', 'Schematic1', 'P1.esch2'), 'utf8');
+    assert.match(schematic, /需求：RC 低通滤波器/);
+
+    const pcb = fs.readFileSync(path.join(projectDir, 'pcb', 'PCB1.epcb2'), 'utf8');
+    assert.match(pcb, /"netName":"FILTER_IN"/);
+    assert.match(pcb, /"netName":"FILTER_OUT"/);
+    assert.match(pcb, /"netName":"GND"/);
+  } finally {
+    cleanupTemp(tempRoot);
+  }
+});
 test('rejects unsupported hardware requests without creating output', () => {
   const tempRoot = makeTempRoot();
   try {
@@ -88,7 +133,7 @@ test('rejects unsupported hardware requests without creating output', () => {
     ], { encoding: 'utf8' });
 
     assert.equal(result.status, 2);
-    assert.match(result.stderr, /只支持/);
+    assert.match(result.stderr, /无法从需求中选择模板/);
     assert.equal(fs.existsSync(outDir), false);
   } finally {
     cleanupTemp(tempRoot);

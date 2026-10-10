@@ -1,44 +1,61 @@
 # 嘉立创硬件 Agent MVP
 
-当前版本只验证一条链路：
+当前版本验证一条可重复的硬件设计链路：
 
 ```text
-受限硬件需求 -> 固定模板选择 -> 官方 easyeda-eprj3-skill -> 格式校验 -> ZIP
+受限硬件需求 -> 固定模板选择 -> 生成 .eprj3 工程 -> 格式校验 -> 嘉立创 V4 客户端验证 -> ZIP 交付
 ```
 
-目标不是实现全自动硬件设计，而是先证明可以生成一个由 EasyEDA Pro V4.1+ 打开的 `.eprj3` 工程。
+目标不是实现任意硬件全自动设计，而是先证明“需求 -> 工程文件 -> 嘉立创客户端真实解析和渲染”的闭环成立。
 
-## 支持范围
+## 固定模板
 
-当前只支持：
+| 模板 | 需求关键词 | 电路 |
+|---|---|---|
+| `5v-led-indicator` | `5V`、`LED`、`指示灯` | 5V -> TP1/R1 -> D1 -> TP2/GND |
+| `rc-low-pass-filter` | `RC`、`低通`、`滤波` | TP1 -> R1 -> TP2，C1 对地，TP3 为 GND |
 
-> 5V LED 指示灯小板：5V -> TP1/R1 -> D1 -> TP2/GND，PCB 已连通 5V、LED_A、GND 三条网络。
+两个模板都包含：
 
-输入中包含 `5V`/`5伏` 和 `LED`/`指示灯` 即可生成。其他需求会明确拒绝，不猜测、不编造。
+- 原理图需求文本；
+- 器件、网络和测试点；
+- PCB 器件、焊盘和基础连通走线；
+- BOM、manifest、验证截图和 ZIP。
 
 ## 使用
 
 ```powershell
 npm test
-npm run generate
+npm run generate:led
+npm run generate:rc
 npm run verify:client
 ```
 
-现场演示可以直接执行：
+单独验证：
 
 ```powershell
-npm run demo
+npm run verify:client:led
+npm run verify:client:rc
 ```
 
-演示脚本会生成工程、调用 V4 客户端验证并自动打开工程。完整话术和展示顺序见 [docs/demo-playbook.md](docs/demo-playbook.md)。
-
-也可以指定输入和输出目录：
+现场演示：
 
 ```powershell
-node src/generate.js --input "5V LED 指示灯板" --out dist --force
+npm run demo:led
+npm run demo:rc
 ```
 
-生成结果：
+完整话术和展示顺序见 [docs/demo-playbook.md](docs/demo-playbook.md)。
+
+直接指定模板和需求：
+
+```powershell
+node src/generate.js --template 5v-led-indicator --input "5V LED 指示灯板" --out dist --force
+node src/generate.js --template rc-low-pass-filter --input "RC 低通滤波器，输入输出测试点" --out dist --force
+node src/generate.js --template list
+```
+
+## 输出结构
 
 ```text
 dist/
@@ -50,33 +67,34 @@ dist/
 │   ├── README.md
 │   ├── manifest.json
 │   └── verification/
-│       ├── schematic.png
-│       ├── pcb.png
-│       └── result.json
-└── led-indicator-eprj3.zip
+└── rc-low-pass-filter/
+    ├── rc-low-pass-filter.eprj3
+    ├── sch/
+    ├── pcb/
+    ├── BOM.csv
+    ├── README.md
+    ├── manifest.json
+    └── verification/
 ```
 
-打开方式：
+## 客户端验收
 
-1. 安装 EasyEDA Pro / 嘉立创 EDA 专业版 V4.1+；
-2. 打开 `dist/led-indicator/led-indicator.eprj3`；
-3. 检查原理图、PCB 器件和网络；
-4. 已包含 5V、LED_A、GND 三条基础连通走线；仍未做 Gerber、LCSC 料号映射和制造正确性验证。
-5. 客户端自动验收需要设置 `LCEDA_CLI`，默认查找 `D:\lceda-pro-4.1.71\lceda-pro.exe`。
+客户端自动验收需要嘉立创 EDA 专业版 V4.1+。默认查找：
 
-## 验收标准
+`D:\lceda-pro-4.1.71\lceda-pro.exe`
 
-- `npm test` 通过；
-- 上游 `validate.js` 返回 `0 errors`；
-- 输出 ZIP 包含完整 `.eprj3` 目录、BOM、说明和 manifest；
-- 在 EasyEDA Pro V4.1+ 中实际打开并确认原理图与 PCB 可见；
-- 最终文字说明明确注明“链路验证版本，不可直接投产”。
+如果安装在其他位置，设置：
 
-## 复用与许可证
+```powershell
+$env:LCEDA_CLI = 'D:\lceda-pro-4.1.71\lceda-pro.exe'
+```
 
-本项目复用：
+`npm run verify:client` 会分别打开两个模板的 headless 会话，读取真实页面、器件、焊盘、网络和走线长度，并导出截图。
 
-- [easyeda/easyeda-eprj3-skill](https://github.com/easyeda/easyeda-eprj3-skill)，版本 `1.7.3`，提交 `40c94e129df18e94232f8c94260134bfcac6cabf`，MIT；
-- [easyeda/easyeda-format-skill](https://github.com/easyeda/easyeda-format-skill)，提交 `9e42727cc4cf13a8e442140e8e7794ae94d5f41b`，MIT。
+## 当前边界
 
-上游代码保留在 `vendor/` 中，便于审计和离线运行。详见 `docs/upstream-analysis.md`。
+- 不支持任意硬件需求；
+- 不映射真实 LCSC 料号；
+- 未生成 Gerber；
+- 未执行正式 DRC/DFM 和实际打样；
+- 不承诺电气正确性和量产可制造性。

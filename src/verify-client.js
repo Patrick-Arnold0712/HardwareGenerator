@@ -61,6 +61,14 @@ function runCli(cli, args) {
   return JSON.parse(output);
 }
 
+function tryRunCli(cli, args) {
+  try {
+    return runCli(cli, args);
+  } catch {
+    return null;
+  }
+}
+
 function writeDataUrl(file, dataUrl) {
   const match = /^data:image\/png;base64,(.+)$/.exec(dataUrl);
   if (!match) throw new Error(`不是有效的 PNG data URL：${file}`);
@@ -82,6 +90,18 @@ async function main() {
   const project = path.resolve(opts.project);
   if (!fs.existsSync(project)) throw new Error(`工程不存在：${project}`);
   const cli = findCli(opts.cli);
+  tryRunCli(cli, ['stop']);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'jlc-verify-'));
+  const sourceRoot = path.dirname(project);
+  const verifyRoot = path.join(temp, path.basename(sourceRoot));
+  fs.cpSync(sourceRoot, verifyRoot, { recursive: true });
+  const verifyProject = path.join(verifyRoot, path.basename(project));
+  const opened = runCli(cli, ['open', '--path', verifyProject, '--headless', 'true']);
+  if (!opened.ok || !opened.value || !opened.value.sessionId) {
+    throw new Error(`打开工程失败：${JSON.stringify(opened)}`);
+  }
+  const sessionId = opened.value.sessionId;
   const doctor = runCli(cli, ['doctor']);
   if (!doctor.ok || !doctor.value || !doctor.value.connected) {
     throw new Error(`LCEDA Pro 未连接：${JSON.stringify(doctor)}`);
@@ -90,13 +110,6 @@ async function main() {
   if (!/^4\./.test(version)) {
     throw new Error(`当前客户端 ${version} 不是要求的 V4，无法验证 .eprj3。`);
   }
-
-  const opened = runCli(cli, ['open', '--path', project, '--headless', 'true']);
-  if (!opened.ok || !opened.value || !opened.value.sessionId) {
-    throw new Error(`打开工程失败：${JSON.stringify(opened)}`);
-  }
-  const sessionId = opened.value.sessionId;
-  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'jlc-verify-'));
   const queryFile = path.join(temp, 'query.js');
 
   try {
@@ -123,11 +136,13 @@ const waitForArray = async (read, label, timeout = 30000) => {
 };
 const pages = await waitForArray(() => eda.dmt_Schematic.getAllSchematicPagesInfo(), '原理图图页');
 const schTab = await eda.dmt_EditorControl.openDocument(pages[0].uuid);
+await new Promise((resolve) => setTimeout(resolve, 1000));
 await eda.dmt_EditorControl.zoomToAllPrimitives(schTab);
 const sch = await waitForArray(() => eda.sch_PrimitiveComponent.getAll(), '原理图器件');
 const schNets = await eda.sch_Net.getAllNetsName();
 const pcbs = await waitForArray(() => eda.dmt_Pcb.getAllPcbsInfo(), 'PCB');
 const pcbTab = await eda.dmt_EditorControl.openDocument(pcbs[0].uuid);
+await new Promise((resolve) => setTimeout(resolve, 1000));
 await eda.dmt_EditorControl.zoomToAllPrimitives(pcbTab);
 const pcb = await waitForArray(() => eda.pcb_PrimitiveComponent.getAll(), 'PCB 器件');
 const pads = await waitForArray(() => eda.pcb_PrimitivePad.getAll(), 'PCB 焊盘');
@@ -155,9 +170,16 @@ return {
     if (!result.ok || !result.value) throw new Error(`查询失败：${JSON.stringify(result)}`);
     const value = result.value;
 
-    const missingSchematic = ['TP1', 'R1', 'D1', 'TP2'].filter((d) => !value.schDesignators.includes(d));
-    const missingPcb = ['TP1', 'R1', 'D1', 'TP2'].filter((d) => !value.pcbDesignators.includes(d));
-    const requiredNets = ['5V', 'LED_A', 'GND'];
+    const manifestPath = path.join(path.dirname(project), 'manifest.json');
+    const manifest = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : {};
+    const expected = manifest.verification || {
+      schDesignators: ['TP1', 'R1', 'D1', 'TP2'],
+      pcbDesignators: ['TP1', 'R1', 'D1', 'TP2'],
+      nets: ['5V', 'LED_A', 'GND']
+    };
+    const missingSchematic = expected.schDesignators.filter((d) => !value.schDesignators.includes(d));
+    const missingPcb = expected.pcbDesignators.filter((d) => !value.pcbDesignators.includes(d));
+    const requiredNets = expected.nets;
     const missingNets = requiredNets.filter((n) => !value.nets.includes(n));
     const deadNets = requiredNets.filter((n) => !(Number(value.trackLengths[n]) > 0));
     if (missingSchematic.length || missingPcb.length || missingNets.length || deadNets.length) {
@@ -169,6 +191,7 @@ return {
     writeDataUrl(path.join(packageDir, 'verification', 'pcb.png'), value.pcbImage);
     const report = {
       verifiedAt: new Date().toISOString(),
+      template: manifest.template || 'unknown',
       client: { path: cli, version },
       project,
       pages: value.pages,
@@ -187,6 +210,7 @@ return {
     } catch {
       // The session may already be closed after a failed render.
     }
+    tryRunCli(cli, ['stop']);
     cleanupTemp(temp);
   }
 }
