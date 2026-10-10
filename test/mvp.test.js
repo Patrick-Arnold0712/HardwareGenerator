@@ -59,8 +59,19 @@ test('generates a validated 5V LED indicator .eprj3 project', () => {
     assert.ok(manifest.artifacts.some((item) => item.path === 'led-indicator.eprj3'));
 
     const bom = fs.readFileSync(path.join(packageDir, 'BOM.csv'), 'utf8');
+    assert.match(bom, /TP1/);
     assert.match(bom, /R1/);
     assert.match(bom, /D1/);
+    assert.match(bom, /TP2/);
+
+    const schematic = fs.readFileSync(path.join(projectDir, 'sch', 'Schematic1', 'P1.esch2'), 'utf8');
+    assert.match(schematic, /TP1/);
+    assert.match(schematic, /TP2/);
+
+    const pcb = fs.readFileSync(path.join(projectDir, 'pcb', 'PCB1.epcb2'), 'utf8');
+    assert.match(pcb, /"netName":"5V"/);
+    assert.match(pcb, /"netName":"LED_A"/);
+    assert.match(pcb, /"netName":"GND"/);
   } finally {
     cleanupTemp(tempRoot);
   }

@@ -12,7 +12,7 @@
 
 当前只支持：
 
-> 5V LED 指示灯小板：5V -> 电阻 -> LED -> GND。
+> 5V LED 指示灯小板：5V -> TP1/R1 -> D1 -> TP2/GND，PCB 已连通 5V、LED_A、GND 三条网络。
 
 输入中包含 `5V`/`5伏` 和 `LED`/`指示灯` 即可生成。其他需求会明确拒绝，不猜测、不编造。
 
@@ -21,6 +21,7 @@
 ```powershell
 npm test
 npm run generate
+npm run verify:client
 ```
 
 也可以指定输入和输出目录：
@@ -39,7 +40,11 @@ dist/
 │   ├── pcb/
 │   ├── BOM.csv
 │   ├── README.md
-│   └── manifest.json
+│   ├── manifest.json
+│   └── verification/
+│       ├── schematic.png
+│       ├── pcb.png
+│       └── result.json
 └── led-indicator-eprj3.zip
 ```
 
@@ -48,7 +53,8 @@ dist/
 1. 安装 EasyEDA Pro / 嘉立创 EDA 专业版 V4.1+；
 2. 打开 `dist/led-indicator/led-indicator.eprj3`；
 3. 检查原理图、PCB 器件和网络；
-4. 该版本未做布线、Gerber、LCSC 料号映射和制造正确性验证。
+4. 已包含 5V、LED_A、GND 三条基础连通走线；仍未做 Gerber、LCSC 料号映射和制造正确性验证。
+5. 客户端自动验收需要设置 `LCEDA_CLI`，默认查找 `D:\lceda-pro-4.1.71\lceda-pro.exe`。
 
 ## 验收标准
 

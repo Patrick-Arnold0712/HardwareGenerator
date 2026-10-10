@@ -18,7 +18,7 @@ const UPSTREAM = Object.freeze({
 const TEMPLATE = Object.freeze({
   id: '5v-led-indicator',
   title: '5V LED 指示灯小板',
-  description: '5V -> 电阻 -> LED -> GND',
+  description: '5V -> 测试点 -> 电阻 -> LED -> 测试点 -> GND',
   defaultName: 'led-indicator'
 });
 
@@ -180,11 +180,19 @@ function buildLedIndicator(packageDir, projectName, logs) {
   ], logs);
   runUpstream('add-symbol.js', [
     '--dir', projectDir, '--sch', 'Schematic1', '--sheet', 'P1',
+    '--symbol', 'TEST_POINT', '--footprint', 'TP0.5', '--x', '400', '--y', '-300', '--refdes', 'TP1'
+  ], logs);
+  runUpstream('add-symbol.js', [
+    '--dir', projectDir, '--sch', 'Schematic1', '--sheet', 'P1',
     '--symbol', 'RES', '--footprint', 'R0603', '--x', '500', '--y', '-300', '--refdes', 'R1'
   ], logs);
   runUpstream('add-symbol.js', [
     '--dir', projectDir, '--sch', 'Schematic1', '--sheet', 'P1',
     '--symbol', 'LED', '--footprint', 'LED0603', '--x', '700', '--y', '-300', '--refdes', 'D1'
+  ], logs);
+  runUpstream('add-symbol.js', [
+    '--dir', projectDir, '--sch', 'Schematic1', '--sheet', 'P1',
+    '--symbol', 'TEST_POINT', '--footprint', 'TP0.5', '--x', '800', '--y', '-300', '--refdes', 'TP2'
   ], logs);
   runUpstream('add-symbol.js', [
     '--dir', projectDir, '--sch', 'Schematic1', '--sheet', 'P1',
@@ -216,6 +224,34 @@ function buildLedIndicator(packageDir, projectName, logs) {
     '--x', '1500', '--y', '800', '--refdes', 'D1',
     '--nets', '1:LED_A,2:GND'
   ], logs);
+  runUpstream('add-footprint.js', [
+    '--dir', projectDir, '--pcb', 'PCB1',
+    '--symbol', 'TEST_POINT', '--footprint', 'TP0.5',
+    '--x', '500', '--y', '800', '--refdes', 'TP1',
+    '--nets', '1:5V'
+  ], logs);
+  runUpstream('add-footprint.js', [
+    '--dir', projectDir, '--pcb', 'PCB1',
+    '--symbol', 'TEST_POINT', '--footprint', 'TP0.5',
+    '--x', '1900', '--y', '800', '--refdes', 'TP2',
+    '--nets', '1:GND'
+  ], logs);
+
+  runUpstream('add-track.js', [
+    '--dir', projectDir, '--pcb', 'PCB1', '--net', '5V',
+    '--layer', '1', '--width', '12',
+    '--x1', '500', '--y1', '800', '--x2', '870.3', '--y2', '800'
+  ], logs);
+  runUpstream('add-track.js', [
+    '--dir', projectDir, '--pcb', 'PCB1', '--net', 'LED_A',
+    '--layer', '1', '--width', '10',
+    '--x1', '929.7', '--y1', '800', '--x2', '1468.9', '--y2', '800'
+  ], logs);
+  runUpstream('add-track.js', [
+    '--dir', projectDir, '--pcb', 'PCB1', '--net', 'GND',
+    '--layer', '1', '--width', '12',
+    '--x1', '1531.1', '--y1', '800', '--x2', '1900', '--y2', '800'
+  ], logs);
 
   runUpstream('validate.js', ['--dir', projectDir], logs);
   runUpstream('cleanup.js', ['--dir', projectDir], logs);
@@ -227,8 +263,10 @@ function buildLedIndicator(packageDir, projectName, logs) {
 function createBom() {
   return [
     'Designator,Quantity,Value,Footprint,Description,LCSC',
+    'TP1,1,TEST_POINT,TP0.5,5V test point,',
     'R1,1,RES,R0603,LED current-limiting resistor,',
-    'D1,1,LED,LED0603,5V power indicator LED,'
+    'D1,1,LED,LED0603,5V power indicator LED,',
+    'TP2,1,TEST_POINT,TP0.5,GND test point,'
   ].join('\n');
 }
 
@@ -246,7 +284,7 @@ function createPackageReadme(projectName) {
 ## 当前电路
 
 \`\`\`
-5V -> R1 -> D1 -> GND
+5V -> TP1/R1 -> D1 -> TP2/GND
 \`\`\`
 
 ## 范围说明
@@ -254,7 +292,7 @@ function createPackageReadme(projectName) {
 - 只验证“需求 -> .eprj3 -> 嘉立创 EDA 可打开”的链路；
 - 使用通用 RES/LED 符号和 R0603/LED0603 封装；
 - 没有 LCSC 料号映射；
-- 没有 PCB 走线、Gerber、DFM 或量产正确性保证；
+- 已完成基础连通走线，但没有 Gerber、DFM 或量产正确性保证；
 - 生产前必须由硬件工程师检查和修改。
 
 生成工具：easyeda-eprj3-skill ${UPSTREAM.version} (${UPSTREAM.commit})。
@@ -379,7 +417,7 @@ function generate(opts, cwd) {
     limitations: [
       '链路验证版本，不保证可直接生产',
       '没有 LCSC 料号映射',
-      '没有 PCB 走线和 Gerber',
+      '已完成基础连通走线，但没有 Gerber',
       '需要在 EasyEDA Pro V4.1+ 中人工打开验收'
     ]
   };
