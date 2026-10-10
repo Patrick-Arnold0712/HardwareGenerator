@@ -24,6 +24,14 @@ npm run generate
 npm run verify:client
 ```
 
+现场演示可以直接执行：
+
+```powershell
+npm run demo
+```
+
+演示脚本会生成工程、调用 V4 客户端验证并自动打开工程。完整话术和展示顺序见 [docs/demo-playbook.md](docs/demo-playbook.md)。
+
 也可以指定输入和输出目录：
 
 ```powershell
