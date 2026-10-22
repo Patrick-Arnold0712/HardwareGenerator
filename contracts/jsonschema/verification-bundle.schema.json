@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jlc-hardware-agent.local/schemas/verification-bundle.schema.json",
+  "title": "VerificationBundle",
+  "description": "一次生成的全部验证证据与交付等级声明。自动化最高只能声明 engineering_preview；任何更高等级都需要人工与实物证据。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "projectId", "templateId", "deliveryStatus", "generatedAt", "checks", "artifacts", "limitations"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{2,63}$"
+    },
+    "templateId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{2,63}$"
+    },
+    "deliveryStatus": {
+      "$ref": "#/$defs/DeliveryStatus"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "checks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Check" }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Artifact" }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "必须至少有一条，禁止空口承诺。"
+    }
+  },
+  "$defs": {
+    "DeliveryStatus": {
+      "description": "五级交付状态。本项目的自动化上限是 engineering_preview。",
+      "enum": [
+        "concept_pack",
+        "engineering_preview",
+        "prototype_build_pack",
+        "verified_product_pack",
+        "production_release"
+      ]
+    },
+    "Check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "status", "automated"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "稳定标识，例如 format.validate。"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "给用户看的一句话说明。"
+        },
+        "status": {
+          "enum": ["pass", "fail", "not_run", "manual_required"]
+        },
+        "automated": {
+          "type": "boolean",
+          "description": "true 表示由脚本判定；false 表示必须人工完成。"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "Artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    }
+  }
+}

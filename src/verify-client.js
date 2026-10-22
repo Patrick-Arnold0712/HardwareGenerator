@@ -203,6 +203,24 @@ return {
       trackLengths: value.trackLengths
     };
     fs.writeFileSync(path.join(packageDir, 'verification', 'result.json'), JSON.stringify(report, null, 2) + '\n', 'utf8');
+
+    // 把客户端回读结果回写到 VerificationBundle，避免"验证过了但证据里还是 not_run"。
+    const bundlePath = path.join(packageDir, 'verification.json');
+    if (fs.existsSync(bundlePath)) {
+      try {
+        const bundle = JSON.parse(fs.readFileSync(bundlePath, 'utf8'));
+        const check = (bundle.checks || []).find((item) => item.id === 'client.parse');
+        if (check) {
+          check.status = 'pass';
+          check.detail = `已通过客户端 ${version} headless 回读器件、焊盘、网络和走线。`;
+          check.evidence = ['verification/result.json', 'verification/schematic.png', 'verification/pcb.png'];
+        }
+        fs.writeFileSync(bundlePath, JSON.stringify(bundle, null, 2) + '\n', 'utf8');
+      } catch {
+        // 证据回写失败不应让已验证的工程判为失败。
+      }
+    }
+
     console.log(JSON.stringify({ ok: true, project, clientVersion: version, ...report }, null, 2));
   } finally {
     try {

@@ -6,7 +6,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 
+const { buildChecks, buildVerificationBundle, AUTOMATION_CEILING } = require('./delivery.js');
+const { assertValid } = require('./schema.js');
+
 const ROOT = path.resolve(__dirname, '..');
+const SCHEMA_DIR = path.join(ROOT, 'contracts', 'jsonschema');
 const VENDOR_ROOT = path.join(ROOT, 'vendor', 'easyeda-eprj3-skill');
 const UPSTREAM = Object.freeze({
   repository: 'https://github.com/easyeda/easyeda-eprj3-skill',
@@ -486,6 +490,11 @@ function listFiles(root) {
   return files.sort();
 }
 
+function loadSchema(name) {
+  const file = path.join(SCHEMA_DIR, `${name}.schema.json`);
+  return JSON.parse(fs.readFileSync(file, 'utf8'));
+}
+
 function sha256(file) {
   const hash = crypto.createHash('sha256');
   hash.update(fs.readFileSync(file));
@@ -584,7 +593,12 @@ function generate(opts, cwd) {
   writeUtf8(readmePath, createPackageReadme(projectName, template, input));
 
   const manifestPath = path.join(packageDir, 'manifest.json');
-  const filesBeforeManifest = listFiles(packageDir);
+  // 哈希清单只覆盖"产物"，不覆盖会引用自身的元数据文件：
+  // - manifest.json 无法包含自己的哈希（自引用）；
+  // - verification.json 同理，它记录的是产物哈希。
+  // 这两个文件的存在与作用在 README 中说明，避免让人误以为清单漏了东西。
+  const payloadFiles = listFiles(packageDir);
+  const payloadArtifacts = artifactEntries(packageDir, payloadFiles);
   const manifest = {
     schemaVersion: '0.1',
     template: template.id,
@@ -597,7 +611,9 @@ function generate(opts, cwd) {
     generatedAt: new Date().toISOString(),
     upstream: UPSTREAM,
     projectIndex: `${projectName}.eprj3`,
-    artifacts: artifactEntries(packageDir, filesBeforeManifest),
+    artifacts: payloadArtifacts,
+    artifactScope: 'payload',
+    artifactScopeNote: '不含 manifest.json 与 verification.json：这两个文件记录的是产物哈希，无法包含自身。',
     operations: logs.map((entry) => ({
       script: entry.script,
       args: entry.args.map((arg) => manifestArg(arg, packageDir)),
@@ -611,6 +627,19 @@ function generate(opts, cwd) {
     ]
   };
   writeUtf8(manifestPath, JSON.stringify(manifest, null, 2));
+
+  // 生成符合 VerificationBundle 契约的验证证据。
+  const limitations = manifest.limitations;
+  const bundle = buildVerificationBundle({
+    projectId: projectName,
+    templateId: template.id,
+    generatedAt: manifest.generatedAt,
+    checks: buildChecks({ validatePassed: true, clientVerified: false }),
+    artifacts: payloadArtifacts,
+    limitations
+  });
+  assertValid(loadSchema('verification-bundle'), bundle, 'VerificationBundle');
+  writeUtf8(path.join(packageDir, 'verification.json'), JSON.stringify(bundle, null, 2));
 
   createZip(packageDir, zipPath);
 

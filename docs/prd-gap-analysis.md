@@ -263,13 +263,25 @@ C1 与 C4 直接影响下一步实现方式，必须先定。
 
 | 阶段 | 内容 | 产出 | 状态 |
 |---|---|---|---|
-| P0-1 | 五步向导垂直切片：想法 → 3 个问题 → 选方案 → 真实生成 → 下载 | 可操作页面 + 真实 `.eprj3` | **进行中** |
-| P0-2 | 补齐最小契约：`IdeaBrief` / `SolutionOption` / `VerificationBundle`，并引入 `deliveryStatus` 分级字段 | JSON Schema + 校验 | 待做 |
+| P0-1 | 五步向导垂直切片：想法 → 3 个问题 → 选方案 → 真实生成 → 下载 | 可操作页面 + 真实 `.eprj3` | ✅ 已完成 |
+| P0-2 | 补齐最小契约：`IdeaBrief` / `SolutionOption` / `VerificationBundle`，并引入 `deliveryStatus` 分级字段 | 3 个 JSON Schema + 零依赖校验器 | ✅ 已完成 |
+| P0-2b | 界面改为面向小白的通俗表达（零件中文名、用途说明、工程符号收进折叠区） | `src/wizard/index.html` | ✅ 已完成 |
 | P0-3 | 移植风险分级 R0–R3 与显式白名单（参考 `risk_policy.py` / `supported-scope.yaml`） | 拦截规则 + 测试 | 待做 |
-| P0-4 | 双模式（Novice/Pro）与 Revision 版本历史 | 版本化存储 | 待做 |
+| P0-4 | 双模式（Novice/Pro）与 Revision 版本历史 | 版本化存储 | 🟡 模式切换已有，版本历史待做 |
 | P0-5 | Golden Product 逼近：新增一个接近"温湿度提醒器"的固定模板 | 第 3 个模板 | 待做 |
 
-**P0-1 是本轮目标**，其余为后续。
+### P0-2 落地情况（2026-10-22）
+
+| 项 | 实现位置 | 验证 |
+|---|---|---|
+| 3 个 JSON Schema | `contracts/jsonschema/*.schema.json` | `test/contracts.test.js` |
+| 零依赖校验器（fail-closed） | `src/schema.js` | 未知关键字抛 `SchemaDefinitionError`，不当作数据错误 |
+| 交付等级分级 | `src/delivery.js` | 自动化上限锁死 `engineering_preview`，越级直接抛错 |
+| 验证证据产物 | 每次生成写出 `verification.json` | 未做项标 `not_run`，人工项标 `manual_required` |
+| 客户端证据回写 | `src/verify-client.js` | 真实回读通过后才把 `client.parse` 改为 `pass` |
+| 哈希清单口径 | `manifest.artifactScope = payload` | 明确说明不含 `manifest.json` / `verification.json`（自引用） |
+
+**P0-3 是下一步目标**，其余为后续。
 
 ## 10. 风险
 

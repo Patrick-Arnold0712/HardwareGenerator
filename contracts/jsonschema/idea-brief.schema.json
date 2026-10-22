@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jlc-hardware-agent.local/schemas/idea-brief.schema.json",
+  "title": "IdeaBrief",
+  "description": "用户在向导第一步表达的原话与已识别约束。它是后续方案的输入，本身不包含任何工程结论。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "projectId", "ideaText", "inputMode", "createdAt"],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "projectId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+      "description": "与工程目录名一致，因为上游脚本按目录 basename 查找索引。"
+    },
+    "ideaText": {
+      "type": "string",
+      "minLength": 4,
+      "maxLength": 600,
+      "description": "用户原话，不做改写。未命中模板时也必须原样保留。"
+    },
+    "inputMode": {
+      "enum": ["novice", "pro"],
+      "description": "只影响信息密度，不影响安全门禁。"
+    },
+    "templateId": {
+      "anyOf": [
+        { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,63}$" },
+        { "type": "null" }
+      ],
+      "description": "已匹配的模板；null 表示未命中，必须显式降级。"
+    },
+    "knownConstraints": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [{ "type": "string" }, { "type": "number" }, { "type": "boolean" }]
+      },
+      "description": "用户已确认的约束，例如供电、预算。"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

@@ -14,42 +14,53 @@ const http = require('node:http');
 const crypto = require('node:crypto');
 
 const { TEMPLATES, matchTemplates, generate, slugify } = require('./generate.js');
+const { assertValid } = require('./schema.js');
+const { LEVEL_LABELS } = require('./delivery.js');
 
 const ROOT = path.resolve(__dirname, '..');
+const SCHEMA_DIR = path.join(ROOT, 'contracts', 'jsonschema');
 const DEFAULT_OUT = path.join(ROOT, 'dist', 'wizard');
 const PORT = Number(process.env.WIZARD_PORT || 7788);
 const HOST = '127.0.0.1';
+
+const schemaCache = new Map();
+function loadSchema(name) {
+  if (!schemaCache.has(name)) {
+    schemaCache.set(name, JSON.parse(fs.readFileSync(path.join(SCHEMA_DIR, `${name}.schema.json`), 'utf8')));
+  }
+  return schemaCache.get(name);
+}
 
 // 每一步最多 3 个问题，每个专业问题都必须有「按推荐方案」选项。
 const QUESTIONS = Object.freeze([
   {
     id: 'purpose',
     title: '这块板子主要做什么？',
-    desc: '决定套用哪一套已验证电路。',
+    desc: '决定用哪一套已经验证过的电路。',
     options: [
-      { value: 'indicator', label: '点亮 / 指示', sub: 'LED 指示灯' },
-      { value: 'filter', label: '信号处理', sub: 'RC 低通滤波' },
-      { value: 'auto', label: '我不确定，按推荐方案', sub: '根据上面的描述判断' }
+      { value: 'indicator', label: '亮灯、做提示', sub: '通电就亮，一眼看出有没有电' },
+      { value: 'filter', label: '滤掉杂音', sub: '把信号里刺耳的高频噪声去掉' },
+      { value: 'auto', label: '我不确定，按推荐方案', sub: '根据你上面说的来判断' }
     ]
   },
   {
     id: 'supply',
-    title: '供电电压是多少？',
-    desc: '当前两个模板都按 5V 设计。',
+    title: '用什么给它供电？',
+    desc: '现在这两套电路都是按 5V 设计的。',
     options: [
-      { value: '5v', label: '5V', sub: 'USB-C 或 5V 适配器' },
-      { value: 'other', label: '其他电压', sub: '3.3V / 12V / 电池' },
+      { value: '5v', label: '5V 电源', sub: '像手机充电器那种' },
+      { value: 'other', label: '别的电压', sub: '3.3V、12V 或者电池' },
       { value: 'auto', label: '我不确定，按推荐方案', sub: '默认按 5V' }
     ]
   },
   {
     id: 'testpoints',
-    title: '需要测试点吗？',
-    desc: '测试点方便用万用表测量。',
+    title: '要不要留测试点？',
+    desc: '就是板子上几个小铜点，方便拿万用表量电压。',
     options: [
-      { value: 'yes', label: '需要', sub: '每个网络一个测试点' },
-      { value: 'no', label: '不需要', sub: '当前模板无法移除' },
-      { value: 'auto', label: '我不确定，按推荐方案', sub: '默认保留' }
+      { value: 'yes', label: '要留', sub: '每个接口留一个' },
+      { value: 'no', label: '不用留', sub: '现在这两套电路没法去掉' },
+      { value: 'auto', label: '我不确定，按推荐方案', sub: '默认留着' }
     ]
   }
 ]);
@@ -57,6 +68,46 @@ const QUESTIONS = Object.freeze([
 const CIRCUIT = Object.freeze({
   '5v-led-indicator': '5V -> TP1/R1 -> D1 -> TP2/GND',
   'rc-low-pass-filter': 'TP1 -> R1 -> TP2，C1 对地，TP3 为 GND'
+});
+
+// 给普通用户看的一句话解释，避免直接甩工程符号。
+const CIRCUIT_PLAIN = Object.freeze({
+  '5v-led-indicator': '电源进来，经过一个限流电阻，点亮指示灯，再接回地。',
+  'rc-low-pass-filter': '信号从输入端进来，经过一个电阻，再经过一个对地电容，从输出端出去。'
+});
+
+// 零件的中文叫法，界面上不直接显示 RES / TEST_POINT 这类代号。
+const PART_PLAIN = Object.freeze({
+  RES: '电阻',
+  CAP: '电容',
+  LED: '发光二极管',
+  TEST_POINT: '测试点',
+  GND: '接地',
+  '5V': '电源'
+});
+
+const FOOTPRINT_PLAIN = Object.freeze({
+  R0603: '贴片电阻 0603',
+  C0603: '贴片电容 0603',
+  LED0603: '贴片 LED 0603',
+  'TP0.5': '直径 0.5mm 焊盘'
+});
+
+// 每个零件的用途，用日常语言说明它为什么在这里。
+const PART_ROLE = Object.freeze({
+  '5v-led-indicator': {
+    TP1: '电源接进来的地方',
+    R1: '限制流过灯的电流，防止烧坏',
+    D1: '通电就亮的指示灯',
+    TP2: '接回地（负极）的地方'
+  },
+  'rc-low-pass-filter': {
+    TP1: '信号输入的地方',
+    R1: '和电容一起决定滤掉多高的频率',
+    TP2: '信号输出的地方',
+    C1: '把高频噪声导到地上去',
+    TP3: '接地点'
+  }
 });
 
 const sessions = new Map();
@@ -107,17 +158,31 @@ function publicSession(session) {
 
 // ---- 步骤 1 -> 2 ----------------------------------------------------------
 
-function submitIdea(session, rawText) {
+function submitIdea(session, rawText, inputMode) {
   const idea = String(rawText || '').trim();
   if (idea.length < 4) throw new UserError('再多说一点：你想让它帮你完成什么？');
 
   session.idea = idea.slice(0, 600);
   session.matches = matchTemplates(session.idea).map((t) => t.id);
+  session.inputMode = inputMode === 'pro' ? 'pro' : 'novice';
   session.answers = {};
   session.options = [];
   session.chosenOptionId = null;
   session.result = null;
   session.step = 2;
+
+  // 用契约约束输入，避免后续流程拿到不完整的需求。
+  const brief = {
+    schemaVersion: '1.0',
+    projectId: session.id,
+    ideaText: session.idea,
+    inputMode: session.inputMode,
+    templateId: session.matches.length ? session.matches[0] : null,
+    knownConstraints: {},
+    createdAt: new Date().toISOString()
+  };
+  assertValid(loadSchema('idea-brief'), brief, 'IdeaBrief');
+  session.brief = brief;
 
   return {
     session: publicSession(session),
@@ -200,8 +265,9 @@ function buildOptions(templateIds, unmet) {
       id,
       kind: 'template',
       title: template.title,
-      subtitle: template.description,
+      subtitle: CIRCUIT_PLAIN[id] || template.description,
       circuit: CIRCUIT[id] || template.description,
+      circuitPlain: CIRCUIT_PLAIN[id] || template.description,
       designators: template.expected.schDesignators,
       nets: template.expected.nets,
       parts: template.bom.length - 1,
@@ -216,6 +282,7 @@ function buildOptions(templateIds, unmet) {
     title: '自定义电路',
     subtitle: '不套用任何已验证模板',
     circuit: null,
+    circuitPlain: null,
     designators: [],
     nets: [],
     parts: 0,
@@ -223,6 +290,12 @@ function buildOptions(templateIds, unmet) {
     reason: '当前版本没有通用电路编译器，无法生成任意电路。选这项会明确告知边界，不会伪造结果。',
     unmet
   });
+
+  // 每个方案都必须满足 SolutionOption 契约，尤其 canGenerate=false 时必须带理由。
+  const schema = loadSchema('solution-option');
+  for (const option of options) {
+    assertValid(schema, option, `SolutionOption(${option.id})`);
+  }
   return options;
 }
 
@@ -265,6 +338,8 @@ function chooseOption(session, optionId) {
       designators: template.expected.schDesignators,
       nets: template.expected.nets,
       bom: parseBom(template.bom),
+      bomPlain: parseBomPlain(template.bom, option.id),
+      circuitPlain: CIRCUIT_PLAIN[option.id] || template.description,
       unmet: session.unmet,
       defaultProjectName: template.defaultName
     }
@@ -277,6 +352,18 @@ function parseBom(lines) {
     const cells = row.split(',');
     return { designator: cells[0], value: cells[2], footprint: cells[3], description: cells[4] };
   });
+}
+
+// 把 BOM 转成普通用户能读懂的行，并保留原始值供专业模式使用。
+function parseBomPlain(lines, templateId) {
+  const roles = PART_ROLE[templateId] || {};
+  return parseBom(lines).map((row) => ({
+    designator: row.designator,
+    what: PART_PLAIN[row.value] || row.value,
+    size: FOOTPRINT_PLAIN[row.footprint] || row.footprint,
+    role: roles[row.designator] || row.description,
+    raw: row
+  }));
 }
 
 // ---- 步骤 4 -> 5（真实生成） ----------------------------------------------
@@ -305,6 +392,13 @@ function generateFromSession(session, outRoot, opts = {}) {
 
   session.projectName = projectName;
   session.step = 5;
+
+  // 读取生成阶段写出的验证证据，让界面展示真实的交付等级与检查结果。
+  const bundlePath = path.join(generated.packageDir, 'verification.json');
+  const bundle = fs.existsSync(bundlePath)
+    ? JSON.parse(fs.readFileSync(bundlePath, 'utf8'))
+    : null;
+
   session.result = {
     projectName,
     templateId: session.templateId,
@@ -315,6 +409,9 @@ function generateFromSession(session, outRoot, opts = {}) {
     artifacts: generated.manifest.artifacts,
     verification: generated.manifest.verification,
     limitations: generated.manifest.limitations,
+    deliveryStatus: bundle ? bundle.deliveryStatus : null,
+    deliveryLabel: bundle ? (LEVEL_LABELS[bundle.deliveryStatus] || bundle.deliveryStatus) : null,
+    checks: bundle ? bundle.checks : [],
     unmet: session.unmet
   };
 
@@ -401,7 +498,7 @@ async function handle(req, res, outRoot) {
   if (req.method === 'POST' && route === '/api/idea') {
     const body = await readBody(req);
     const session = getSession(body.sessionId);
-    return json(res, 200, submitIdea(session, body.idea));
+    return json(res, 200, submitIdea(session, body.idea, body.inputMode));
   }
 
   if (req.method === 'POST' && route === '/api/answers') {
