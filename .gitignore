@@ -4,6 +4,9 @@ dist/
 .DS_Store
 recordings/
 
+# 客户资料：含客户 PRD 与参考仓库，不进入代码仓库
+客户prd/
+
 # 临时提取目录与虚拟环境
 .tmp_*/
 .venv/
