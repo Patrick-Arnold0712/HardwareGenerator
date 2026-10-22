@@ -214,7 +214,7 @@ const state = {
   sessionId: null, step: 1, pro: false,
   idea: '', questions: [], answers: {}, detected: [], degradation: null,
   options: [], unmet: [], blocked: null, preview: null, result: null,
-  busy: false, busyText: '', error: ''
+  busy: false, busyText: '', error: '', serverDown: null
 };
 
 function esc(v){
@@ -222,15 +222,41 @@ function esc(v){
 }
 
 async function api(path, body){
-  const res = await fetch(path, body === undefined ? {} : {
-    method: 'POST',
-    headers: {'content-type':'application/json'},
-    body: JSON.stringify(body)
-  });
+  let res;
+  try {
+    res = await fetch(path, body === undefined ? {} : {
+      method: 'POST',
+      headers: {'content-type':'application/json'},
+      body: JSON.stringify(body)
+    });
+  } catch (e) {
+    // 最常见的原因：直接用 file:// 打开了 HTML，没有启动本地服务。
+    // 原始报错是 "Failed to parse URL from /api/session"，对用户毫无意义。
+    throw new Error(NOT_RUNNING_MESSAGE);
+  }
   let data;
   try { data = await res.json(); } catch { throw new Error('服务器返回异常（HTTP ' + res.status + '）'); }
   if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
   return data;
+}
+
+const NOT_RUNNING_MESSAGE =
+  '连不上本地服务。请先在项目目录里运行 npm run wizard，' +
+  '然后打开 http://127.0.0.1:7788 ，不要直接双击 HTML 文件。';
+
+// 页面加载时先确认服务可用，避免用户填完想法才在第一步失败。
+async function preflight(){
+  if (location.protocol === 'file:') {
+    return { ok: false, message: NOT_RUNNING_MESSAGE };
+  }
+  try {
+    const res = await fetch('/api/health');
+    if (!res.ok) throw new Error('bad status');
+    await res.json();
+    return { ok: true };
+  } catch {
+    return { ok: false, message: NOT_RUNNING_MESSAGE };
+  }
 }
 
 const STEP_NAMES = ['说说想法','确认需求','选个方案','确认一下','拿到工程包'];
@@ -477,6 +503,28 @@ function viewResult(){
 
 function render(){
   renderChrome();
+  // 服务不可用时直接给整页提示，而不是让用户白填一遍再失败。
+  if (state.serverDown) {
+    $('view').innerHTML = `
+      <div class="card">
+        <h1>还没连上服务</h1>
+        <p class="lead">这个页面需要配合本地的生成服务一起用，不能直接双击打开。</p>
+        <div class="note bad">
+          <b>请这样启动</b>
+          在项目目录里运行下面这行命令，然后浏览器会自动打开正确的地址。
+        </div>
+        <pre style="background:#f2f5fa;border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+          font-size:14.5px;overflow:auto;margin:0">cd E:\\程序开发\\嘉立创agent
+npm run wizard</pre>
+        <p class="lead" style="margin-top:16px">启动后访问 <b>http://127.0.0.1:7788</b>。</p>
+        <div class="actions">
+          <button class="primary" id="retryBtn">我已经启动了，重试</button>
+        </div>
+        ${errBlock()}
+      </div>`;
+    if ($('retryBtn')) $('retryBtn').onclick = () => boot();
+    return;
+  }
   const views = [viewIdea, viewQuestions, viewOptions, viewPreview, viewResult];
   $('view').innerHTML = views[state.step - 1]();
   bind();
@@ -570,7 +618,18 @@ async function run(fn, text){
 $('modeNovice').onclick = () => { state.pro = false; render(); };
 $('modePro').onclick = () => { state.pro = true; render(); };
 
-render();
+// 启动时先探测服务，避免用户在错误状态下白操作。
+async function boot(){
+  state.serverDown = null;
+  render();
+  const health = await preflight();
+  if (!health.ok) {
+    state.serverDown = health.message;
+    render();
+  }
+}
+
+boot();
 </script>
 </body>
 </html>
