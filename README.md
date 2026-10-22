@@ -14,9 +14,9 @@
 需要 Node.js 18+，无需安装任何 npm 依赖。
 
 ```powershell
-git clone <仓库地址>
-cd 嘉立创agent
-npm test          # 20 项本地测试 + 121 项上游测试
+git clone https://github.com/Patrick-Arnold0712/HardwareGenerator.git
+cd HardwareGenerator
+npm test          # 21 项本地测试 + 121 项上游测试
 npm run wizard    # 打开 http://127.0.0.1:7788
 ```
 
