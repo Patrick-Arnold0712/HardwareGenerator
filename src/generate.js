@@ -151,6 +151,23 @@ function slugify(value, fallback) {
   return slug || fallback;
 }
 
+// 返回所有命中的模板，顺序即优先级。向导用它判断需求是否歧义。
+function matchTemplates(input) {
+  const text = String(input || '');
+  const compact = text.toLowerCase().replace(/\s+/g, '');
+  const hits = [];
+
+  if (compact.includes('rc') || compact.includes('filter') || text.includes('低通') || text.includes('滤波')) {
+    hits.push(TEMPLATES['rc-low-pass-filter']);
+  }
+
+  const has5v = compact.includes('5v') || compact.includes('5.0v') || text.includes('5伏');
+  const hasLed = compact.includes('led') || text.includes('指示灯') || text.includes('发光二极管');
+  if (has5v && hasLed) hits.push(TEMPLATES['5v-led-indicator']);
+
+  return hits;
+}
+
 function selectTemplate(input, explicitId) {
   if (explicitId) {
     const template = TEMPLATES[explicitId];
@@ -158,14 +175,8 @@ function selectTemplate(input, explicitId) {
     return template;
   }
 
-  const compact = input.toLowerCase().replace(/\s+/g, '');
-  if (compact.includes('rc') || compact.includes('filter') || input.includes('低通') || input.includes('滤波')) {
-    return TEMPLATES['rc-low-pass-filter'];
-  }
-
-  const has5v = compact.includes('5v') || compact.includes('5.0v') || input.includes('5伏');
-  const hasLed = compact.includes('led') || input.includes('指示灯') || input.includes('发光二极管');
-  if (has5v && hasLed) return TEMPLATES['5v-led-indicator'];
+  const hits = matchTemplates(input);
+  if (hits.length) return hits[0];
 
   throw new UserError(
     `无法从需求中选择模板：${input}\n` +
@@ -424,7 +435,7 @@ function addPcbRequirementText(packageDir, template, logs) {
     '--origin', '4'
   ], logs);
 }
-function createPackageReadme(projectName, template) {
+function createPackageReadme(projectName, template, input) {
   const circuit = template.id === '5v-led-indicator'
     ? '5V -> TP1/R1 -> D1 -> TP2/GND'
     : 'TP1 -> R1 -> TP2，C1 对地，TP3 为 GND';
@@ -435,6 +446,8 @@ function createPackageReadme(projectName, template) {
 ## 需求
 
 ${template.requirementText}
+
+原始需求文本：${input}
 
 ## 打开方式
 
@@ -568,7 +581,7 @@ function generate(opts, cwd) {
   const bomPath = path.join(packageDir, 'BOM.csv');
   const readmePath = path.join(packageDir, 'README.md');
   writeUtf8(bomPath, template.bom.join('\n'));
-  writeUtf8(readmePath, createPackageReadme(projectName, template));
+  writeUtf8(readmePath, createPackageReadme(projectName, template, input));
 
   const manifestPath = path.join(packageDir, 'manifest.json');
   const filesBeforeManifest = listFiles(packageDir);
@@ -606,6 +619,8 @@ function generate(opts, cwd) {
   console.log(`模板：${template.title}`);
   console.log(`工程包目录：${packageDir}`);
   console.log(`ZIP：${zipPath}`);
+
+  return { template, projectName, packageDir, zipPath, manifest };
 }
 
 function main() {
@@ -619,4 +634,15 @@ function main() {
   }
 }
 
-main();
+module.exports = {
+  TEMPLATES,
+  UPSTREAM,
+  UserError,
+  matchTemplates,
+  selectTemplate,
+  slugify,
+  generate,
+  parseArgs
+};
+
+if (require.main === module) main();

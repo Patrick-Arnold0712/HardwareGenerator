@@ -6,7 +6,9 @@
 - 优先复用 `vendor/easyeda-eprj3-skill`，不要修改其中的上游代码。
 - `vendor/easyeda-format-skill` 作为格式规范和验证参考保留。
 - 项目目录名必须等于项目名，因为上游脚本按目录 basename 查找 `<name>.eprj3` 索引。
-- 不实现 Web UI、用户系统、数据库、自动布线、Gerber 导出或量产正确性保证。
+- 不实现用户系统、数据库、多租户、自动布线、Gerber/CPL 导出或量产正确性保证。
+- 允许本地单机网页向导（`src/wizard.js` + `src/wizard/index.html`），但它必须真实调用生成器，禁止用纯前端假数据冒充生成结果。
+- 向导中无法满足的需求必须显式告知用户，禁止静默套用模板或生成占位文件。
 - 不接入付费 LLM API。当前由规则解析需求并选择固定模板。
 - 所有生成结果必须经过上游 `validate.js`，且 `npm test` 必须通过。
 - 有 LCEDA Pro V4.1+ 时，必须运行 `npm run verify:client`，验证真实客户端能解析器件、焊盘、网络和走线，并导出验证截图。
