@@ -3,3 +3,9 @@ dist/
 *.log
 .DS_Store
 recordings/
+
+# 临时提取目录与虚拟环境
+.tmp_*/
+.venv/
+__pycache__/
+*.pyc

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>嘉立创硬件 Agent 演示</title>
+  <style>
+    :root {
+      --bg: #08111f;
+      --panel: rgba(15, 29, 52, .94);
+      --panel2: rgba(20, 39, 68, .92);
+      --line: rgba(99, 179, 255, .28);
+      --text: #f2f7ff;
+      --muted: #9fb2cc;
+      --cyan: #43d8ff;
+      --green: #57e39b;
+      --yellow: #ffd166;
+      --purple: #a78bfa;
+      --red: #ff6b6b;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font-family: "Microsoft YaHei", "Segoe UI", sans-serif; }
+    body {
+      min-height: 100vh;
+      padding: 34px 42px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(67,216,255,.17), transparent 28%),
+        radial-gradient(circle at 92% 90%, rgba(167,139,250,.15), transparent 32%),
+        linear-gradient(145deg, #07101e 0%, #0b1930 48%, #07101e 100%);
+    }
+    .shell { width: 100%; height: calc(100vh - 68px); max-width: 1900px; margin: 0 auto; }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .brand { display: flex; align-items: center; gap: 14px; font-size: 28px; font-weight: 800; letter-spacing: .4px; }
+    .brand-mark { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 14px; background: linear-gradient(135deg, #3287ff, #43d8ff); box-shadow: 0 0 36px rgba(67,216,255,.28); font-size: 24px; }
+    .status { color: var(--muted); font-size: 15px; }
+    .grid { display: grid; grid-template-columns: 1.04fr 1.25fr .92fr; gap: 20px; height: calc(100% - 78px); }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,.28); overflow: hidden; }
+    .panel-head { padding: 18px 22px; border-bottom: 1px solid var(--line); font-size: 16px; font-weight: 800; color: #dcecff; letter-spacing: .5px; }
+    .panel-body { padding: 22px; height: calc(100% - 61px); overflow: hidden; }
+    .requirement-card { background: linear-gradient(145deg, rgba(50,135,255,.18), rgba(67,216,255,.08)); border: 1px solid rgba(67,216,255,.5); border-radius: 18px; padding: 22px; }
+    .requirement-label { color: var(--cyan); font-size: 14px; font-weight: 800; letter-spacing: 1px; margin-bottom: 14px; }
+    .requirement-text { font-size: 27px; line-height: 1.5; font-weight: 800; }
+    .requirement-sub { margin-top: 18px; color: var(--muted); font-size: 16px; line-height: 1.65; }
+    .constraint-list { margin-top: 20px; display: grid; gap: 10px; }
+    .constraint { padding: 12px 14px; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; color: #cfe0f4; font-size: 16px; }
+    .steps { display: grid; gap: 11px; }
+    .step { display: grid; grid-template-columns: 42px 1fr auto; gap: 13px; align-items: center; padding: 13px 14px; border-radius: 14px; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.07); opacity: .48; transform: translateY(5px); transition: .35s ease; }
+    .step.active { opacity: 1; transform: translateY(0); border-color: rgba(67,216,255,.65); background: rgba(67,216,255,.10); box-shadow: 0 0 28px rgba(67,216,255,.08); }
+    .step.done { opacity: 1; border-color: rgba(87,227,155,.42); background: rgba(87,227,155,.07); }
+    .step-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: rgba(255,255,255,.08); font-size: 19px; }
+    .step.active .step-icon { background: rgba(67,216,255,.22); }
+    .step.done .step-icon { background: rgba(87,227,155,.18); }
+    .step-title { font-size: 17px; font-weight: 800; }
+    .step-desc { color: var(--muted); font-size: 13px; margin-top: 4px; line-height: 1.4; }
+    .step-state { color: var(--muted); font-size: 13px; font-weight: 800; }
+    .step.done .step-state { color: var(--green); }
+    .step.active .step-state { color: var(--cyan); }
+    .progress { margin-bottom: 16px; }
+    .progress-meta { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+    .track { height: 9px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
+    .fill { height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, #3287ff, #43d8ff, #57e39b); transition: width .6s ease; box-shadow: 0 0 20px rgba(67,216,255,.45); }
+    .result { display: grid; gap: 12px; }
+    .result-card { padding: 15px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); opacity: .38; transform: translateY(6px); transition: .4s ease; }
+    .result-card.show { opacity: 1; transform: translateY(0); border-color: rgba(87,227,155,.42); }
+    .result-name { font-weight: 800; font-size: 16px; }
+    .result-meta { color: var(--muted); font-size: 13px; margin-top: 5px; }
+    .done-banner { margin-top: 18px; padding: 16px; border-radius: 14px; background: linear-gradient(135deg, rgba(87,227,155,.18), rgba(67,216,255,.1)); border: 1px solid rgba(87,227,155,.55); opacity: 0; transform: translateY(8px); transition: .5s ease; }
+    .done-banner.show { opacity: 1; transform: translateY(0); }
+    .done-title { color: var(--green); font-size: 18px; font-weight: 900; }
+    .done-desc { color: #d9ecff; font-size: 14px; margin-top: 7px; line-height: 1.6; }
+    .hint { margin-top: 16px; color: #c9d9ee; font-size: 15px; line-height: 1.6; }
+    .glow { color: var(--cyan); }
+    @media (max-width: 1200px) { .grid { grid-template-columns: 1fr; } body { overflow: auto; } .shell { height: auto; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><div class="brand-mark">⚡</div><div>嘉立创硬件 Agent</div></div>
+      <div class="status">演示链路：用户需求 → Agent 处理设计 → 嘉立创工程</div>
+    </header>
+    <div class="grid">
+      <section class="panel">
+        <div class="panel-head">01 · 用户提出要求</div>
+        <div class="panel-body">
+          <div class="requirement-card">
+            <div class="requirement-label">USER REQUIREMENT</div>
+            <div class="requirement-text" id="requirementText"></div>
+            <div class="requirement-sub" id="requirementSub"></div>
+          </div>
+          <div class="constraint-list" id="constraints"></div>
+          <div class="hint">系统已将自然语言需求转换为可执行的结构化硬件规格。</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">02 · Agent 处理设计</div>
+        <div class="panel-body">
+          <div class="progress">
+            <div class="progress-meta"><span>设计流水线</span><span id="progressText">0%</span></div>
+            <div class="track"><div class="fill" id="progressFill"></div></div>
+          </div>
+          <div class="steps" id="steps"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">03 · 产出工程</div>
+        <div class="panel-body">
+          <div class="result" id="results"></div>
+          <div class="done-banner" id="doneBanner">
+            <div class="done-title">链路完成</div>
+            <div class="done-desc">原理图、PCB、网络连接和验证报告已生成，准备在嘉立创 EDA 中打开工程。</div>
+          </div>
+          <div class="hint">输出物：<span class="glow">.eprj3 工程 + BOM + README + ZIP + 客户端验证截图</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const key = params.get('template') === 'rc' ? 'rc' : 'led';
+    const data = {
+      led: {
+        title: '5V LED 指示灯板',
+        requirement: '设计一个 5V LED 指示灯板，要求带测试点、电阻限流，并且 PCB 网络连通。',
+        sub: '目标：快速验证从需求到嘉立创工程的完整链路。',
+        constraints: ['供电：5V', '功能：LED 指示灯', '测试点：TP1 / TP2', '交付：可打开 .eprj3 工程'],
+        steps: [
+          ['🔎', '解析用户需求', '提取供电、功能、测试点和交付要求'],
+          ['🧩', '选择验证模板', '匹配固定模板 5V LED 指示灯板'],
+          ['📦', '器件选型', '选择 R0603、LED0603、TP0.5 通用器件'],
+          ['📐', '生成原理图', '放置 5V、TP1、R1、D1、TP2、GND'],
+          ['🧭', '生成 PCB', '放置器件、创建焊盘并规划板框'],
+          ['🔗', '连接网络', '连通 5V、LED_A、GND 三条网络'],
+          ['✅', '客户端验证', '调用嘉立创 V4 检查页面、器件、焊盘和走线']
+        ],
+        results: [
+          ['原理图', 'TP1 / R1 / D1 / TP2 + 需求文本'],
+          ['PCB', '4 个器件 · 6 个焊盘 · 3 条走线'],
+          ['.eprj3 工程', 'led-indicator.eprj3'],
+          ['验证报告', '客户端真实解析通过']
+        ]
+      },
+      rc: {
+        title: 'RC 低通滤波器板',
+        requirement: '设计一个 RC 低通滤波器，提供输入和输出测试点，电容对地，并生成可验证的 PCB。',
+        sub: '目标：验证第二个固定模板的完整自动化链路。',
+        constraints: ['功能：低通滤波', '拓扑：R1 串联 + C1 对地', '测试点：TP1 / TP2 / TP3', '交付：可打开 .eprj3 工程'],
+        steps: [
+          ['🔎', '解析用户需求', '提取滤波功能、输入输出和接地要求'],
+          ['🧩', '选择验证模板', '匹配固定模板 RC 低通滤波器板'],
+          ['📦', '器件选型', '选择 R0603、C0603、TP0.5 通用器件'],
+          ['📐', '生成原理图', '放置 TP1、R1、TP2、C1、TP3、GND'],
+          ['🧭', '生成 PCB', '放置器件、创建焊盘并规划板框'],
+          ['🔗', '连接网络', '连通 FILTER_IN、FILTER_OUT、GND'],
+          ['✅', '客户端验证', '调用嘉立创 V4 检查页面、器件、焊盘和走线']
+        ],
+        results: [
+          ['原理图', 'TP1 / R1 / TP2 / C1 / TP3 + 需求文本'],
+          ['PCB', '5 个器件 · 7 个焊盘 · 4 段走线'],
+          ['.eprj3 工程', 'rc-low-pass-filter.eprj3'],
+          ['验证报告', '客户端真实解析通过']
+        ]
+      }
+    }[key];
+
+    document.getElementById('requirementText').textContent = data.requirement;
+    document.getElementById('requirementSub').textContent = data.sub;
+    document.getElementById('constraints').innerHTML = data.constraints.map(x => `<div class="constraint">✓ ${x}</div>`).join('');
+    document.getElementById('steps').innerHTML = data.steps.map((s, i) => `
+      <div class="step" data-step="${i}">
+        <div class="step-icon">${s[0]}</div>
+        <div><div class="step-title">${s[1]}</div><div class="step-desc">${s[2]}</div></div>
+        <div class="step-state">等待</div>
+      </div>`).join('');
+    document.getElementById('results').innerHTML = data.results.map((r, i) => `
+      <div class="result-card" data-result="${i}">
+        <div class="result-name">${r[0]}</div>
+        <div class="result-meta">${r[1]}</div>
+      </div>`).join('');
+
+    const stepEls = [...document.querySelectorAll('.step')];
+    const resultEls = [...document.querySelectorAll('.result-card')];
+    const fill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    let current = 0;
+
+    function tick() {
+      if (current > 0) {
+        stepEls[current - 1].classList.remove('active');
+        stepEls[current - 1].classList.add('done');
+        stepEls[current - 1].querySelector('.step-state').textContent = '完成';
+      }
+      const pct = Math.round((current / stepEls.length) * 100);
+      fill.style.width = pct + '%';
+      progressText.textContent = pct + '%';
+      if (current < stepEls.length) {
+        stepEls[current].classList.add('active');
+        stepEls[current].querySelector('.step-state').textContent = '处理中';
+        current += 1;
+        setTimeout(tick, 1500);
+        return;
+      }
+      fill.style.width = '100%';
+      progressText.textContent = '100%';
+      resultEls.forEach((el, i) => setTimeout(() => el.classList.add('show'), i * 420));
+      setTimeout(() => document.getElementById('doneBanner').classList.add('show'), resultEls.length * 420 + 500);
+    }
+    setTimeout(tick, 600);
+  </script>
+</body>
+</html>
