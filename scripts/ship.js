@@ -93,13 +93,30 @@ function main() {
   const push = run('git', ['push', 'origin', 'HEAD']);
   if (push.status !== 0) {
     console.error(`推送失败：${push.stderr || push.stdout}`);
+    console.error('如果是凭证失效，请先运行：gh auth login');
     process.exitCode = 1;
     return;
   }
   console.log(push.stderr || push.stdout);
 
   const remote = run('git', ['remote', 'get-url', 'origin']);
-  console.log(`\n已推送到 ${remote.stdout.replace(/\.git$/, '')}`);
+  const url = remote.stdout.replace(/\.git$/, '');
+  console.log(`\n已推送到 ${url}`);
+
+  // 需要交付包时传 --package
+  if (process.argv.includes('--package')) {
+    step('额外：打包交付物');
+    const pack = runNpm(['run', 'package:client']);
+    if (pack.status !== 0) {
+      console.error(`打包失败：${pack.stderr || pack.stdout}`);
+      process.exitCode = 1;
+      return;
+    }
+    const lines = (pack.stdout || '').split('\n').filter((l) => /交付包|大小/.test(l));
+    for (const line of lines) console.log(line);
+  }
+
+  console.log(`\n仓库地址：${url}`);
 }
 
 main();

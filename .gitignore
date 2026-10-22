@@ -7,6 +7,10 @@ recordings/
 # 客户资料：含客户 PRD 与参考仓库，不进入代码仓库
 客户prd/
 
+# 交付打包产物
+deliver/
+HardwareGenerator-交付包-*.zip
+
 # 临时提取目录与虚拟环境
 .tmp_*/
 .venv/

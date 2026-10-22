@@ -25,7 +25,8 @@
     "demo": "npm run demo:led",
     "demo:led": "powershell -ExecutionPolicy Bypass -File scripts/demo.ps1 -Template 5v-led-indicator",
     "demo:rc": "powershell -ExecutionPolicy Bypass -File scripts/demo.ps1 -Template rc-low-pass-filter",
-    "ship": "node scripts/ship.js"
+    "ship": "node scripts/ship.js",
+    "package:client": "node scripts/package.js"
   },
   "engines": {
     "node": ">=18"
