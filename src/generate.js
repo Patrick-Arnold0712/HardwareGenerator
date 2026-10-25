@@ -8,6 +8,8 @@ const { spawnSync } = require('node:child_process');
 
 const { buildChecks, buildVerificationBundle, AUTOMATION_CEILING } = require('./delivery.js');
 const { assertValid } = require('./schema.js');
+const { applyParts } = require('./enrich.js');
+const PARTS = require('./parts.json');
 
 const ROOT = path.resolve(__dirname, '..');
 const SCHEMA_DIR = path.join(ROOT, 'contracts', 'jsonschema');
@@ -30,14 +32,7 @@ const TEMPLATES = Object.freeze({
       schDesignators: ['TP1', 'R1', 'D1', 'TP2'],
       pcbDesignators: ['TP1', 'R1', 'D1', 'TP2'],
       nets: ['5V', 'LED_A', 'GND']
-    },
-    bom: [
-      'Designator,Quantity,Value,Footprint,Description,LCSC',
-      'TP1,1,TEST_POINT,TP0.5,5V test point,',
-      'R1,1,RES,R0603,LED current-limiting resistor,',
-      'D1,1,LED,LED0603,5V power indicator LED,',
-      'TP2,1,TEST_POINT,TP0.5,GND test point,'
-    ]
+    }
   },
   'rc-low-pass-filter': {
     id: 'rc-low-pass-filter',
@@ -49,17 +44,42 @@ const TEMPLATES = Object.freeze({
       schDesignators: ['TP1', 'R1', 'TP2', 'C1', 'TP3'],
       pcbDesignators: ['TP1', 'R1', 'TP2', 'C1', 'TP3'],
       nets: ['FILTER_IN', 'FILTER_OUT', 'GND']
-    },
-    bom: [
-      'Designator,Quantity,Value,Footprint,Description,LCSC',
-      'TP1,1,TEST_POINT,TP0.5,Filter input test point,',
-      'R1,1,RES,R0603,Series resistor,',
-      'TP2,1,TEST_POINT,TP0.5,Filter output test point,',
-      'C1,1,CAP,C0603,Shunt capacitor,',
-      'TP3,1,TEST_POINT,TP0.5,Ground test point,'
-    ]
+    }
   }
 });
+
+// 器件参数的唯一来源是 src/parts.json：BOM、原理图 ATTR、交付说明都从这里生成。
+function partsFor(templateId) {
+  const list = PARTS.templates[templateId];
+  if (!Array.isArray(list) || list.length === 0) {
+    throw new Error(`src/parts.json 里没有模板 ${templateId} 的器件清单，不能生成 BOM。`);
+  }
+  return list;
+}
+
+function csvCell(value) {
+  const text = value === undefined || value === null ? '' : String(value);
+  return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+}
+
+function buildBom(templateId) {
+  const header = [
+    'Designator', 'Quantity', 'Value', 'Footprint', 'Description',
+    'LCSC', 'MPN', 'Manufacturer', 'Assembly'
+  ];
+  const rows = partsFor(templateId).map((part) => [
+    part.refdes,
+    '1',
+    part.value || '',
+    part.footprint || '',
+    part.description || '',
+    part.lcsc || '',
+    part.mpn || '',
+    part.manufacturer || '',
+    part.assembly || 'smd'
+  ]);
+  return [header, ...rows].map((row) => row.map(csvCell).join(',')).join('\n');
+}
 
 class UserError extends Error {
   constructor(message, exitCode = 2) {
@@ -235,6 +255,22 @@ function runUpstream(script, args, logs) {
   }
 }
 
+// 原理图里"引脚的电连接点"离元件中心多远（mil）。
+//
+// 上游 SKILL.md 写的是 ±30，但真实客户端用 getAllPinsByPrimitiveId 回读出来是 ±20：
+// 引脚长 10mil，起点在 ±20，尖端朝外。按 ±30 画线，每根线都短 10mil —— 肉眼看不出来，
+// validate.js 也查不出，只有客户端 DRC 会报 CHECKFLOATPIN/SHOWFLOATING。
+// 依据见 docs/进度.md 与 dist/*/verification/audit.json。
+const PIN_OFFSET = 20;
+
+// 画一根导线。共用一个函数是为了让"端点必须落在引脚上"这件事只有一处实现。
+function addWire(packageDir, segs, net, logs) {
+  runUpstream('add-wire.js', [
+    '--dir', packageDir, '--sch', 'Schematic1', '--sheet', 'P1',
+    '--segs', segs, '--net', net
+  ], logs);
+}
+
 function initProject(packageDir, projectName, logs) {
   runUpstream('init.js', [
     '--dir', packageDir,
@@ -254,6 +290,14 @@ function addRequirementText(packageDir, template, logs) {
 }
 
 function buildLedIndicator(packageDir, projectName, template, logs) {
+  // 布局坐标（mil，y 向上）。所有连线端点都由这些常量推导，不写死数字。
+  const Y = -300;
+  const TP1_X = 400;
+  const R1_X = 500;
+  const D1_X = 700;
+  const TP2_X = 800;
+  const FLAG_X = { left: 300, right: 900 };
+
   initProject(packageDir, projectName, logs);
   addRequirementText(packageDir, template, logs);
 
@@ -282,18 +326,13 @@ function buildLedIndicator(packageDir, projectName, template, logs) {
     '--symbol', 'GND', '--x', '900', '--y', '-300'
   ], logs);
 
-  runUpstream('add-wire.js', [
-    '--dir', packageDir, '--sch', 'Schematic1', '--sheet', 'P1',
-    '--segs', '300,-300,470,-300', '--net', '5V'
-  ], logs);
-  runUpstream('add-wire.js', [
-    '--dir', packageDir, '--sch', 'Schematic1', '--sheet', 'P1',
-    '--segs', '530,-300,670,-300', '--net', 'LED_A'
-  ], logs);
-  runUpstream('add-wire.js', [
-    '--dir', packageDir, '--sch', 'Schematic1', '--sheet', 'P1',
-    '--segs', '730,-300,900,-300', '--net', 'GND'
-  ], logs);
+  // 连线：端点落在引脚电连接点（中心 ±PIN_OFFSET），并且把测试点当"中间站"串进线路，
+  // 而不是让导线从测试点身上穿过去。穿过去会留下一个 T 型接点，客户端报 SHOWDANDLING。
+  addWire(packageDir, `${FLAG_X.left},${Y},${TP1_X},${Y}`, '5V', logs);
+  addWire(packageDir, `${TP1_X},${Y},${R1_X - PIN_OFFSET},${Y}`, '5V', logs);
+  addWire(packageDir, `${R1_X + PIN_OFFSET},${Y},${D1_X - PIN_OFFSET},${Y}`, 'LED_A', logs);
+  addWire(packageDir, `${D1_X + PIN_OFFSET},${Y},${TP2_X},${Y}`, 'GND', logs);
+  addWire(packageDir, `${TP2_X},${Y},${FLAG_X.right},${Y}`, 'GND', logs);
 
   runUpstream('add-footprint.js', [
     '--dir', packageDir, '--pcb', 'PCB1',
@@ -338,6 +377,15 @@ function buildLedIndicator(packageDir, projectName, template, logs) {
 }
 
 function buildRcLowPassFilter(packageDir, projectName, template, logs) {
+  // 布局坐标（mil，y 向上）。测试点串在线路里，不做 T 型接点。
+  const Y = -300;
+  const TP1_X = 300;
+  const R1_X = 500;
+  const TP2_X = 700;
+  const C1_Y = -400;
+  const TP3_Y = -500;
+  const GND_Y = -600;
+
   initProject(packageDir, projectName, logs);
   addRequirementText(packageDir, template, logs);
 
@@ -366,22 +414,11 @@ function buildRcLowPassFilter(packageDir, projectName, template, logs) {
     '--symbol', 'GND', '--x', '700', '--y', '-600'
   ], logs);
 
-  runUpstream('add-wire.js', [
-    '--dir', packageDir, '--sch', 'Schematic1', '--sheet', 'P1',
-    '--segs', '300,-300,470,-300', '--net', 'FILTER_IN'
-  ], logs);
-  runUpstream('add-wire.js', [
-    '--dir', packageDir, '--sch', 'Schematic1', '--sheet', 'P1',
-    '--segs', '530,-300,700,-300', '--net', 'FILTER_OUT'
-  ], logs);
-  runUpstream('add-wire.js', [
-    '--dir', packageDir, '--sch', 'Schematic1', '--sheet', 'P1',
-    '--segs', '700,-300,700,-370', '--net', 'FILTER_OUT'
-  ], logs);
-  runUpstream('add-wire.js', [
-    '--dir', packageDir, '--sch', 'Schematic1', '--sheet', 'P1',
-    '--segs', '700,-430,700,-600', '--net', 'GND'
-  ], logs);
+  addWire(packageDir, `${TP1_X},${Y},${R1_X - PIN_OFFSET},${Y}`, 'FILTER_IN', logs);
+  addWire(packageDir, `${R1_X + PIN_OFFSET},${Y},${TP2_X},${Y}`, 'FILTER_OUT', logs);
+  addWire(packageDir, `${TP2_X},${Y},${TP2_X},${C1_Y + PIN_OFFSET}`, 'FILTER_OUT', logs);
+  addWire(packageDir, `${TP2_X},${C1_Y - PIN_OFFSET},${TP2_X},${TP3_Y}`, 'GND', logs);
+  addWire(packageDir, `${TP2_X},${TP3_Y},${TP2_X},${GND_Y}`, 'GND', logs);
 
   runUpstream('add-footprint.js', [
     '--dir', packageDir, '--pcb', 'PCB1', '--symbol', 'TEST_POINT', '--footprint', 'TP0.5',
@@ -443,9 +480,14 @@ function createPackageReadme(projectName, template, input) {
   const circuit = template.id === '5v-led-indicator'
     ? '5V -> TP1/R1 -> D1 -> TP2/GND'
     : 'TP1 -> R1 -> TP2，C1 对地，TP3 为 GND';
+  const parts = partsFor(template.id);
+  const rows = parts.map((part) => {
+    const buy = part.assembly === 'bare_pad' ? '裸焊盘，不贴片' : `${part.lcsc}（${part.mpn}）`;
+    return `| ${part.refdes} | ${part.value} | ${part.footprint} | ${part.role} | ${buy} |`;
+  });
   return `# ${projectName}
 
-这是由“嘉立创硬件 Agent MVP”生成的链路验证工程。
+这是由“嘉立创硬件 Agent”生成的工程包（链路验证版本）。
 
 ## 需求
 
@@ -457,7 +499,7 @@ ${template.requirementText}
 
 1. 安装 EasyEDA Pro / 嘉立创 EDA 专业版 V4.1+。
 2. 打开 \`${projectName}.eprj3\`。
-3. 在原理图和 PCB 中检查器件、网络和基础走线。
+3. 在原理图和 PCB 中检查器件、网络和基础走线；BOM 里的 Value 与料号由工程内的器件属性直接导出。
 
 ## 当前电路
 
@@ -465,13 +507,18 @@ ${template.requirementText}
 ${circuit}
 \`\`\`
 
+## 器件清单
+
+| 位号 | 数值 | 封装 | 作用 | 采购 |
+|---|---|---|---|---|
+${rows.join('\n')}
+
 ## 范围说明
 
-- 只验证“需求 -> .eprj3 -> 嘉立创 EDA 可打开”的链路；
-- 使用通用 RES、CAP、LED、TEST_POINT 符号和 0603/TP0.5 封装；
-- 没有 LCSC 料号映射；
-- 已完成基础连通走线，但没有 Gerber、DFM 或量产正确性保证；
-- 生产前必须由硬件工程师检查和修改。
+- 器件参数与 LCSC 料号来自嘉立创 EDA 系统库（已用 \`lib_Device.search\` 校验），但**未经过实单采购验证**；
+- 已完成基础连通走线，但**没有跑过 DRC**，也没有 Gerber、坐标文件和 DFM；
+- 没有做原型打样与实测，不承诺电气正确性和可量产性；
+- 生产前必须由硬件工程师检查，并完成首件实测。
 
 生成工具：easyeda-eprj3-skill ${UPSTREAM.version} (${UPSTREAM.commit})。
 `;
@@ -583,13 +630,15 @@ function generate(opts, cwd) {
     buildRcLowPassFilter(packageDir, projectName, template, logs);
   }
   addPcbRequirementText(packageDir, template, logs);
+  // 上游 add-symbol 只放符号和封装，写不进 Value / 型号 / 料号；这里补齐后再校验。
+  const enrich = applyParts(path.join(packageDir, 'sch', 'Schematic1', 'P1.esch2'), partsFor(template.id));
   runUpstream('validate.js', ['--dir', packageDir], logs);
   runUpstream('cleanup.js', ['--dir', packageDir], logs);
   runUpstream('validate.js', ['--dir', packageDir], logs);
 
   const bomPath = path.join(packageDir, 'BOM.csv');
   const readmePath = path.join(packageDir, 'README.md');
-  writeUtf8(bomPath, template.bom.join('\n'));
+  writeUtf8(bomPath, buildBom(template.id));
   writeUtf8(readmePath, createPackageReadme(projectName, template, input));
 
   const manifestPath = path.join(packageDir, 'manifest.json');
@@ -619,10 +668,13 @@ function generate(opts, cwd) {
       args: entry.args.map((arg) => manifestArg(arg, packageDir)),
       status: entry.status
     })),
+    parts: partsFor(template.id),
+    enrich,
     limitations: [
       '链路验证版本，不保证可直接生产',
-      '没有 LCSC 料号映射',
-      '已完成基础连通走线，但没有 Gerber 和 DFM',
+      '器件参数与 LCSC 料号已写入工程，但未经实单采购验证',
+      '已完成基础连通走线，但没有跑 DRC、没有 Gerber 和 DFM',
+      '未做原型打样与实测',
       '需要在 EasyEDA Pro V4.1+ 中人工打开验收'
     ]
   };
@@ -634,7 +686,11 @@ function generate(opts, cwd) {
     projectId: projectName,
     templateId: template.id,
     generatedAt: manifest.generatedAt,
-    checks: buildChecks({ validatePassed: true, clientVerified: false }),
+    checks: buildChecks({
+      validatePassed: true,
+      clientVerified: false,
+      lcscMapped: partsFor(template.id).filter((part) => part.lcsc).length
+    }),
     artifacts: payloadArtifacts,
     limitations
   });
@@ -671,7 +727,9 @@ module.exports = {
   selectTemplate,
   slugify,
   generate,
-  parseArgs
+  parseArgs,
+  partsFor,
+  buildBom
 };
 
 if (require.main === module) main();

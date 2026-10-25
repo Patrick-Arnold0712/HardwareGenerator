@@ -1,0 +1,31 @@
+# 默认排除；只放行D1–D2容器核心链路输入。
+# 父目录必须显式放行，再放行子项。不要改成COPY . .配宽泛排除。
+**
+!Dockerfile
+!.dockerignore
+!package.json
+!LICENSE
+!README.md
+!src/
+!src/**
+!contracts/
+!contracts/**
+!test/
+!test/*.test.js
+!scripts/
+!scripts/reproduce.js
+!vendor/
+!vendor/easyeda-eprj3-skill/
+!vendor/easyeda-eprj3-skill/**
+!vendor/easyeda-format-skill/
+!vendor/easyeda-format-skill/**
+!docs/
+!docs/复现指南.md
+!docs/verification.md
+
+# 即使位于放行的vendor/src树内，也不放行依赖缓存/嵌套仓库/日志。
+**/.git
+**/node_modules
+**/__pycache__
+**/*.pyc
+**/*.log

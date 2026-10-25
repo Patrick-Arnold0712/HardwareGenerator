@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "1.0",
+  "source": "嘉立创 EDA 专业版 V4.1.71 系统库（lib_Device.search 本机校验）",
+  "verifiedAt": "2026-10-22",
+  "note": "这里是器件参数的唯一来源：BOM、原理图 ATTR、交付说明都从这里生成，禁止在别处再写一份。assembly=bare_pad 表示裸焊盘测试点，不贴片、不需要料号。",
+  "templates": {
+    "5v-led-indicator": [
+      {
+        "refdes": "TP1",
+        "role": "5V 输入测试点",
+        "value": "测试点",
+        "footprint": "TP0.5",
+        "assembly": "bare_pad",
+        "description": "5V 测试点（裸焊盘，不贴片）"
+      },
+      {
+        "refdes": "R1",
+        "role": "LED 限流电阻",
+        "value": "1kΩ",
+        "mpn": "0603WAF1001T5E",
+        "lcsc": "C21190",
+        "manufacturer": "UNI-ROYAL",
+        "footprint": "R0603",
+        "tolerance": "±1%",
+        "assembly": "smd",
+        "description": "1kΩ ±1% 0.1W 0603 厚膜电阻；5V 供电、LED 压降约 2.0V 时电流约 3mA"
+      },
+      {
+        "refdes": "D1",
+        "role": "电源指示灯",
+        "value": "红色",
+        "mpn": "KT-0603R",
+        "lcsc": "C2286",
+        "footprint": "LED0603",
+        "assembly": "smd",
+        "description": "红色 0603 贴片 LED，正向压降约 2.0V"
+      },
+      {
+        "refdes": "TP2",
+        "role": "GND 测试点",
+        "value": "测试点",
+        "footprint": "TP0.5",
+        "assembly": "bare_pad",
+        "description": "GND 测试点（裸焊盘，不贴片）"
+      }
+    ],
+    "rc-low-pass-filter": [
+      {
+        "refdes": "TP1",
+        "role": "滤波输入测试点",
+        "value": "测试点",
+        "footprint": "TP0.5",
+        "assembly": "bare_pad",
+        "description": "滤波输入测试点（裸焊盘，不贴片）"
+      },
+      {
+        "refdes": "R1",
+        "role": "RC 串联电阻",
+        "value": "1kΩ",
+        "mpn": "0603WAF1001T5E",
+        "lcsc": "C21190",
+        "manufacturer": "UNI-ROYAL",
+        "footprint": "R0603",
+        "tolerance": "±1%",
+        "assembly": "smd",
+        "description": "1kΩ ±1% 0.1W 0603 厚膜电阻，与 C1 组成 RC 低通"
+      },
+      {
+        "refdes": "TP2",
+        "role": "滤波输出测试点",
+        "value": "测试点",
+        "footprint": "TP0.5",
+        "assembly": "bare_pad",
+        "description": "滤波输出测试点（裸焊盘，不贴片）"
+      },
+      {
+        "refdes": "C1",
+        "role": "RC 对地电容",
+        "value": "100nF",
+        "mpn": "CC0603KRX7R9BB104",
+        "lcsc": "C14663",
+        "manufacturer": "YAGEO",
+        "footprint": "C0603",
+        "tolerance": "±10%",
+        "assembly": "smd",
+        "description": "100nF ±10% 50V X7R 0603 陶瓷电容，与 R1 组成 RC 低通"
+      },
+      {
+        "refdes": "TP3",
+        "role": "GND 测试点",
+        "value": "测试点",
+        "footprint": "TP0.5",
+        "assembly": "bare_pad",
+        "description": "GND 测试点（裸焊盘，不贴片）"
+      }
+    ]
+  }
+}

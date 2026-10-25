@@ -1,63 +1,44 @@
 # 验证记录
 
-## 真实客户端环境
+## 2026-10-25 当前基线口径
 
-- 客户端：嘉立创EDA专业版 `V4.1.71.7a7261be`
-- 可执行文件：`D:\lceda-pro-4.1.71\lceda-pro.exe`
-- 验证方式：`lceda-pro open --path <工程副本> --headless true`，通过编辑器 API 读取真实工程状态
+BASE-01 在本机独立候选目录执行，源码清单1070文件，SHA256为 `7F330A1E672FEDE8BEF7C34B31BAB516C61C09185B936CE3213F3FB1E0A43653`。原HEAD `a031dae` 不包含全部未提交内容；快照无 `.git`，复现报告commit为null。版本必须同时关联候选清单，不能把旧HEAD当作当前完整源码。
 
-旧版 `JLCEDA Pro V3.2.149` 只识别 `.eprj`、`.eprj2`、`.elib`，不能用于 `.eprj3` 验证。
+|检查|北京时间|实际结果|结论边界|
+|---|---|---|---|
+|`npm test`|2026-10-25 15:04:52—15:05:07|exit0，本地27/27、上游121/121|该次源码和环境通过，不是所有命令或硬件验证|
+|`node scripts/reproduce.js --out logs/baseline`|15:05:07—15:05:27|exit0，6步通过，两模板validate均0错误0警告|生成格式链路成功，不含DRC|
+|`npm run verify:client`|15:05:27—15:06:05|exit0，LED/RC结果与截图齐全|客户端可解析渲染，不等于电气验收|
 
-## 已通过
+环境：Node v24.21.0、npm11.19.0、Windows、LCEDA4.1.71.7a7261be。核心命令无第三方npm依赖；没有证明所有Node版本已实测。Docker及第三方干净环境尚无实跑证据，本轮仅说明/排除范围变动未重跑上述检查。
 
-- 本地集成测试：`3/3` 通过；
-- 官方 `easyeda-eprj3-skill` 上游测试：`121/121` 通过；
-- 两个模板均通过工程格式校验：`0 errors, 0 warning(s)`；
-- 两个模板均在嘉立创 V4 客户端中真实解析并导出截图。
+原始日志在本地 BASE-01 `sanitized/commands.json`、三条命令log、`reproduction/summary.json`，以及 `dist-first-run/<模板>/verification/`。源码清单、日志和截图是本机证据，不随说明自动公开；对外提供前应去除个人路径和设计标识。新的默认 `dist/` 可被覆盖，不能把其中任意旧报告当作本次结果。
 
-### 5V LED 指示灯板
+## 客户端回读结果
 
-- 原理图器件：`TP1`、`R1`、`D1`、`TP2`
-- PCB 器件：4 个
-- PCB 焊盘：6 个
-- 网络：`5V`、`LED_A`、`GND`
-- 走线长度：`370.3 mil`、`539.2 mil`、`368.9 mil`
-- 验证路径：`dist/led-indicator/verification/`
+|模板|PCB器件|焊盘|网络|走线长度mil|
+|---|---|---|---|---|
+|5V LED|4|6|5V、LED_A、GND|370.3 / 539.2 / 368.9|
+|RC低通|5|7|FILTER_IN、FILTER_OUT、GND|470.3 / 1170.3 / 370|
 
-### RC 低通滤波器板
+网络名与长度存在只能支持解析结果，不单独证明引脚/网表电气一致或制造正确。复验方式：在有桌面客户端的环境设置 `LCEDA_CLI` 为实际安装路径，串行运行 `npm run verify:client`；它会重生成产物并停止/启动客户端，先归档需保留文件。旧V3客户端不能替代V4.1+验证。
 
-- 原理图器件：`TP1`、`R1`、`TP2`、`C1`、`TP3`
-- PCB 器件：5 个
-- PCB 焊盘：7 个
-- 网络：`FILTER_IN`、`FILTER_OUT`、`GND`
-- 走线长度：`470.3 mil`、`1170.3 mil`、`370 mil`
-- 验证路径：`dist/rc-low-pass-filter/verification/`
+## 实际失败与未验证项
 
-## 复验命令
+- EDA-01已跑双模板原理图审计：`ATTRMATCHCODE`，审计exit1。EDA-02取得PCB `Netlist Error`、规则 `Import Changes`、客户端Errors分组，不能因摘要缺severity而默认降为warning。
+- EDA-05仅在RC临时副本官方同步、保存重开后PCB DRC通过；原候选未修改，该副本保存格式触发原版 `validate.js` 的DOCHEAD识别异常，仍不能交付。
+- VAL-03隔离补丁有10项回归和121项smoke证据，但未接入vendor；[上游Issue #2](https://github.com/easyeda/easyeda-eprj3-skill/issues/2)及[中文补充](https://github.com/easyeda/easyeda-eprj3-skill/issues/2#issuecomment-6396044559)只是已提交提案，不是修复落地。
+- BOM已填器件数值及部分真实供应商料号；没有证明封装/引脚、库存、全部来源许可或整板选型均合格。
+- 未完成正式DFM、制造资料、打样、目标ESP32-S3整板或温湿度功能验收。ESP32实板诊断作为独立工作，不用其结果替代旧模板复现。
 
-```powershell
-npm test
-npm run verify:client
-```
+## 历史记录保留
 
-也可以单独验证：
+此前本页的早期记录为“本地集成测试3/3、上游121/121、两模板可打开并导出截图”，且写过“未执行DRC、未映射真实料号、基础网络已经连通”。这些是早期范围/表述，不作当前结论：现在本地测试为27项，已执行审计且未通过，BOM有料号，连通性需实际规则/网表检查。历史2026-10-22交付条目保留在 `客户交付说明.md`，2026-10-24复现数据保留在 `复现指南.md`。
 
-```powershell
-npm run verify:client:led
-npm run verify:client:rc
-```
+**这是链路验证版本，不是可直接生产的设计。** 本机独立目录通过、他人干净环境通过、客户认可分别记录，不能相互替代。
 
-如果客户端安装在非默认路径，设置：
+## 2026-10-25 本次Git同步前验证
 
-```powershell
-$env:LCEDA_CLI = 'D:\lceda-pro-4.1.71\lceda-pro.exe'
-```
+本次将拟提交索引内容导出到独立目录后实际执行：`npm test` 退出码0（本地27/27、上游121/121）、`node scripts/reproduce.js --out logs/sync-verification` 退出码0（6步通过，双模板上游格式校验通过）、`npm run verify:client` 退出码0（两个模板真实客户端回读与原理图/PCB截图齐全）。该目录不含未纳入提交的资料库/插件/固件实验文件；验证不依赖这些本地文件。
 
-## 尚未覆盖
-
-- 未生成 Gerber；
-- 未执行 DRC/DFM 或实际打样；
-- 未映射真实 LCSC 料号；
-- 不承诺电气正确性和量产可制造性。
-
-当前已证明的是“需求 -> `.eprj3` -> 嘉立创 V4 客户端真实解析并渲染”的链路成立，并且两个模板的基础网络都已经在 PCB 上连通。
+验证后只补充本段及公开版本说明，未再修改运行源码。Docker未运行，电气审计缺陷和上游客户端保存格式兼容问题继续保留；本次通过不升级为生产设计、第三方环境或客户验收通过。

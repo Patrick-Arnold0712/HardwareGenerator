@@ -13,7 +13,7 @@ const path = require('node:path');
 const http = require('node:http');
 const crypto = require('node:crypto');
 
-const { TEMPLATES, matchTemplates, generate, slugify } = require('./generate.js');
+const { TEMPLATES, matchTemplates, generate, slugify, partsFor } = require('./generate.js');
 const { assertValid } = require('./schema.js');
 const { LEVEL_LABELS } = require('./delivery.js');
 
@@ -76,14 +76,13 @@ const CIRCUIT_PLAIN = Object.freeze({
   'rc-low-pass-filter': '信号从输入端进来，经过一个电阻，再经过一个对地电容，从输出端出去。'
 });
 
-// 零件的中文叫法，界面上不直接显示 RES / TEST_POINT 这类代号。
-const PART_PLAIN = Object.freeze({
-  RES: '电阻',
-  CAP: '电容',
-  LED: '发光二极管',
-  TEST_POINT: '测试点',
-  GND: '接地',
-  '5V': '电源'
+// 位号前缀 -> 零件类型（数值现在是 1kΩ、100nF，不能再靠旧代号反查）。
+const PART_KIND = Object.freeze({
+  R: '电阻',
+  C: '电容',
+  D: '发光二极管',
+  TP: '测试点',
+  U: '芯片'
 });
 
 const FOOTPRINT_PLAIN = Object.freeze({
@@ -270,7 +269,7 @@ function buildOptions(templateIds, unmet) {
       circuitPlain: CIRCUIT_PLAIN[id] || template.description,
       designators: template.expected.schDesignators,
       nets: template.expected.nets,
-      parts: template.bom.length - 1,
+      parts: partsFor(id).length,
       canGenerate: true,
       reason: '这是当前唯一能真实生成并校验的电路。',
       unmet
@@ -337,8 +336,8 @@ function chooseOption(session, optionId) {
       userIdea: session.idea,
       designators: template.expected.schDesignators,
       nets: template.expected.nets,
-      bom: parseBom(template.bom),
-      bomPlain: parseBomPlain(template.bom, option.id),
+      bom: parseBom(partsFor(option.id)),
+      bomPlain: parseBomPlain(partsFor(option.id), option.id),
       circuitPlain: CIRCUIT_PLAIN[option.id] || template.description,
       unmet: session.unmet,
       defaultProjectName: template.defaultName
@@ -346,20 +345,23 @@ function chooseOption(session, optionId) {
   };
 }
 
-function parseBom(lines) {
-  const [, ...rows] = lines;
-  return rows.map((row) => {
-    const cells = row.split(',');
-    return { designator: cells[0], value: cells[2], footprint: cells[3], description: cells[4] };
-  });
+function parseBom(parts) {
+  return parts.map((part) => ({
+    designator: part.refdes,
+    value: part.value,
+    footprint: part.footprint,
+    description: part.description,
+    lcsc: part.lcsc || '',
+    assembly: part.assembly || 'smd'
+  }));
 }
 
 // 把 BOM 转成普通用户能读懂的行，并保留原始值供专业模式使用。
-function parseBomPlain(lines, templateId) {
+function parseBomPlain(parts, templateId) {
   const roles = PART_ROLE[templateId] || {};
-  return parseBom(lines).map((row) => ({
+  return parseBom(parts).map((row) => ({
     designator: row.designator,
-    what: PART_PLAIN[row.value] || row.value,
+    what: PART_KIND[row.designator.replace(/\d+$/, '')] || row.value,
     size: FOOTPRINT_PLAIN[row.footprint] || row.footprint,
     role: roles[row.designator] || row.description,
     raw: row

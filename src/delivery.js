@@ -44,7 +44,7 @@ function assertAutomationCeiling(level) {
  * 未执行的检查必须标 not_run，人工项必须标 manual_required，
  * 不允许用 pass 冒充没做的事。
  */
-function buildChecks({ validatePassed, clientVerified }) {
+function buildChecks({ validatePassed, clientVerified, lcscMapped = 0 }) {
   return [
     {
       id: 'format.validate',
@@ -98,9 +98,12 @@ function buildChecks({ validatePassed, clientVerified }) {
     {
       id: 'supply_chain.lcsc',
       title: '真实 LCSC 料号与库存',
+      // 料号写进工程不等于"能买到"：库存与可采购性没有校验，所以不许标 pass。
       status: 'not_run',
       automated: false,
-      detail: 'BOM 未映射真实料号。'
+      detail: lcscMapped > 0
+        ? `BOM 已写入 ${lcscMapped} 个 LCSC 料号（系统库校验）；库存与可采购性未校验。`
+        : 'BOM 未映射真实料号。'
     },
     {
       id: 'physical.first_article',

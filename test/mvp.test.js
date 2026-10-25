@@ -63,6 +63,10 @@ test('generates a validated 5V LED indicator .eprj3 project', () => {
     assert.match(bom, /R1/);
     assert.match(bom, /D1/);
     assert.match(bom, /TP2/);
+    // 客户判定表里"电阻电容参数"那一行：BOM 必须有值、有料号。
+    assert.match(bom, /1kΩ/);
+    assert.match(bom, /C21190/);
+    assert.match(bom, /C2286/);
 
     const schematic = fs.readFileSync(path.join(projectDir, 'sch', 'Schematic1', 'P1.esch2'), 'utf8');
     assert.match(schematic, /TP1/);
@@ -110,9 +114,13 @@ test('generates a validated RC low-pass filter .eprj3 project', () => {
 
     const bom = fs.readFileSync(path.join(packageDir, 'BOM.csv'), 'utf8');
     for (const value of ['TP1', 'R1', 'TP2', 'C1', 'TP3']) assert.match(bom, new RegExp(value));
+    assert.match(bom, /1kΩ/);
+    assert.match(bom, /100nF/);
+    assert.match(bom, /C14663/);
 
     const schematic = fs.readFileSync(path.join(projectDir, 'sch', 'Schematic1', 'P1.esch2'), 'utf8');
     assert.match(schematic, /需求：RC 低通滤波器/);
+    assert.match(schematic, /"key":"Value","value":"100nF"/);
 
     const pcb = fs.readFileSync(path.join(projectDir, 'pcb', 'PCB1.epcb2'), 'utf8');
     assert.match(pcb, /"netName":"FILTER_IN"/);

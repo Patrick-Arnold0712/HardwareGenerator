@@ -16,3 +16,42 @@ HardwareGenerator-交付包-*.zip
 .venv/
 __pycache__/
 *.pyc
+
+# 资料库：记录（metadata.json）进仓库，生成物和大文件不进
+library/library.sqlite
+library/**/files/
+
+# 复现日志默认不进仓库；要留证据时用 --out docs/repro/<日期>
+logs/
+
+
+# 2026-10-25 D1–D2：以下本地材料不直接进入Git
+# 忽略规则不删除/取消跟踪已有文件；仍须逐路径审阅，禁止盲目git add -A。
+/docs/repro/
+/plugin/
+/HardwareGenerator_聊天导出与新对话交接.md
+/.audit-location.txt
+/docs/任务进度看板.md
+/docs/阶段交付简报.md
+/docs/阶段交付简报-*.md
+/docs/客户交付验收清单.md
+/docs/客户v0.2-解读与回复.md
+/docs/正式项目计划.md
+/docs/项目信息包.md
+/docs/进度.md
+/docs/分区协作约定.md
+/docs/ESP32-S3中文学习路线.md
+/docs/参考资源.md
+
+# 固件后续实验的缓存、配置和镜像；保留main源码与sdkconfig.defaults供单独审阅。
+/firmware/**/build*/
+/firmware/**/sdkconfig
+/firmware/**/sdkconfig.old
+/firmware/**/*.bin
+/firmware/**/*.elf
+/firmware/**/*.map
+/firmware/**/*.obj
+/firmware/**/log.*.txt
+/sdk/
+/SDK/
+/Espressif/
