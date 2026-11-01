@@ -29,3 +29,7 @@
 `.nojekyll`、`LICENSE`、`README.md`、`THIRD_PARTY_NOTICES.md`、`index.html`、`entries.html`、`styles.css`、`snapshot.js`、`engine.js`、`app.js`。
 
 不要上传证据目录、SQLite、客户材料、固件或vendor。来源许可unknown不因项目MIT而改变，详见第三方说明。此页面不表示D3–D5完成、真实PostgreSQL运行或三套参考设计完整性通过。
+
+## 易读文案候选 plain-r1
+
+这一版只调整页面文字和详细依据的展开方式，没有更新引擎或资料快照。页面先显示“现在还不能确定”等易读提示；原状态代码、参数条件和来源保留在详细依据中。实际电路测试限制只指当前候选工程，不是否定其他历史实验。
