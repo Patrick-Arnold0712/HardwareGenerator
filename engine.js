@@ -97,5 +97,5 @@ function evaluateSnapshot(text,snapshot){
  const r=retrieve(snapshotAdapter(snapshot.records),parsed.recognized);
  return {...base,...r,status:'CANDIDATES_ONLY',snapshot_queried:true,queries:r.queries.map(q=>({role:q.role,filter_description:q.sql,parameters:q.parameters,result_ids:q.result_ids,note:'等效过滤描述，仅数组筛选，未执行SQL'}))};
 }
-const api={parseRequirement,evaluateSnapshot,snapshotAdapter};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.ThermEngine=api;
+const api={retrieve,parseRequirement,evaluateSnapshot,snapshotAdapter};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.ThermEngine=api;
 })(globalThis);

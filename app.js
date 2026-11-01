@@ -1,49 +1,18 @@
 'use strict';
-const $=id=>document.getElementById(id);
-const full='只测温显示，不控制加热或制冷，USB-C 5V供电，测量-10到50℃，精度±0.5℃，用BME280和ESP32-S3，OLED显示';
-let pending=null,busy=false;
-const roles={sensor:'传感器资料',connector:'连接器资料',power:'电源器件资料',controller:'控制器资料',reference_context:'参考开发板 · 仅作背景',display:'显示器资料',network:'网络能力'};
-const fields={model:'型号',temperature_range:'温度范围',accuracy:'测量精度',supply:'供电',specification:'整体适配'};
-const states={MATCH:'字段符合',NOT_MET:'不满足',UNKNOWN:'尚未确认',FIELD_MATCH_ONLY:'仅字段命中'};
-function node(tag,text,className){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n;}
-function setStep(index){[...$('steps').children].forEach((e,i)=>{e.classList.toggle('current',i===index);if(i===index)e.setAttribute('aria-current','step');else e.removeAttribute('aria-current');});}
-function error(message){$('error').textContent=message;$('error').hidden=!message;}
-function reset(){pending=null;$('clarification').hidden=true;$('answers').value='';$('results').hidden=true;$('candidate-list').replaceChildren();$('raw-result').textContent='';$('empty-state').hidden=false;$('submit-label').textContent='分析这句话';$('status').textContent='输入后，点击按钮开始。';error('');setStep(0);}
-function sourceLink(value){try{const u=new URL(value);if(!['https:','http:'].includes(u.protocol))return null;const a=node('a','查看来源原文 ↗');a.href=u.href;a.target='_blank';a.rel='noopener noreferrer';return a;}catch{return null;}}
-function showCandidates(envelope){
- const r=envelope.result;$('results').hidden=false;$('empty-state').hidden=true;$('candidate-list').replaceChildren();
- $('result-summary').textContent=`实际找到 ${r.matches.length} 条相关资料。这些只是待核查候选，不代表满足要求或可以直接复用。`;
- for(const m of r.matches){
-  const card=node('article',undefined,'card candidate-card'),top=node('div',undefined,'candidate-top'),title=node('div');title.append(node('p',roles[m.role]||m.role,'role'),node('h3',m.name));top.append(title,node('span',m.assessment==='UNKNOWN'?'尚未确认 · UNKNOWN':(states[m.assessment]||m.assessment),'badge'));card.append(top);
-  card.append(node('p',m.assessment==='NOT_MET'?'已登记字段存在不满足项，请勿据此选型。':'资料找到了，但适配性还需要进一步核查。','assessment'));
-  const list=node('ul');for(const c of m.constraints)list.append(node('li',`${fields[c.field]||c.field}：${states[c.status]||c.status}。${c.reason}`));card.append(list);
-  const source=node('div',undefined,'candidate-source'),a=sourceLink(m.source_url);source.append(a||node('span','来源链接尚未登记'));source.append(node('p',`来源版本：${m.source_revision||'未登记'} · 许可：${m.license||'未确认'} · 可复用标记：${m.reusable?'是（仍需人工审核）':'否'}`));card.append(source);
-  const details=node('details'),summary=node('summary','查看这条资料的限制');details.append(summary);const limits=node('ul');for(const line of m.limitations||[])limits.append(node('li',line));details.append(limits,node('p','记录ID：'+m.id));card.append(details);$('candidate-list').append(card);
- }
- const gaps=$('gaps');gaps.replaceChildren();for(const m of r.missing||[])gaps.append(node('li',`${roles[m.role]||m.role}：${m.reason}`));
- if(!(r.missing||[]).length)gaps.append(node('li','未发现空缺类别，不等于参数齐全或电气验证通过；请逐条检查UNKNOWN。'));
- if(r.unsupported_sensor)gaps.append(node('li','指定传感器未在当前索引找到；没有替换为其他型号。'));
- gaps.append(node('li','尚未验证真实硬件、测量准确性、完整电源路径、PCB及生产可行性。'));
- $('raw-result').textContent=JSON.stringify(envelope,null,2);setStep(2);$('status').textContent='快照筛选已完成，结果仅供核查。';$('submit-label').textContent='重新分析';$('results').focus();
-}
-function showClarification(envelope,submitted){
- const r=envelope.result,rewrite=r.parsed.questions.some(q=>q.field==='interpretation');pending={text:submitted.text,answers:submitted.answers||'',rewrite};
- $('questions').replaceChildren(...r.parsed.questions.map(q=>node('li',q.question)));$('clarification').hidden=false;$('results').hidden=true;$('empty-state').hidden=true;
- $('answer-label').textContent=rewrite?'请重新写下最终明确需求（替换本次原话）':'用自己的话补充这些条件';
- $('answer-help').textContent=rewrite?'本版不能自动理解排除或替换关系。请填写一份不含这类歧义的最终需求，下次只分析这份新文字。':'例如：只测温显示，USB-C 5V，-10到50℃，误差±0.5℃，用BME280和ESP32-S3，OLED显示。未指定的型号不会自动补齐。';
- $('answers').value=submitted.answers||'';$('submit-label').textContent=rewrite?'用最终需求重新分析':'补充后查资料';$('status').textContent='还没有执行候选查询，请先补充。';setStep(1);$('answers').focus();
-}
-async function requestJSON(url,options){await new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));const s=globalThis.THERM_SNAPSHOT;if(!s)throw Error('资料快照没有加载，请重新打开页面。');if(url==='/api/info')return {web_version:'browser-snapshot-0.1',core_parser:'bounded-rules-0.3',snapshot_version:s.version,database:{records:s.records.length,records_sha256:s.records_sha256},mode:'浏览器公开元数据快照，不是实时SQLite'};if(url!=='/api/evaluate')throw Error('不支持的本地计算');const v=JSON.parse(options.body);return {mode:'browser-only-no-upload',evaluated_at:new Date().toISOString(),result:ThermEngine.evaluateSnapshot(v.text+(v.answers?'\n客户补充：'+v.answers:''),s)};}
-$('request').addEventListener('input',()=>{if(!busy)reset();});
-for(const [id,text] of [['example-simple','我想做一个温控计'],['example-full',full]])$(id).addEventListener('click',()=>{$('request').value=text;reset();$('request').focus();});
-$('request-form').addEventListener('submit',async event=>{
- event.preventDefault();if(busy)return;error('');const original=$('request').value.trim(),answer=$('answers').value.trim();
- if(!original){error('先写一句你的想法，再开始分析。');$('request').focus();return;}
- if(pending&&!answer){error(pending.rewrite?'请先填写最终明确需求。':'请先补充上面的问题。');$('answers').focus();return;}
- const payload=pending?(pending.rewrite?{text:answer}:{text:pending.text,answers:answer}):{text:original};
- busy=true;for(const e of document.querySelectorAll('button,textarea'))e.disabled=true;$('request-form').setAttribute('aria-busy','true');$('submit-label').textContent='正在分析…';$('status').textContent='正在调用浏览器解析与资料快照筛选，请稍候。';$('results').hidden=true;
- try{const result=await requestJSON('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(result.result.status==='NEEDS_CLARIFICATION')showClarification(result,payload);else{pending=null;$('request').value=payload.text+(payload.answers?'\n客户补充：'+payload.answers:'');$('clarification').hidden=true;showCandidates(result);}}
- catch(e){error(e.name==='AbortError'?'等待超时，请确认静态页面文件仍在运行。':e.message||'连接失败，请确认静态页面文件仍在运行。');$('submit-label').textContent=pending?(pending.rewrite?'用最终需求重新分析':'补充后查资料'):'再次分析';$('status').textContent='本次未获得可用结果，输入内容已保留。';}
- finally{busy=false;for(const e of document.querySelectorAll('button,textarea'))e.disabled=false;$('request-form').removeAttribute('aria-busy');if(!$('clarification').hidden)$('answers').focus();}
-});
-requestJSON('/api/info').then(v=>{$('db-count').textContent=`资料快照 · ${v.database.records} 条资料`;$('db-description').textContent='公开元数据快照20261101-r1，不是实时SQLite。';$('service-info').textContent=JSON.stringify(v,null,2);}).catch(()=>{$('db-count').textContent='资料快照未加载';$('db-description').textContent='请检查静态页面文件，输入不会被当作查询成功。';$('service-info').textContent='无法读取服务信息。';});
+const $=id=>document.getElementById(id),make=(tag,text)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;return e;};
+const normal='仅测温，USB-C 5V系统输入，ESP32-S3、BME280，测量-10到50℃，允许误差±0.5℃，OLED显示。';
+const examples={normal,conflict:'仅测温，USB-C 5V系统输入，BME280裸芯片VDD直接接5V，测量-10到50℃，允许误差±0.5℃，OLED显示。',missing:normal.replace('BME280','传感器用XYZ123')};
+const labels={COMPLETE:'需求已描述完整',NEEDS_CLARIFICATION:'需要澄清',CONFLICTING:'需求相互冲突',FOUND:'有资料命中（不保证指定器件都找到）',NO_RECORD:'没有匹配记录',NOT_QUERIED:'未执行候选查询',IN_SCOPE:'在本切片范围内',OUT_OF_SCOPE:'本版范围外，不判断物理不可行',MATCH:'仅本字段符合',NOT_MET:'该候选/该条件不满足',UNKNOWN:'证据不足，未知',NOT_RUN:'未运行工程验证',NOT_APPLICABLE:'不适用'};
+function reset(){ $('output').hidden=true;$('raw').textContent='';$('candidates').replaceChildren();$('error').hidden=true;$('status').textContent='需求已变化，旧审核结果已清除。';}
+$('text').addEventListener('input',reset);for(const b of document.querySelectorAll('[data-example]'))b.addEventListener('click',()=>{$('text').value=examples[b.dataset.example];reset();$('text').focus();});
+function list(id,lines){$(id).replaceChildren(...lines.map(x=>make('li',x)));}
+function show(envelope){const r=envelope.result;$('output').hidden=false;$('axes').replaceChildren();
+ const axis=[['① 需求完整性',r.requirement_status],['② 资料检索',r.retrieval_status],['③ 候选参数',r.candidates.length?'逐项看下方；未知/不满足不合并成可行结论':'尚无候选参数结论'],['④ 范围与安全',r.scope_status],['⑤ 电路实际验证',Object.values(r.verification).every(x=>x.status==='NOT_RUN')?'NOT_RUN':'请逐项查看原始验证记录']];
+ for(const [name,state]of axis){const d=make('div');d.className='axis';d.append(make('span',name),make('strong',labels[state]||state));$('axes').append(d);}
+ list('blockers',r.blockers.map(b=>`${b.kind} · ${b.candidate_id||b.role||''} ${b.check||''}：${b.reason}。下一步：${b.next}${b.owner?'；责任：'+b.owner:''}`));if(!r.blockers.length)list('blockers',['没有列出阻断不代表工程通过；本次无工程验证证据。']);
+ list('questions',r.questions.map(q=>q.question));if(!r.questions.length)list('questions',['本轮无需求追问；资料/参数缺口仍需补证据。']);$('excluded').textContent=JSON.stringify({excluded:r.exclusions,excluded_ids:r.excluded_ids,missing:r.missing,rejected:r.rejected_candidates},null,2);
+ $('candidates').replaceChildren();for(const c of r.candidates){const card=make('article');card.className='card';card.append(make('h3',c.name),make('p',`${c.id} · ${c.role} · ${c.quality_status} · 可复用标记：${c.reusable}`));
+ for(const k of c.constraints){const section=make('section');section.className='check';const state=make('p',`${k.field}：${labels[k.status]||k.status}（${k.status}）`);state.className=k.status==='NOT_MET'?'state notmet':'state';section.append(state);const dl=make('dl');for(const [n,v]of [['要求/条件',k.requirement],['库实际值',k.actual??null],['理由',k.reason],['证据字段',k.evidence.field??null],['出处',k.evidence.source_locator??k.evidence.source_revision??null],['证据层级',k.level]]){dl.append(make('dt',n),make('dd',typeof v==='string'?v:JSON.stringify(v)));}section.append(dl);card.append(section);}
+ try{const u=new URL(c.evidence.source_url);if(['http:','https:'].includes(u.protocol)){const a=make('a','查看官方来源链接（不含原文副本）');a.href=u.href;a.target='_blank';a.rel='noopener noreferrer';card.append(a);}}catch{card.append(make('p','未登记来源链接'));}$('candidates').append(card);}
+ $('raw').textContent=JSON.stringify(envelope,null,2);$('status').textContent='快照审核完成；结果不是整机可行或选型批准。';$('output').focus();}
+$('form').addEventListener('submit',async e=>{e.preventDefault();reset();const text=$('text').value.trim();if(!text){$('error').textContent='请先填写需求。';$('error').hidden=false;return;}for(const b of document.querySelectorAll('button,textarea'))b.disabled=true;$('status').textContent='正在浏览器内筛选旧快照并逐项核对…';try{await new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));const data={mode:'BROWSER_FROZEN_SNAPSHOT',result:await PublicAudit.reviewSnapshot({text},THERM_SNAPSHOT)};show(data);}catch(err){$('error').textContent=err.name==='AbortError'?'等待超时，请检查页面文件/浏览器环境；没有新的审核结论。':err.message;$('error').hidden=false;$('status').textContent='未获得有效审核结果，输入已保留。';}finally{for(const b of document.querySelectorAll('button,textarea'))b.disabled=false;}});
