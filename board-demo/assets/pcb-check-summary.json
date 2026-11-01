@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.1",
+  "reference_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+  "source_commit": "2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+  "client": "嘉立创EDA专业版 V4.1.71",
+  "status": "FAIL",
+  "total": 223,
+  "pages": 5,
+  "categories": {
+    "spacing": 8,
+    "same_footprint_spacing": 24,
+    "via_size": 85,
+    "GND_connectivity": 105,
+    "schematic_pcb_netlist_mismatch": 1
+  },
+  "warnings": [
+    "6条电源/地符号引脚编号自动修复/去重警告",
+    "PCB存在未填充铺铜提示；飞线与GND连接问题未修复"
+  ],
+  "causality": "待定位：未确认原Eagle与转换造成的问题各多少；不能把105条GND错误全归因于未填铜",
+  "source_raw_tree_sha256": "ff2a68d5580ee02def34eea4d66c30d5bf15049398e54be1621878a2082e7b09",
+  "report_sha256": "026ebf070da18cd2c307d6e8aab83165d29b7edc7d9ad11fd2f48ef39cb10f34",
+  "engineering_approved": false,
+  "manufacturing_allowed": false,
+  "scope": "Actual client DRC on imported geometry. ZIP preserves pre-DRC initial project metadata; SCH/PCB geometry unchanged. ZIP extracted project not reopened independently."
+}
