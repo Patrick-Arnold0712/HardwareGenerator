@@ -1,6 +1,6 @@
 (function(root){'use strict';
 const req=typeof module!=='undefined'?require('./requirements-core.js'):root.WorkflowCore;
-const VERSION='boardflow-local-r1',copy=x=>JSON.parse(JSON.stringify(x)),defaults={...req.defaults,moduleVariant:'',referenceMode:'',accuracyIntent:''};
+const VERSION='boardflow-customer-r1',copy=x=>JSON.parse(JSON.stringify(x)),defaults={...req.defaults,moduleVariant:'',referenceMode:'',accuracyIntent:''};
 const POLICY=Object.freeze({vdd_v:Object.freeze({min:1.71,max:3.6,record:'component:bosch:BME280',snapshot_records_sha256:'98ce25861eae0764d4e9e2a94eeaa8b8f2c54e16635e2dc1fa8f38674d3c15d1',source_locator:'datasheet PDF page 8 Table 1',scope:'bare IC VDD only, not whole power path'}),demo_temperature_c:Object.freeze({min:-40,max:85,source_locator:'datasheet page 11 Table 4 internal temperature sensor operating range',condition_snapshot_sha256:'3ad599c884aedab51d96843e417df0de928ff7ef586960ac35370392a0edf1f9',scope:'bounded demo input limit; not ambient accuracy or system approval'})});
 const digest=async x=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',typeof x==='string'?new TextEncoder().encode(x):x)),b=>b.toString(16).padStart(2,'0')).join('');
 function analyse(d){const a=req.analyse(d),issues=[...a.issues],add=(field,message)=>issues.push({field,message,kind:'REFERENCE_CONFLICT'});
