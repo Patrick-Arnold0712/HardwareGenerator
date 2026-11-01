@@ -1,0 +1,25 @@
+{
+  "id": "component:module:GY-BME280",
+  "kind": "component",
+  "name": "GY-BME280 温湿度/气压模块（型号待实测确认）",
+  "status": "not_downloaded",
+  "manufacturer": "待确认（模块厂商，非 Bosch）",
+  "mpn": "GY-BME280",
+  "package": "模块板（带 4 针排针）",
+  "source": {
+    "type": "vendor-listing",
+    "url": "",
+    "revision": "2026-10-24 淘宝商品页（未归档链接）",
+    "license": "unknown",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {},
+  "files": [],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  }
+}

@@ -1,0 +1,135 @@
+[
+  {
+    "source": "board-demo/.nojekyll",
+    "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "delivered_path": "前端/.nojekyll",
+    "delivered_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "changed": false
+  },
+  {
+    "source": "board-demo/HARDWARE-LICENSE.txt",
+    "source_sha256": "075dad5e5fc96c27014fabc269f4f5732909cffd178a486f546d982b6cf86b74",
+    "delivered_path": "前端/HARDWARE-LICENSE.txt",
+    "delivered_sha256": "075dad5e5fc96c27014fabc269f4f5732909cffd178a486f546d982b6cf86b74",
+    "changed": false
+  },
+  {
+    "source": "board-demo/LICENSE",
+    "source_sha256": "d96d60fe78d98a3c289c8bfb58cd1968aa746db2a91d6f5de11009f1f589c43c",
+    "delivered_path": "前端/LICENSE",
+    "delivered_sha256": "d96d60fe78d98a3c289c8bfb58cd1968aa746db2a91d6f5de11009f1f589c43c",
+    "changed": false
+  },
+  {
+    "source": "board-demo/README.md",
+    "source_sha256": "1aaa7cc907ac581c1f0140f84bab46c0b00e1f5479cea9f50e6d5583432da223",
+    "delivered_path": "前端/README.md",
+    "delivered_sha256": "3ecf1a76cda83f441190bfbc186832d390a92aa207a48230ea4031f3e4a54176",
+    "changed": true
+  },
+  {
+    "source": "board-demo/THIRD_PARTY_NOTICES.md",
+    "source_sha256": "549caf847447d683f21d9f665272e72d73c0c97c844963bfd8a78356a496b1c7",
+    "delivered_path": "前端/THIRD_PARTY_NOTICES.md",
+    "delivered_sha256": "549caf847447d683f21d9f665272e72d73c0c97c844963bfd8a78356a496b1c7",
+    "changed": false
+  },
+  {
+    "source": "board-demo/app.js",
+    "source_sha256": "e35e11a76cdc2f011023c6adc3d5c1a5c236c7629167ff22b0594270b9321b13",
+    "delivered_path": "前端/app.js",
+    "delivered_sha256": "04fdcd3c88451b0203f2a4a01051d1111739fc902f9ecce53e032674d80768c0",
+    "changed": true
+  },
+  {
+    "source": "board-demo/assets/adafruit-editable-reference.zip",
+    "source_sha256": "cda1018b50b418829724bba8aa02de674862295efc86a55e7f325f20e25c52d8",
+    "delivered_path": "前端/assets/adafruit-editable-reference.zip",
+    "delivered_sha256": "7ec07a36aafeae83a3694c48e9606b73b552e9e3e755d00878ba8b7faa1e2f94",
+    "changed": true
+  },
+  {
+    "source": "board-demo/assets/adafruit-native-source-and-license.zip",
+    "source_sha256": "f5addf37f75c66423eb10fcab036a0af10ccbf037e61e0881b384721ba0b8f6c",
+    "delivered_path": "前端/assets/adafruit-native-source-and-license.zip",
+    "delivered_sha256": "f5addf37f75c66423eb10fcab036a0af10ccbf037e61e0881b384721ba0b8f6c",
+    "changed": false
+  },
+  {
+    "source": "board-demo/assets/adafruit-pcb.png",
+    "source_sha256": "b33a9093afa00748c0ba4e59e3a2986f31ff00176df566c16d9d55a974a3ff21",
+    "delivered_path": "前端/assets/adafruit-pcb.png",
+    "delivered_sha256": "b33a9093afa00748c0ba4e59e3a2986f31ff00176df566c16d9d55a974a3ff21",
+    "changed": false
+  },
+  {
+    "source": "board-demo/assets/adafruit-schematic.png",
+    "source_sha256": "95d02b407b492e65b23c872cbf64989098f52e4bb8ca2331477851f9dce7ab33",
+    "delivered_path": "前端/assets/adafruit-schematic.png",
+    "delivered_sha256": "95d02b407b492e65b23c872cbf64989098f52e4bb8ca2331477851f9dce7ab33",
+    "changed": false
+  },
+  {
+    "source": "board-demo/assets/pcb-check-summary.json",
+    "source_sha256": "bd2502c78cf31ef105b35eb20690d14f7fb0d35edfa9c13e6c5ccfbb1e92615a",
+    "delivered_path": "前端/assets/pcb-check-summary.json",
+    "delivered_sha256": "bd2502c78cf31ef105b35eb20690d14f7fb0d35edfa9c13e6c5ccfbb1e92615a",
+    "changed": false
+  },
+  {
+    "source": "board-demo/boardflow-core.js",
+    "source_sha256": "6319adcd8aaf9ec9388cf7c3e6833abf5ee6e807e26ecbe3de5b3c2d4f7368b9",
+    "delivered_path": "前端/boardflow-core.js",
+    "delivered_sha256": "a9ce9367090f15c3c9098df0bf9e8eb8ce40bd289dd91973dc98e6d0ac1de00e",
+    "changed": true
+  },
+  {
+    "source": "board-demo/condition-engine.js",
+    "source_sha256": "811af2e40cd0ad2abf7abd692da45fc6f4127121d8053a136f8df30c309ef30b",
+    "delivered_path": "前端/condition-engine.js",
+    "delivered_sha256": "811af2e40cd0ad2abf7abd692da45fc6f4127121d8053a136f8df30c309ef30b",
+    "changed": false
+  },
+  {
+    "source": "board-demo/condition-snapshot.js",
+    "source_sha256": "d5943c894e893265914726b3ba6fff900f6862672dc5319f085f8cc4c7b212fc",
+    "delivered_path": "前端/condition-snapshot.js",
+    "delivered_sha256": "d5943c894e893265914726b3ba6fff900f6862672dc5319f085f8cc4c7b212fc",
+    "changed": false
+  },
+  {
+    "source": "board-demo/index.html",
+    "source_sha256": "6ed394f115f05cd31b8d8ba9bda93ea1107b4503f7a31559191f641867ff80b2",
+    "delivered_path": "前端/index.html",
+    "delivered_sha256": "0fdde38415fd4004f16ce701451b1fdb701a86228f6d28450cdc1d60b462a862",
+    "changed": true
+  },
+  {
+    "source": "board-demo/reference-lock.js",
+    "source_sha256": "96012cd8317b69365fb7222bf79496317b645bedb57314c08a309b205dbe49ab",
+    "delivered_path": "前端/reference-lock.js",
+    "delivered_sha256": "f135685ca31058895cdf67c1714c4841310020d554d0ea3cd179cecc56067b46",
+    "changed": true
+  },
+  {
+    "source": "board-demo/reference-snapshot.json",
+    "source_sha256": "27b97288a6016673f37e7ca4de8e25c3ed60a235d819cbdc7a8bb0469d005e82",
+    "delivered_path": "前端/reference-snapshot.json",
+    "delivered_sha256": "93a6657e315bc0582712001381dde9c55ea52354134dd706df9317cb19f1f5da",
+    "changed": true
+  },
+  {
+    "source": "board-demo/requirements-core.js",
+    "source_sha256": "44a95e1b95bdf1752074516b3ea12777cf2dd402dfd1ef2b7e053ce3483a93ea",
+    "delivered_path": "前端/requirements-core.js",
+    "delivered_sha256": "44a95e1b95bdf1752074516b3ea12777cf2dd402dfd1ef2b7e053ce3483a93ea",
+    "changed": false
+  },
+  {
+    "source": "board-demo/styles.css",
+    "source_sha256": "d6381cc90f5f27c3ecb1fd7018d01123b1688cf6c2d6267a65000519dd318d9b",
+    "delivered_path": "前端/styles.css",
+    "delivered_sha256": "d6381cc90f5f27c3ecb1fd7018d01123b1688cf6c2d6267a65000519dd318d9b",
+    "changed": false
+  }
+]

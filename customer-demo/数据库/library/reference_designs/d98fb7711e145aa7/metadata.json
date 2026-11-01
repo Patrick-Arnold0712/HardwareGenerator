@@ -1,0 +1,25 @@
+{
+  "id": "reference_design:olimex:esp32-s3-devkit-lipo-rev-b",
+  "kind": "reference_design",
+  "name": "OLIMEX ESP32-S3-DevKit-LiPo Rev B native reference candidate",
+  "status": "downloaded",
+  "manufacturer": "OLIMEX",
+  "mpn": "",
+  "package": "",
+  "source": {
+    "type": "fixed-commit-original-hardware-repository",
+    "url": "https://github.com/OLIMEX/ESP32-S3-DevKit-LiPo/tree/98e62ae2b9b1e52448ec585089730defb45ba869",
+    "revision": "commit 98e62ae2b9b1e52448ec585089730defb45ba869; Rev B",
+    "license": "README declares hardware CERN-OHL-S-2.0; full text and exact file scope not captured; root LICENSE is GPLv3 software text",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {},
+  "files": [],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  }
+}

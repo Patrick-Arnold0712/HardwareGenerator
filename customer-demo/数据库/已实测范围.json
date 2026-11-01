@@ -1,0 +1,20 @@
+{
+  "scope": "public derived 13/1 dataset, not original v5; existing PG run evidence summarized, not a new client-side PG execution",
+  "tool": "PostgreSQL 17.6 / Node 24.21.0",
+  "import_exit_code": 0,
+  "verify_exit_code": 0,
+  "sources": 13,
+  "parts": 6,
+  "reference_designs": 4,
+  "source_only_documents": 3,
+  "links": 1,
+  "modules": 0,
+  "projects": 0,
+  "validation_runs": 0,
+  "source_fingerprint": "3905f2810dd47e8676859f0269fd803f254932beceeabca3c50cdd632759a546",
+  "sql_sha256": "75b6d5a263d696cdf9b16f37ea355f658840f625102d9a81ae2c01b28950e78c",
+  "stopped": true,
+  "evidence_id": "LIB03-PUBLIC-PG-20261101-r1",
+  "original_report_sha256": "c14c5b92b8bf561a002b092fa12aef69ad7920c37c4f88e6b616f7784541164a",
+  "engineering_approved": false
+}

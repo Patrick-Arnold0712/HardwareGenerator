@@ -1,0 +1,12 @@
+{
+  "name": "hardware-generator-public-database-demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test test/lib03-export.test.js test/lib03-postgres.test.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "license": "MIT"
+}

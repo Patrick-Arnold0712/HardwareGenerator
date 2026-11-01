@@ -1,0 +1,25 @@
+{
+  "id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+  "kind": "reference_design",
+  "name": "Espressif ESP32-S3-DevKitC-1 v1.1 官方参考资料",
+  "status": "downloaded",
+  "manufacturer": "Espressif Systems",
+  "mpn": "",
+  "package": "",
+  "source": {
+    "type": "manufacturer-official-documentation-and-linked-hardware-pdfs",
+    "url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+    "revision": "ESP32-S3-DevKitC-1 v1.1; esp-dev-kits commit bd4d4ac18657e73583af3d7c0b0a23c3cddf3735; schematic PDF 20221130; PCB layout PDF 20220429",
+    "license": "unknown",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {},
+  "files": [],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "component:diodes:AP2112K-3.3TRG1",
+  "kind": "component",
+  "name": "Diodes AP2112K-3.3TRG1 3.3V LDO 候选",
+  "status": "downloaded",
+  "manufacturer": "Diodes Incorporated",
+  "mpn": "AP2112K-3.3TRG1",
+  "package": "SOT25",
+  "source": {
+    "type": "manufacturer-datasheet",
+    "url": "https://www.diodes.com/datasheet/download/AP2112.pdf",
+    "revision": "DS39724 Rev. 2-2, June 2017 (PDF pages 1-18)",
+    "license": "unknown",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {},
+  "files": [],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  }
+}

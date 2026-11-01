@@ -1,0 +1,45 @@
+{
+  "id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+  "kind": "reference_design",
+  "name": "Adafruit Feather ESP32-S3 8MB No PSRAM Eagle reference candidate",
+  "status": "downloaded",
+  "manufacturer": "Adafruit Industries",
+  "mpn": "",
+  "package": "",
+  "source": {
+    "type": "fixed-commit-original-hardware-repository",
+    "url": "https://github.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/tree/2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+    "revision": "commit 2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+    "license": "CC-BY-SA-3.0-Unported (README hardware statement + license.txt; obligations retained)",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {},
+  "files": [
+    {
+      "path": "source-fact.json",
+      "sha256": "4a98260fdf66c8829594af597676cc8963fc1450bb9df1b320438aab3ce46c2f",
+      "bytes": 657
+    }
+  ],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  },
+  "lib03_links": [
+    {
+      "to_id": "component:bosch:BME280",
+      "target_version": "05f88b48cf68ed148ad2097de69afae26244181e129682324932eec27293b7d5",
+      "relation": "uses_part",
+      "evidence": {
+        "path": "source-fact.json",
+        "sha256": "4a98260fdf66c8829594af597676cc8963fc1450bb9df1b320438aab3ce46c2f",
+        "locator": "Public summary of native U4 fact; original identity and locator inside summary"
+      },
+      "fact_reviewed_by": "EDA source fact audit; public summary only",
+      "source_fact_review": "confirmed"
+    }
+  ]
+}

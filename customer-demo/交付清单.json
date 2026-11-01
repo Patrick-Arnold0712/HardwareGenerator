@@ -1,0 +1,386 @@
+{
+  "package_version": "CUSTOMER-PACKAGE-20261101-r1",
+  "scope": "reference demo, DRC FAIL223; sanitized public database not original v5",
+  "files": [
+    {
+      "path": "LICENSE-网页与自有代码.txt",
+      "bytes": 1428,
+      "sha256": "d96d60fe78d98a3c289c8bfb58cd1968aa746db2a91d6f5de11009f1f589c43c"
+    },
+    {
+      "path": "package.json",
+      "bytes": 278,
+      "sha256": "2be21069de3d3740dc132409f83c900e4f7332628c29ac301876195164534d95"
+    },
+    {
+      "path": "README-先看这里.md",
+      "bytes": 2425,
+      "sha256": "74bbf23c2fcc28b4c0079b5612e40fec069fe659537245f1d58d04174a4f7478"
+    },
+    {
+      "path": "一键说明/check-package.cjs",
+      "bytes": 2545,
+      "sha256": "e197cf336b321b2e374a896841cfebd9ad3f665cbe62fbcc611c6c28e7f3bb6a"
+    },
+    {
+      "path": "一键说明/serve.cjs",
+      "bytes": 1879,
+      "sha256": "7521d5a00ffec7e3572f144eeafaddb73d263de8408177f6811a74f69f0c0e5f"
+    },
+    {
+      "path": "一键说明/交付验证摘要.json",
+      "bytes": 1006,
+      "sha256": "14500c141d5ecc40047d37f4fdbe997745f99f04fcde8fcf860390145700d6a1"
+    },
+    {
+      "path": "一键说明/前端版本来源映射.json",
+      "bytes": 6064,
+      "sha256": "3329cda6c444e31d689cad6edfb0bdbc1d1ab677f89ae1bc440706a43bb6abd3"
+    },
+    {
+      "path": "一键说明/客户入口.html",
+      "bytes": 2443,
+      "sha256": "e55af756b44dc4d5ee086f746718538b09ce1ba90d7581dac19580e321a2b2b2"
+    },
+    {
+      "path": "一键说明/工程包脱敏差异.json",
+      "bytes": 909,
+      "sha256": "082605691d4e75338f8fdf0dc90909d76730760e6f637217659b847a239fbf1f"
+    },
+    {
+      "path": "前端/.nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "前端/app.js",
+      "bytes": 9203,
+      "sha256": "04fdcd3c88451b0203f2a4a01051d1111739fc902f9ecce53e032674d80768c0"
+    },
+    {
+      "path": "前端/assets/adafruit-editable-reference.zip",
+      "bytes": 556689,
+      "sha256": "7ec07a36aafeae83a3694c48e9606b73b552e9e3e755d00878ba8b7faa1e2f94"
+    },
+    {
+      "path": "前端/assets/adafruit-native-source-and-license.zip",
+      "bytes": 108382,
+      "sha256": "f5addf37f75c66423eb10fcab036a0af10ccbf037e61e0881b384721ba0b8f6c"
+    },
+    {
+      "path": "前端/assets/adafruit-pcb.png",
+      "bytes": 476331,
+      "sha256": "b33a9093afa00748c0ba4e59e3a2986f31ff00176df566c16d9d55a974a3ff21"
+    },
+    {
+      "path": "前端/assets/adafruit-schematic.png",
+      "bytes": 573114,
+      "sha256": "95d02b407b492e65b23c872cbf64989098f52e4bb8ca2331477851f9dce7ab33"
+    },
+    {
+      "path": "前端/assets/pcb-check-summary.json",
+      "bytes": 1171,
+      "sha256": "bd2502c78cf31ef105b35eb20690d14f7fb0d35edfa9c13e6c5ccfbb1e92615a"
+    },
+    {
+      "path": "前端/boardflow-core.js",
+      "bytes": 8851,
+      "sha256": "a9ce9367090f15c3c9098df0bf9e8eb8ce40bd289dd91973dc98e6d0ac1de00e"
+    },
+    {
+      "path": "前端/condition-engine.js",
+      "bytes": 8786,
+      "sha256": "811af2e40cd0ad2abf7abd692da45fc6f4127121d8053a136f8df30c309ef30b"
+    },
+    {
+      "path": "前端/condition-snapshot.js",
+      "bytes": 2968,
+      "sha256": "d5943c894e893265914726b3ba6fff900f6862672dc5319f085f8cc4c7b212fc"
+    },
+    {
+      "path": "前端/HARDWARE-LICENSE.txt",
+      "bytes": 22239,
+      "sha256": "075dad5e5fc96c27014fabc269f4f5732909cffd178a486f546d982b6cf86b74"
+    },
+    {
+      "path": "前端/index.html",
+      "bytes": 11008,
+      "sha256": "0fdde38415fd4004f16ce701451b1fdb701a86228f6d28450cdc1d60b462a862"
+    },
+    {
+      "path": "前端/LICENSE",
+      "bytes": 1428,
+      "sha256": "d96d60fe78d98a3c289c8bfb58cd1968aa746db2a91d6f5de11009f1f589c43c"
+    },
+    {
+      "path": "前端/README.md",
+      "bytes": 1759,
+      "sha256": "3ecf1a76cda83f441190bfbc186832d390a92aa207a48230ea4031f3e4a54176"
+    },
+    {
+      "path": "前端/reference-lock.js",
+      "bytes": 252,
+      "sha256": "f135685ca31058895cdf67c1714c4841310020d554d0ea3cd179cecc56067b46"
+    },
+    {
+      "path": "前端/reference-snapshot.json",
+      "bytes": 9498,
+      "sha256": "93a6657e315bc0582712001381dde9c55ea52354134dd706df9317cb19f1f5da"
+    },
+    {
+      "path": "前端/requirements-core.js",
+      "bytes": 15306,
+      "sha256": "44a95e1b95bdf1752074516b3ea12777cf2dd402dfd1ef2b7e053ce3483a93ea"
+    },
+    {
+      "path": "前端/styles.css",
+      "bytes": 5754,
+      "sha256": "d6381cc90f5f27c3ecb1fd7018d01123b1688cf6c2d6267a65000519dd318d9b"
+    },
+    {
+      "path": "前端/THIRD_PARTY_NOTICES.md",
+      "bytes": 1879,
+      "sha256": "549caf847447d683f21d9f665272e72d73c0c97c844963bfd8a78356a496b1c7"
+    },
+    {
+      "path": "图文/candidate-manifest.json",
+      "bytes": 3187,
+      "sha256": "b975cf321f6793b0dbf46b75c952df137be32cab923a771788116531916bc717"
+    },
+    {
+      "path": "图文/downloaded-after-change.json",
+      "bytes": 9664,
+      "sha256": "0156869d92ba7e6779eecef0880b49d819546214b1503e933e08353c2ebba3eb"
+    },
+    {
+      "path": "图文/downloaded-artifact.json",
+      "bytes": 246,
+      "sha256": "a4ceeac8dc655f60f0233f8fe3b14affafba11276a9b0e505f230403d4dda890"
+    },
+    {
+      "path": "图文/downloaded-drc-summary.json",
+      "bytes": 1171,
+      "sha256": "bd2502c78cf31ef105b35eb20690d14f7fb0d35edfa9c13e6c5ccfbb1e92615a"
+    },
+    {
+      "path": "图文/downloaded-project.json",
+      "bytes": 33747,
+      "sha256": "9d8bb82019b61fdb892a2173edc682ef0e4b445911ee21c391345d8b8a7b7b73"
+    },
+    {
+      "path": "图文/images/final2-01-empty.jpg",
+      "bytes": 218490,
+      "sha256": "8774220902f3b09ba86f214f8b49760d539370889951f6a65012466e9413b3b8"
+    },
+    {
+      "path": "图文/images/final2-02-oled.jpg",
+      "bytes": 265758,
+      "sha256": "b95fd31c560857de8aa49dba222381fbaa90403db6ac698873f790b2c66d2e02"
+    },
+    {
+      "path": "图文/images/final2-03-original.jpg",
+      "bytes": 288911,
+      "sha256": "da66af48ba0b533d6eb281293e51d79af789b7c5306aa0860aee52e26e0b166c"
+    },
+    {
+      "path": "图文/images/final2-04-reviewed.jpg",
+      "bytes": 412377,
+      "sha256": "c41cf1fc1487e7a4a9df77ba30745b0a7a42e7b0fbf78189ba453b68fb0e8d0e"
+    },
+    {
+      "path": "图文/images/final2-05-images-detail.jpg",
+      "bytes": 117796,
+      "sha256": "7e57176f96506d04295575f6b493174e933ea777936187820e991adfb42beff6"
+    },
+    {
+      "path": "图文/images/final2-05-loaded.jpg",
+      "bytes": 599957,
+      "sha256": "7af9cf66124e8eb09881174ebcf2c920ca32a65e72f08ea29135075bdedc8d72"
+    },
+    {
+      "path": "图文/images/final2-06-download.jpg",
+      "bytes": 598106,
+      "sha256": "94565afc7a2aa380d0ea2b050814e3f8bdd99bdf92aa74d4a2d4f205a0c11995"
+    },
+    {
+      "path": "图文/images/final2-07-invalidated.jpg",
+      "bytes": 244720,
+      "sha256": "d143a6b867c6315ae2bceee81bf25415df90667b1f629c498c94161d2e1dca72"
+    },
+    {
+      "path": "图文/mobile-layout.json",
+      "bytes": 248,
+      "sha256": "4cb43ce34cc4a16c954c7b91d47459be4eb42d4905e12d7653ee0de7806a733d"
+    },
+    {
+      "path": "图文/verification-final.json",
+      "bytes": 1416,
+      "sha256": "abbbb4637bbf0a69c07cb387af39f2f3516348dbba0033251ccbf74cd9b47c4c"
+    },
+    {
+      "path": "图文/一页交付报告.md",
+      "bytes": 1009,
+      "sha256": "ea54a7a2aa289bf7c44a66e59a4ee0c867f2ef408583bb494a4ec75ecefa2ca9"
+    },
+    {
+      "path": "图文/图文教程.html",
+      "bytes": 12062,
+      "sha256": "fab7daaaab623e3fb863de2ff555aced94f1373aca569028688f425cb4673e50"
+    },
+    {
+      "path": "图文/复现与交付说明.md",
+      "bytes": 2943,
+      "sha256": "5384d19b5fa531ec36fc9fd0c74013ef853ad3a1a8d746df060cb9a8f740b9e9"
+    },
+    {
+      "path": "图文/客户阅读说明.md",
+      "bytes": 1149,
+      "sha256": "3eb9d348a8adcd9b9d22c7acda09acbb805b823c02e73ff7fd8a189660f795d8"
+    },
+    {
+      "path": "数据库/config.example.json",
+      "bytes": 194,
+      "sha256": "9be500779440065f4372d2a7ff19061c2351ea69d075d8a8e1df447ed5f72afd"
+    },
+    {
+      "path": "数据库/library/components/0045137f61dd0e48/metadata.json",
+      "bytes": 590,
+      "sha256": "c62b7e15ef712590ec6d37379c5ea36ec026399499f58184f99deeb7b4388139"
+    },
+    {
+      "path": "数据库/library/components/12f648dd939b491d/metadata.json",
+      "bytes": 688,
+      "sha256": "104f456a138c00fe7d1494307cdba956d3be70c81e3abb7a576f636b40ccb30a"
+    },
+    {
+      "path": "数据库/library/components/7533429c9e5c76ff/metadata.json",
+      "bytes": 1071,
+      "sha256": "05f88b48cf68ed148ad2097de69afae26244181e129682324932eec27293b7d5"
+    },
+    {
+      "path": "数据库/library/components/79591408e9511774/metadata.json",
+      "bytes": 687,
+      "sha256": "c3994b025e167367e1fc3e32c8c466e65451af238f835a21ad7607c0b07c8b9a"
+    },
+    {
+      "path": "数据库/library/components/aedfcd9af4c437be/metadata.json",
+      "bytes": 723,
+      "sha256": "0ade6b32a198b96008622495c594feab0e2211faf1df125cdcc5ffe9f0bcb88f"
+    },
+    {
+      "path": "数据库/library/components/e96dda8cefa60d28/metadata.json",
+      "bytes": 874,
+      "sha256": "063d785b9fd3c67ee7ada25354b1de5a6b02c5fbb1ba78f8e51ed9c1691c2c75"
+    },
+    {
+      "path": "数据库/library/documents/701d2b8aa0e8e588/metadata.json",
+      "bytes": 646,
+      "sha256": "0c4f5f1390a60f35e819d093eb4aaec5155005b8f63018f10784e6539ac1644c"
+    },
+    {
+      "path": "数据库/library/documents/ea72c4015b832e97/metadata.json",
+      "bytes": 710,
+      "sha256": "0e3c46e848bb3906e32fc19b4964aaa1b0deff9acc8cb6f07e00c4de0c208381"
+    },
+    {
+      "path": "数据库/library/documents/fabf1847ccdab19c/metadata.json",
+      "bytes": 688,
+      "sha256": "020231bbb99d8323661ba35b441c627b97837e85c62f6e9d371ca160cae595e7"
+    },
+    {
+      "path": "数据库/library/reference_designs/524a4a88d6a2aed0/metadata.json",
+      "bytes": 914,
+      "sha256": "42ee1b144af84c3b96e6cb04be55393a067f833086882f55f5e7ebf9940272ea"
+    },
+    {
+      "path": "数据库/library/reference_designs/a58c2615c92b5c5a/metadata.json",
+      "bytes": 1589,
+      "sha256": "6593393d3275289df4d716a7ad31b4cb320be553608e376b4e886b946619aa09"
+    },
+    {
+      "path": "数据库/library/reference_designs/a58c2615c92b5c5a/source-fact.json",
+      "bytes": 657,
+      "sha256": "4a98260fdf66c8829594af597676cc8963fc1450bb9df1b320438aab3ce46c2f"
+    },
+    {
+      "path": "数据库/library/reference_designs/d98fb7711e145aa7/metadata.json",
+      "bytes": 884,
+      "sha256": "8d1b15c5b31d67033143d9ab142121d63e70c67ccf8e8ed39ea17791ee547339"
+    },
+    {
+      "path": "数据库/library/reference_designs/de84a98a7872d94b/metadata.json",
+      "bytes": 859,
+      "sha256": "20cd93f6c5ee3bad41735478e23020ec3b22d16198d7fa78fea4b60cca97fc5d"
+    },
+    {
+      "path": "数据库/LICENSE",
+      "bytes": 1428,
+      "sha256": "d96d60fe78d98a3c289c8bfb58cd1968aa746db2a91d6f5de11009f1f589c43c"
+    },
+    {
+      "path": "数据库/package.json",
+      "bytes": 266,
+      "sha256": "c63028b560eb5bf03c10a992df51c143505a98575c3c9aef2774db8b69c0f9c8"
+    },
+    {
+      "path": "数据库/README.md",
+      "bytes": 2648,
+      "sha256": "56a53391ae43003651dc4cf5a40485ad8ac9e0c4560f29d4b3dcf24d08fc883d"
+    },
+    {
+      "path": "数据库/scripts/lib03-export.js",
+      "bytes": 4459,
+      "sha256": "72308123badc080efef03fcf4bde5edb6ffc84956dea569c73983dd7c2981f2e"
+    },
+    {
+      "path": "数据库/scripts/lib03-postgres.js",
+      "bytes": 6658,
+      "sha256": "3e6f9f1d40fd9d4862f9bf2e99b4e48b0bfa3c2339350cf93066b7d358ee0b57"
+    },
+    {
+      "path": "数据库/scripts/lib03-public-demo.js",
+      "bytes": 3203,
+      "sha256": "6a26e38e404df346b05ae907df223baea1c07fb6cda68bb3853173066962fd22"
+    },
+    {
+      "path": "数据库/scripts/library-core.js",
+      "bytes": 15373,
+      "sha256": "f4a364a5372b50d94022ebd914463a35baff7b7923bb05b7d575a143abe1878d"
+    },
+    {
+      "path": "数据库/sql/manifest.json",
+      "bytes": 3571,
+      "sha256": "9922aae651df4482a46cb96f87b552599bd103b005c970455261edf2a1ba0a79"
+    },
+    {
+      "path": "数据库/sql/migration.sql",
+      "bytes": 15395,
+      "sha256": "75b6d5a263d696cdf9b16f37ea355f658840f625102d9a81ae2c01b28950e78c"
+    },
+    {
+      "path": "数据库/test/lib03-export.test.js",
+      "bytes": 3736,
+      "sha256": "faf3694d11439e7a7f7295f01273b4201b97c984483a19d72fc448f6b1628e87"
+    },
+    {
+      "path": "数据库/test/lib03-postgres.test.js",
+      "bytes": 2286,
+      "sha256": "1d26d8794e60afd4ccf87fcce9d20f9831b3f1443ed099098b79703afafd1b34"
+    },
+    {
+      "path": "数据库/原件取回清单.json",
+      "bytes": 40656,
+      "sha256": "18cf1921959c7408c7ea6c18c45bf977952a95fe8ef3f5eb696d921855245e16"
+    },
+    {
+      "path": "数据库/已实测范围.json",
+      "bytes": 777,
+      "sha256": "1554b180157d63c4c33060f49eee9edd4d9a3ee47ad115eb691bccb357efee3f"
+    },
+    {
+      "path": "数据库/资料一览.html",
+      "bytes": 3623,
+      "sha256": "1004987bc6bc7f4254536deddc6e165cb4ffeb36b0bc4da0ca7b33fda4065475"
+    }
+  ]
+}

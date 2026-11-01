@@ -1,0 +1,36 @@
+{
+  "id": "component:bosch:BME280",
+  "kind": "component",
+  "name": "Bosch BME280 裸芯片（不含GY模块或开发板）",
+  "status": "downloaded",
+  "manufacturer": "Bosch Sensortec",
+  "mpn": "BME280",
+  "package": "8-pin LGA, 2.5 x 2.5 x 0.93 mm",
+  "source": {
+    "type": "manufacturer-datasheet-and-official-driver",
+    "url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+    "revision": "BST-BME280-DS001-24 cover revision 1.24 February 2024; driver commit c90d419492e26dd95586598a794e65eb2760753a",
+    "license": "unknown",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {
+    "supply_vdd_v": {
+      "min": 1.71,
+      "max": 3.6,
+      "source": "Official BME280 datasheet Table 1"
+    },
+    "supply_vddio_v": {
+      "min": 1.2,
+      "max": 3.6,
+      "source": "Official BME280 datasheet Table 1"
+    }
+  },
+  "files": [],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  }
+}

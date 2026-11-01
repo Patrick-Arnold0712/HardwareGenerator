@@ -1,0 +1,194 @@
+{
+  "version": "boardflow-customer-reference-20261101-r1",
+  "reference_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+  "name": "Adafruit Feather ESP32-S3 · 8MB No PSRAM",
+  "source": {
+    "url": "https://github.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/tree/2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+    "commit": "2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+    "author": "Adafruit Industries",
+    "license": "CC-BY-SA-3.0-Unported",
+    "native_files": [
+      {
+        "name": "Adafruit ESP32-S3 8MB No PSRAM.sch",
+        "sha256": "b71cdf533f043c30c1b8ab87d476214c6a857b4f92245debe98694e88a69d398"
+      },
+      {
+        "name": "Adafruit ESP32-S3 8MB No PSRAM.brd",
+        "sha256": "5b06b9c6291545a2c9da0993a642e513a75c5901e26836a2ee559077147abcca"
+      }
+    ],
+    "source_unchanged": true,
+    "original_design_attribution": "Designed by Limor Fried/Ladyada for Adafruit Industries"
+  },
+  "facts": {
+    "module_label": "ESP32-S3-MINI-1",
+    "variant": "8MB No PSRAM",
+    "sensor": {
+      "reference": "U4",
+      "value": "BME280",
+      "source_nets": [
+        "SDA",
+        "SCL",
+        "VSENSOR",
+        "GND"
+      ],
+      "scope": "native source structure only"
+    },
+    "connector": {
+      "reference": "X3",
+      "value": "USB_C"
+    },
+    "source_not_minimal": true,
+    "additional_circuits": [
+      "battery charging/monitor",
+      "NeoPixel",
+      "connectors and supporting power circuits"
+    ],
+    "scope": "fixed native reference, not modified target design"
+  },
+  "limitations": [
+    "完整参考板原样复用，未裁剪成只有S3和BME280的简化板。",
+    "源文件器件/网络存在不证明整板电气、传感器精度、串口固件或制造通过。",
+    "本次参考8MB且无PSRAM，不等同N16R8或用户现有开发板。",
+    "USB-C系统5V不等于BME280裸芯片VDD直接5V。"
+  ],
+  "verification": {
+    "source_identity": "SOURCE_FACT_RECORDED",
+    "editable_import": "OPENED_WITH_WARNINGS",
+    "schematic_erc": "NOT_RUN",
+    "pcb_netlist": "FAIL_CLIENT_SCHEMATIC_PCB_MISMATCH",
+    "drc": "FAIL_223_FINDINGS",
+    "firmware": "NOT_RUN",
+    "hardware": "NOT_RUN",
+    "manufacturing": "NOT_RUN"
+  },
+  "publication": {
+    "status": "CUSTOMER_DELIVERY_REFERENCE_ONLY",
+    "public_reference_deployment_commit": "9c6337a39730d3f201f3a6850e49d6c944534fb7",
+    "scope": "reference demonstration only; not engineering or manufacturing approval",
+    "customer_materials_included": false
+  },
+  "assets": [
+    {
+      "role": "schematic_image",
+      "path": "assets/adafruit-schematic.png",
+      "filename": "schematic-export.png",
+      "mime": "image/png",
+      "sha256": "95d02b407b492e65b23c872cbf64989098f52e4bb8ca2331477851f9dce7ab33",
+      "bytes": 573114,
+      "origin": "Adafruit fixed Eagle source, LCEDA Pro V4.1.71 conversion/export",
+      "scope": "same reference geometry, DRC FAIL 223, not target/manufacturing approval"
+    },
+    {
+      "role": "pcb_image",
+      "path": "assets/adafruit-pcb.png",
+      "filename": "pcb-export.png",
+      "mime": "image/png",
+      "sha256": "b33a9093afa00748c0ba4e59e3a2986f31ff00176df566c16d9d55a974a3ff21",
+      "bytes": 476331,
+      "origin": "Adafruit fixed Eagle source, LCEDA Pro V4.1.71 conversion/export",
+      "scope": "same reference geometry, DRC FAIL 223, not target/manufacturing approval"
+    },
+    {
+      "role": "editable_project",
+      "path": "assets/adafruit-editable-reference.zip",
+      "filename": "Adafruit-Feather-ESP32-S3-customer-redacted-reference.zip",
+      "mime": "application/zip",
+      "sha256": "7ec07a36aafeae83a3694c48e9606b73b552e9e3e755d00878ba8b7faa1e2f94",
+      "bytes": 556689,
+      "origin": "Adafruit fixed Eagle source, LCEDA Pro V4.1.71 conversion/export",
+      "scope": "same reference geometry, DRC FAIL 223, not target/manufacturing approval; customer owner metadata directory removed, geometry identical"
+    },
+    {
+      "role": "audit_report",
+      "path": "assets/pcb-check-summary.json",
+      "filename": "PCB检查失败摘要-223项.json",
+      "mime": "application/json",
+      "sha256": "bd2502c78cf31ef105b35eb20690d14f7fb0d35edfa9c13e6c5ccfbb1e92615a",
+      "bytes": 1171,
+      "origin": "actual client raw DRC tree and EDA report with SHA256",
+      "scope": "sanitized summary, not a replacement for original raw private evidence"
+    },
+    {
+      "role": "source_package",
+      "path": "assets/adafruit-native-source-and-license.zip",
+      "filename": "adafruit-native-source-and-license.zip",
+      "mime": "application/zip",
+      "sha256": "f5addf37f75c66423eb10fcab036a0af10ccbf037e61e0881b384721ba0b8f6c",
+      "bytes": 108382,
+      "origin": "https://github.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/tree/2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+      "scope": "byte-identical native .sch/.brd, README and license + packaging origin note"
+    }
+  ],
+  "artifact_review": {
+    "status": "LOCAL_EDA_HANDOFF_REVIEWED",
+    "local_preview_approved": true,
+    "eda_evidence": [
+      "docs/repro/EDA-ADAFRUIT-IMPORT-20261101-r1/EDA-ADAFRUIT-IMPORT-report.md",
+      "docs/repro/EDA-ADAFRUIT-IMPORT-20261101-r1/asset-manifest.json",
+      "docs/repro/EDA-ADAFRUIT-IMPORT-20261101-r1/package-integrity.json"
+    ],
+    "client_version": "嘉立创EDA专业版 V4.1.71",
+    "import_scope": "原理图/PCB已导入并打开、纯PNG导出；DRC最终失败223项。ZIP10条目完整性已核，但解压后的工程未独立重开；不代表全网表、电气、制造或客户验收。",
+    "warnings": [
+      "导入6条电源/地符号引脚编号为空/重复，客户端自动修复/去重",
+      "PCB铺铜未填充，有未完成连接线",
+      "PCB DRC失败223项/5页：间距8、同封装24、过孔85、GND连接105、网表不一致1",
+      "问题原因待定位，不能全归因于铺铜未填；未修复，禁止制造放行"
+    ],
+    "asset_capture": "同一转换参考工程由LCEDA原生导出PNG；两图不含账号界面，未编辑像素或隐藏飞线",
+    "license_note": "Adafruit Industries CC-BY-SA-3.0 original README/license retained in source and editable ZIP. Local preview only; public release compliance pending management review.",
+    "reference_modified": "原生Eagle源未改；客户端格式转换及6处符号引脚编号自动修复。包为DRC前首次导入目录；之后eprj3/ecfg元数据自动变化，esch2/epcb2图纸字节未变，未改线或填铜。 Customer-copy privacy change only: removed profile.owner.uuid machine directory from project index; all SCH/PCB/other entries byte-identical. Redacted project not independently reopened in EDA.",
+    "drc_summary": {
+      "schema_version": "0.1",
+      "reference_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+      "source_commit": "2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+      "client": "嘉立创EDA专业版 V4.1.71",
+      "status": "FAIL",
+      "total": 223,
+      "pages": 5,
+      "categories": {
+        "spacing": 8,
+        "same_footprint_spacing": 24,
+        "via_size": 85,
+        "GND_connectivity": 105,
+        "schematic_pcb_netlist_mismatch": 1
+      },
+      "warnings": [
+        "6条电源/地符号引脚编号自动修复/去重警告",
+        "PCB存在未填充铺铜提示；飞线与GND连接问题未修复"
+      ],
+      "causality": "待定位：未确认原Eagle与转换造成的问题各多少；不能把105条GND错误全归因于未填铜",
+      "source_raw_tree_sha256": "ff2a68d5580ee02def34eea4d66c30d5bf15049398e54be1621878a2082e7b09",
+      "report_sha256": "026ebf070da18cd2c307d6e8aab83165d29b7edc7d9ad11fd2f48ef39cb10f34",
+      "engineering_approved": false,
+      "manufacturing_allowed": false,
+      "scope": "Actual client DRC on imported geometry. ZIP preserves pre-DRC initial project metadata; SCH/PCB geometry unchanged. ZIP extracted project not reopened independently."
+    },
+    "historical_candidate_public_release_approved": false,
+    "reference_publication_approval": "Management approved original 19-file public reference demonstration on 2026-11-01; this customer copy only changes labels/documentation/identity; engineering not approved"
+  },
+  "comparison_policy": {
+    "vdd_v": {
+      "min": 1.71,
+      "max": 3.6,
+      "record": "component:bosch:BME280",
+      "snapshot_records_sha256": "98ce25861eae0764d4e9e2a94eeaa8b8f2c54e16635e2dc1fa8f38674d3c15d1",
+      "source_locator": "datasheet PDF page 8 Table 1",
+      "scope": "bare IC VDD only, not whole power path"
+    },
+    "demo_temperature_c": {
+      "min": -40,
+      "max": 85,
+      "source_locator": "datasheet page 11 Table 4 internal temperature sensor operating range",
+      "condition_snapshot_sha256": "3ad599c884aedab51d96843e417df0de928ff7ef586960ac35370392a0edf1f9",
+      "scope": "bounded demo input limit; not ambient accuracy or system approval"
+    }
+  },
+  "origin": {
+    "published_source_tree_sha256": "dba3d33ef9cfc5289ff0cd78e98e20a38d655008079ca122395eaeeec8e4f9a2",
+    "published_source_snapshot_sha256": "27b97288a6016673f37e7ca4de8e25c3ed60a235d819cbdc7a8bb0469d005e82",
+    "original_candidate_public_release_approved": false,
+    "scope": "original frozen candidate flag retained here as history; customer copy is a new identity"
+  }
+}

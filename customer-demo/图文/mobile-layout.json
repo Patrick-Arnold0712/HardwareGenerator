@@ -1,0 +1,16 @@
+{
+  "images": [
+    {
+      "id": "schematic-image",
+      "loaded": true,
+      "width": 297.3333435058594
+    },
+    {
+      "id": "pcb-image",
+      "loaded": true,
+      "width": 297.3333435058594
+    }
+  ],
+  "scroll": 375,
+  "viewport": 375
+}

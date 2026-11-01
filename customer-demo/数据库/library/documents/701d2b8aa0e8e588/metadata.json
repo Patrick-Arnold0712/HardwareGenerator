@@ -1,0 +1,25 @@
+{
+  "id": "document:github:esp-labs-web",
+  "kind": "document",
+  "name": "esp-labs-web：ESP32-S3 实验台教学网站（React）",
+  "status": "blocked",
+  "manufacturer": "",
+  "mpn": "",
+  "package": "",
+  "source": {
+    "type": "third-party-repo",
+    "url": "https://github.com/agharsallah/esp-labs-web",
+    "revision": "main @ 2026-10-21（仓库创建 3 天，51 星）",
+    "license": "none",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {},
+  "files": [],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  }
+}

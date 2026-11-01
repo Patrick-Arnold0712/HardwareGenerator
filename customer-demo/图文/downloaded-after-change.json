@@ -1,0 +1,294 @@
+{
+  "project_id": "project-23a0b741-733b-45cc-9112-7dec03b9a0c2",
+  "workflow_version": "boardflow-local-r1",
+  "requirement_revision": 21,
+  "draft": {
+    "idea": "想用ESP32-S3和BME280记录房间温湿度，USB-C 5V供电，在电脑串口查看。",
+    "place": "room",
+    "purpose": "observe",
+    "measure": "temperature_humidity",
+    "power": "usb5",
+    "output": "serial",
+    "route": "s3_bme",
+    "quantity": "ambient_temperature",
+    "lo": "0",
+    "hi": "50",
+    "error": "1",
+    "bareVdd": false,
+    "vdd": "",
+    "confirmed": false,
+    "moduleVariant": "source_8mb_no_psram",
+    "referenceMode": "unchanged_reference",
+    "accuracyIntent": "goal_only"
+  },
+  "analysis": {
+    "draft": {
+      "idea": "想用ESP32-S3和BME280记录房间温湿度，USB-C 5V供电，在电脑串口查看。",
+      "place": "room",
+      "purpose": "observe",
+      "measure": "temperature_humidity",
+      "power": "usb5",
+      "output": "serial",
+      "route": "s3_bme",
+      "quantity": "ambient_temperature",
+      "lo": "0",
+      "hi": "50",
+      "error": "1",
+      "bareVdd": false,
+      "vdd": "",
+      "confirmed": false,
+      "moduleVariant": "source_8mb_no_psram",
+      "referenceMode": "unchanged_reference",
+      "accuracyIntent": "goal_only"
+    },
+    "issues": [
+      {
+        "field": "confirmed",
+        "message": "请确认这些选项确实是你的意思；演示路线不是已经批准的器件方案。",
+        "kind": "QUESTION"
+      }
+    ],
+    "facts": [
+      {
+        "field": "place",
+        "value": "room",
+        "label": "放在室内",
+        "source": "EXPLICIT_USER_FORM",
+        "not_inferred_from_idea": true
+      },
+      {
+        "field": "purpose",
+        "value": "observe",
+        "label": "记录和查看",
+        "source": "EXPLICIT_USER_FORM",
+        "not_inferred_from_idea": true
+      },
+      {
+        "field": "measure",
+        "value": "temperature_humidity",
+        "label": "温度和湿度",
+        "source": "EXPLICIT_USER_FORM",
+        "not_inferred_from_idea": true
+      },
+      {
+        "field": "power",
+        "value": "usb5",
+        "label": "USB-C 5V外部供电",
+        "source": "EXPLICIT_USER_FORM",
+        "not_inferred_from_idea": true
+      },
+      {
+        "field": "output",
+        "value": "serial",
+        "label": "在电脑串口查看",
+        "source": "EXPLICIT_USER_FORM",
+        "not_inferred_from_idea": true
+      },
+      {
+        "field": "route",
+        "value": "s3_bme",
+        "label": "ESP32-S3＋BME280裸芯片资料演示候选",
+        "source": "EXPLICIT_USER_FORM",
+        "not_inferred_from_idea": true
+      },
+      {
+        "field": "quantity",
+        "value": "ambient_temperature",
+        "label": "周围空气的温度",
+        "source": "EXPLICIT_USER_FORM",
+        "not_inferred_from_idea": true
+      },
+      {
+        "field": "temperature_range_c",
+        "value": [
+          0,
+          50
+        ],
+        "source": "EXPLICIT_USER_FORM"
+      },
+      {
+        "field": "allowed_error_c",
+        "value": 1,
+        "source": "EXPLICIT_USER_FORM"
+      },
+      {
+        "field": "direct_bare_vdd_v",
+        "value": null,
+        "source": "EXPLICIT_USER_FORM",
+        "node": null
+      }
+    ],
+    "recognised_original": {
+      "original_text": "想用ESP32-S3和BME280记录房间温湿度，USB-C 5V供电，在电脑串口查看。",
+      "normalised_text": "想用ESP32-S3和BME280记录房间温湿度,USB-C 5V供电,在电脑串口查看。",
+      "unit_normalisation": "Numeric temperature units 度/℃/°C/摄氏度 -> ℃ before token scan and comparisons; no Fahrenheit conversion",
+      "facts": [
+        {
+          "field": "remaining_voltage_v",
+          "value": 5,
+          "matched_text": "5V",
+          "source": "EXPLICIT_ORIGINAL_TEXT_BOUNDED_PATTERN"
+        },
+        {
+          "field": "output",
+          "value": "serial",
+          "matched_text": "串口/UART/SERIAL",
+          "source": "EXPLICIT_ORIGINAL_TEXT_BOUNDED_PATTERN"
+        }
+      ]
+    },
+    "scope": "BLOCKED_OR_NEEDS_CLARIFICATION",
+    "canonical_for_explicit_demo": null,
+    "condition_request": null,
+    "limits": [
+      "原话中的已识别温区、误差、输出、测量对象和节点电压必须与表单一致；复杂表述仍无通用自然语言理解。",
+      "器件型号来自用户明确选择的资料演示路线，不是系统推断或已批准选型。",
+      "温湿度目标已保存；现有规则只核对温度相关资料，湿度功能与采集参数没有因此通过。"
+    ]
+  },
+  "review": null,
+  "loaded_reference": null,
+  "attempt_history": [
+    {
+      "operation": "REVIEW_BLOCKED",
+      "project_id": "project-23a0b741-733b-45cc-9112-7dec03b9a0c2",
+      "revision": 15,
+      "at": "2026-11-01T08:58:13.973Z",
+      "draft": {
+        "idea": "想用ESP32-S3和BME280记录房间温湿度，USB-C 5V供电，用OLED屏幕查看。",
+        "place": "room",
+        "purpose": "observe",
+        "measure": "temperature_humidity",
+        "power": "usb5",
+        "output": "screen",
+        "route": "s3_bme",
+        "quantity": "ambient_temperature",
+        "lo": "0",
+        "hi": "50",
+        "error": "0.5",
+        "bareVdd": false,
+        "vdd": "",
+        "confirmed": true,
+        "moduleVariant": "source_8mb_no_psram",
+        "referenceMode": "unchanged_reference",
+        "accuracyIntent": "goal_only"
+      },
+      "issues": [
+        {
+          "field": "output",
+          "message": "这份参考没有本次要求的屏幕适配方案；本演示不增加OLED。请明确改为串口，或保留需求并另开设计任务。",
+          "kind": "REFERENCE_CONFLICT"
+        }
+      ]
+    },
+    {
+      "operation": "REVIEW_BLOCKED",
+      "project_id": "project-23a0b741-733b-45cc-9112-7dec03b9a0c2",
+      "revision": 17,
+      "at": "2026-11-01T08:58:14.689Z",
+      "draft": {
+        "idea": "想用ESP32-S3和BME280记录房间温湿度，USB-C 5V供电，用OLED屏幕查看。",
+        "place": "room",
+        "purpose": "observe",
+        "measure": "temperature_humidity",
+        "power": "usb5",
+        "output": "serial",
+        "route": "s3_bme",
+        "quantity": "ambient_temperature",
+        "lo": "0",
+        "hi": "50",
+        "error": "0.5",
+        "bareVdd": false,
+        "vdd": "",
+        "confirmed": true,
+        "moduleVariant": "source_8mb_no_psram",
+        "referenceMode": "unchanged_reference",
+        "accuracyIntent": "goal_only"
+      },
+      "issues": [
+        {
+          "field": "output",
+          "message": "原话查看方式为\"screen\"，表单为\"serial\"，不一致。请统一原话与表单；普通确认不会覆盖或放宽原话要求。",
+          "kind": "QUESTION"
+        },
+        {
+          "field": "output",
+          "message": "这份参考没有本次要求的屏幕适配方案；本演示不增加OLED。请明确改为串口，或保留需求并另开设计任务。",
+          "kind": "REFERENCE_CONFLICT"
+        }
+      ]
+    },
+    {
+      "operation": "REFERENCE_REVIEW_COMPLETED",
+      "project_id": "project-23a0b741-733b-45cc-9112-7dec03b9a0c2",
+      "revision": 19,
+      "at": "2026-11-01T08:58:25.210Z",
+      "binding": {
+        "project_id": "project-23a0b741-733b-45cc-9112-7dec03b9a0c2",
+        "revision": 19,
+        "requirements_sha256": "64b39fd879b63dace0c0593eebf5609207089e2650f464606df659192456836e"
+      },
+      "requirements_fulfilled": false
+    },
+    {
+      "operation": "REFERENCE_LOADED",
+      "project_id": "project-23a0b741-733b-45cc-9112-7dec03b9a0c2",
+      "revision": 19,
+      "at": "2026-11-01T08:58:25.741Z",
+      "binding": {
+        "project_id": "project-23a0b741-733b-45cc-9112-7dec03b9a0c2",
+        "revision": 19,
+        "requirements_sha256": "64b39fd879b63dace0c0593eebf5609207089e2650f464606df659192456836e"
+      },
+      "reference_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+      "assets": [
+        {
+          "role": "schematic_image",
+          "sha256": "95d02b407b492e65b23c872cbf64989098f52e4bb8ca2331477851f9dce7ab33",
+          "bytes": 573114
+        },
+        {
+          "role": "pcb_image",
+          "sha256": "b33a9093afa00748c0ba4e59e3a2986f31ff00176df566c16d9d55a974a3ff21",
+          "bytes": 476331
+        },
+        {
+          "role": "editable_project",
+          "sha256": "cda1018b50b418829724bba8aa02de674862295efc86a55e7f325f20e25c52d8",
+          "bytes": 553607
+        },
+        {
+          "role": "audit_report",
+          "sha256": "bd2502c78cf31ef105b35eb20690d14f7fb0d35edfa9c13e6c5ccfbb1e92615a",
+          "bytes": 1171
+        },
+        {
+          "role": "source_package",
+          "sha256": "f5addf37f75c66423eb10fcab036a0af10ccbf037e61e0881b384721ba0b8f6c",
+          "bytes": 108382
+        }
+      ]
+    },
+    {
+      "operation": "PRIOR_RESULTS_INVALIDATED",
+      "project_id": "project-23a0b741-733b-45cc-9112-7dec03b9a0c2",
+      "revision": 19,
+      "at": "2026-11-01T08:58:49.959Z",
+      "binding": {
+        "project_id": "project-23a0b741-733b-45cc-9112-7dec03b9a0c2",
+        "revision": 19,
+        "requirements_sha256": "64b39fd879b63dace0c0593eebf5609207089e2650f464606df659192456836e"
+      },
+      "reference_was_loaded": true,
+      "next_revision": 20
+    }
+  ],
+  "execution": "DRAFT",
+  "design_approved": false,
+  "requirements_fulfilled": false,
+  "input_uploaded": false,
+  "auto_saved": false,
+  "work_mode": "FIXED_REFERENCE_REUSE_NOT_AUTOROUTING",
+  "requirements_sha256": null,
+  "exported_at": "2026-11-01T08:58:50.442Z"
+}

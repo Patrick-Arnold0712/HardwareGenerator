@@ -1,0 +1,25 @@
+{
+  "id": "document:espressif:hw-design-guidelines-zh",
+  "kind": "document",
+  "name": "ESP32-S3 硬件设计指南（官方简体中文）",
+  "status": "not_downloaded",
+  "manufacturer": "",
+  "mpn": "",
+  "package": "",
+  "source": {
+    "type": "manufacturer-docs",
+    "url": "https://docs.espressif.com/projects/esp-hardware-design-guidelines/zh_CN/latest/esp32s3/",
+    "revision": "latest（未固定版本）",
+    "license": "unknown",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {},
+  "files": [],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  }
+}

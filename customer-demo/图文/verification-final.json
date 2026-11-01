@@ -1,0 +1,58 @@
+{
+  "at": "2026-11-01T08:59:26.049Z",
+  "command": "node docs/repro/BOARD-FLOW-20261101-r1/verify-final.cjs",
+  "node": "v24.21.0",
+  "checks": [
+    {
+      "name": "1090份受保护原文件SHA均不变",
+      "status": "PASS"
+    },
+    {
+      "name": "参考快照绑定准确字节和版本",
+      "status": "PASS"
+    },
+    {
+      "name": "全部真实资产与EDA归档SHA一致",
+      "status": "PASS"
+    },
+    {
+      "name": "真实下载项目记录可绑定并重算指纹",
+      "status": "PASS"
+    },
+    {
+      "name": "实际工程下载字节与真实参考工程一致",
+      "status": "PASS"
+    },
+    {
+      "name": "下载保留OLED失败及改为串口后的新审核",
+      "status": "PASS"
+    },
+    {
+      "name": "温湿度、精度、整板仍未批准",
+      "status": "PASS"
+    },
+    {
+      "name": "修改需求后的实际记录清旧图与旧审核",
+      "status": "PASS"
+    },
+    {
+      "name": "真实网页原理图和PCB均可解码显示",
+      "status": "PASS"
+    },
+    {
+      "name": "真实223项DRC失败与下载摘要保持一致，未被改PASS",
+      "status": "PASS"
+    },
+    {
+      "name": "手机宽度修正后无横向溢出，2图仍可显示",
+      "status": "PASS"
+    },
+    {
+      "name": "真实最终7步截图和状态文件全部存在",
+      "status": "PASS"
+    }
+  ],
+  "passed": 12,
+  "failed": 0,
+  "exit_code": 0
+}

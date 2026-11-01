@@ -1,0 +1,16 @@
+{
+  "scope": "customer copy only; metadata privacy change, not electrical fix; redacted extraction not independently reopened in EDA",
+  "source_zip_sha256": "cda1018b50b418829724bba8aa02de674862295efc86a55e7f325f20e25c52d8",
+  "delivered_zip_sha256": "7ec07a36aafeae83a3694c48e9606b73b552e9e3e755d00878ba8b7faa1e2f94",
+  "delivered_bytes": 556689,
+  "diff": [
+    {
+      "entry": "editable-reference-bundle/Adafruit-Feather-ESP32-S3-8MB-No-PSRAM-Eagle/Adafruit-Feather-ESP32-S3-8MB-No-PSRAM-Eagle.eprj3",
+      "old_sha256": "38f5c101e20b7835abb6bf7720220b79a079b990038301a37ebde80d5825aec1",
+      "new_sha256": "ba3b1cca991671dfc95d7988ef14104efd5729087c67ff7da7a511a68a8644f7",
+      "change": "profile.owner.uuid machine-directory removed; other fields and all diagram bytes untouched"
+    }
+  ],
+  "all_other_entries_byte_identical": true,
+  "drc_status": "FAIL_223_UNCHANGED_GEOMETRY"
+}

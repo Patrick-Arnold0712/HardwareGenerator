@@ -1,0 +1,525 @@
+{
+  "scope": "retrieval pointers only; no original material included in database; no full-source offline reproduction claim",
+  "assets": [
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "BST-BME280-DS001-captured.pdf",
+      "sha256": "a2ccdb449fec94380742fe8eec851a11d9bd4142252d332b34682b4deecd7d89",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; datasheet download is not a redistribution grant",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "SensorAPI-LICENSE",
+      "sha256": "8c966978a9f67992e824d0b76381eab42f240c0049881f7bf2b46c2c093191aa",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "BSD-3-Clause",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "SensorAPI-README.md",
+      "sha256": "8706b63dab9ce09edb3daa2c2b252908644b4925ad5ebed01066bed79e8f2d96",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "BSD-3-Clause",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "SensorAPI-bme280.c",
+      "sha256": "7de1e7d3082b85e90db1daa34573ba77553a7caf44e06e216de5216b7ed4fa12",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "BSD-3-Clause",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "SensorAPI-bme280.h",
+      "sha256": "6f144510e103f0ab1a24244a71f7ff8ab7f23147b4899aa7bfd0f526062d2163",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "BSD-3-Clause",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "SensorAPI-bme280_defs.h",
+      "sha256": "541bbd32498b8603bc8fe8eafac26b15d09fb032d37448ca88e7aa398d6a0769",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "BSD-3-Clause",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "mapping-review.json",
+      "sha256": "3e094bb87bf0f57224155b81cd125a837d06a43ff7a6a132c8f6e6a601c0a8f4",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "library-search.json",
+      "sha256": "89780c9ff0ac1386648fc19839ee3bba4713311d9afee9f34b5605f0a037d414",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "library-detail-raw.json",
+      "sha256": "7e1ff8514875cf44058f2086274219e0bfa5863812109769018d054b6946f14f",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "LIB02E-review.md",
+      "sha256": "341d6b93cc7041c4fc6e875254bac9260130aa8661f55bb4c59ab4cb4f8fc267",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "LIB02D-review.md",
+      "sha256": "cafe43128dd91a7960081afb2b0c35ef1b266bfd500e4acd1a2726288eb086eb",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "bosch-p38.png",
+      "sha256": "12f2f8a22325322a6a016471f13ce50de0e3b567116a9f91d0b4b268109b8fd8",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "bosch-p42.png",
+      "sha256": "42591f0a8e634feb44ccfc8ca661a68e403930735d77617127763a9c69876e59",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "doctor.json",
+      "sha256": "c4f1384aa7efdee8d9daad14e2158dfc7c44ed03397d319f4e88c0836a7a317a",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "attempt-03-command.json",
+      "sha256": "ad79dc6c6fc0b0db715073e84b4da2ef4182de1e401081da00f3079f9f5e1c17",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "attempt-03-stdout.log",
+      "sha256": "772ef9552ca0b2fee5765db830915a215abc09ef4bba96102d176da2b8ece26d",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "attempt-03-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "attempt-05-command.json",
+      "sha256": "c733673a22165672f60bbb23ceb54b9cb36a18aee2a4e787c2fd993423288b7e",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "attempt-05-stdout.log",
+      "sha256": "deb6d196439e95579f06f697b86a5d6a5340ac8e033c175d94b92faa85e1f41b",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "attempt-05-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "symbol-source.efoo",
+      "sha256": "802fe4ceed74307ff47cdd0d57173654660e3870258806a50a31cc918aedbcf9",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:bosch:BME280",
+      "filename": "footprint-source.efoo",
+      "sha256": "039cb02d610306025746fa67be5e1838645f9a5bd770f84858e728947eca6940",
+      "source_url": null,
+      "record_source_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+      "license_as_recorded": "unknown; restricted local evidence, not approved for redistribution",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:diodes:AP2112K-3.3TRG1",
+      "filename": "official.pdf",
+      "sha256": "ef8d376f2ec356e29172eb9e053819a0ebdcc576dba7fc9ab0505c568427920f",
+      "source_url": "https://www.diodes.com/datasheet/download/AP2112.pdf",
+      "record_source_url": "https://www.diodes.com/datasheet/download/AP2112.pdf",
+      "license_as_recorded": "unknown",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:espressif:ESP32-S3-WROOM-1-N8R8",
+      "filename": "esp32-s3-wroom-1_wroom-1u_datasheet_v1.8.pdf",
+      "sha256": "27d71971da07c280c6068d08c74720d1a25b8f20cf8494dc1765bdd28d40d435",
+      "source_url": "https://documentation.espressif.com/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf",
+      "record_source_url": "https://documentation.espressif.com/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf",
+      "license_as_recorded": "unknown; local audit copy",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:espressif:ESP32-S3-WROOM-1-N8R8",
+      "filename": "ordering-info.inc",
+      "sha256": "998392e0e2d950c43a5861e474bca35bb92a725bd5c154c98695992df9413b51",
+      "source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/ordering-info.inc",
+      "record_source_url": "https://documentation.espressif.com/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf",
+      "license_as_recorded": "CC-BY-SA-4.0 (repository documentation)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "component:gct:USB4085-GF-A",
+      "filename": "official.pdf",
+      "sha256": "e5e6f4f67ccaee397b33324fde439f7cdd273c5dd9048c48f096aae7029034be",
+      "source_url": "https://gct.co/files/specs/usb4085-spec.pdf",
+      "record_source_url": "https://gct.co/files/specs/usb4085-spec.pdf",
+      "license_as_recorded": "unknown",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+      "filename": "Adafruit ESP32-S3 8MB No PSRAM.brd",
+      "sha256": "5b06b9c6291545a2c9da0993a642e513a75c5901e26836a2ee559077147abcca",
+      "source_url": "https://raw.githubusercontent.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/2c95ed51a500d929fd6d8f519b895f0c4daeb982/Adafruit%20ESP32-S3%208MB%20No%20PSRAM.brd",
+      "record_source_url": "https://github.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/tree/2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+      "license_as_recorded": "CC-BY-SA-3.0-Unported (README hardware statement + license.txt; obligations retained)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+      "filename": "Adafruit ESP32-S3 8MB No PSRAM.sch",
+      "sha256": "b71cdf533f043c30c1b8ab87d476214c6a857b4f92245debe98694e88a69d398",
+      "source_url": "https://raw.githubusercontent.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/2c95ed51a500d929fd6d8f519b895f0c4daeb982/Adafruit%20ESP32-S3%208MB%20No%20PSRAM.sch",
+      "record_source_url": "https://github.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/tree/2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+      "license_as_recorded": "CC-BY-SA-3.0-Unported (README hardware statement + license.txt; obligations retained)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+      "filename": "README.md",
+      "sha256": "1c564dfcf48aba201f85727bab1f372b5a9722b21546f6d73686e99576b228cb",
+      "source_url": "https://raw.githubusercontent.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/2c95ed51a500d929fd6d8f519b895f0c4daeb982/README.md",
+      "record_source_url": "https://github.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/tree/2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+      "license_as_recorded": "CC-BY-SA-3.0-Unported (README hardware statement + license.txt; obligations retained)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+      "filename": "license.txt",
+      "sha256": "075dad5e5fc96c27014fabc269f4f5732909cffd178a486f546d982b6cf86b74",
+      "source_url": "https://raw.githubusercontent.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/2c95ed51a500d929fd6d8f519b895f0c4daeb982/license.txt",
+      "record_source_url": "https://github.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/tree/2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+      "license_as_recorded": "CC-BY-SA-3.0-Unported (README hardware statement + license.txt; obligations retained)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+      "filename": "user_guide_v1.1.rst",
+      "sha256": "ee0b339051b013bdccbed9134335ee5d78e6564072d636c7127c3495936b116d",
+      "source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+      "record_source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+      "license_as_recorded": "CC-BY-SA-4.0 (repository documentation)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+      "filename": "ordering-info.inc",
+      "sha256": "998392e0e2d950c43a5861e474bca35bb92a725bd5c154c98695992df9413b51",
+      "source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/ordering-info.inc",
+      "record_source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+      "license_as_recorded": "CC-BY-SA-4.0 (repository documentation)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+      "filename": "SCH_ESP32-S3-DevKitC-1_V1.1_20221130.pdf",
+      "sha256": "f116b5d9f1fdce126e9a63d8450388eb11295d8322d831502fbc9729442b72e4",
+      "source_url": "https://dl.espressif.com/dl/schematics/SCH_ESP32-S3-DevKitC-1_V1.1_20221130.pdf",
+      "record_source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+      "license_as_recorded": "unknown (externally hosted PDF; no per-file reuse grant found)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+      "filename": "PCB_ESP32-S3-DevKitC-1_V1.1_20220429.pdf",
+      "sha256": "3f67160841a5a730297b754befab33344c8fce5318950d688717dfc999dca562",
+      "source_url": "https://dl.espressif.com/dl/schematics/PCB_ESP32-S3-DevKitC-1_V1.1_20220429.pdf",
+      "record_source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+      "license_as_recorded": "unknown; PDF drawing is marked Proprietary",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+      "filename": "DXF_ESP32-S3-DevKitC-1_V1.1_20220429.pdf",
+      "sha256": "9d092400db6f677b491926a07455bec7874054ec65ef6ccbddb6aa7ed3892a17",
+      "source_url": "https://dl.espressif.com/dl/schematics/esp_idf/DXF_ESP32-S3-DevKitC-1_V1.1_20220429.pdf",
+      "record_source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+      "license_as_recorded": "unknown; drawing marked Proprietary",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+      "filename": "DXF_ESP32-S3-DevKitC-1_V1.1_20220429.dxf",
+      "sha256": "02c88dea5acf89ef20c8073acd19f1c5fd1ac908fc57a5c0fd005cd021304983",
+      "source_url": "https://dl.espressif.com/dl/schematics/esp_idf/DXF_ESP32-S3-DevKitC-1_V1.1_20220429.dxf",
+      "record_source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+      "license_as_recorded": "unknown; no per-file redistribution/derivative grant confirmed",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+      "filename": "esp32-s3-wroom-1_wroom-1u_datasheet_v1.8.pdf",
+      "sha256": "27d71971da07c280c6068d08c74720d1a25b8f20cf8494dc1765bdd28d40d435",
+      "source_url": "https://documentation.espressif.com/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf",
+      "record_source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+      "license_as_recorded": "unknown; local audit copy",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+      "filename": "SGM2212_RevA2_2023-07.pdf",
+      "sha256": "9dbdd68baf96fe58ca011183b0c2bfba09a9ea9cce0b15755ab258cfda78d71b",
+      "source_url": "https://www.sg-micro.com/rect/assets/54089b71-cc25-4f36-af2e-34b07f00a108/SGM2212.pdf",
+      "record_source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+      "license_as_recorded": "unknown; local audit copy",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+      "filename": "structured-facts.json",
+      "sha256": "b5aa1b96a54856aba89a82d68207496f85f18d64a15fe0687ddb1de0af55a2f0",
+      "source_url": null,
+      "record_source_url": "https://github.com/espressif/esp-dev-kits/blob/bd4d4ac18657e73583af3d7c0b0a23c3cddf3735/docs/en/esp32-s3-devkitc-1/user_guide_v1.1.rst",
+      "license_as_recorded": "internal audit derivative; source-file terms unresolved",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:olimex:esp32-s3-devkit-lipo-rev-b",
+      "filename": "ESP32-S3-DevKit-LiPo_Rev_B.sch",
+      "sha256": "559a96acd091b0e075b7eab28075e68857086c542dedd5a2a2d265c2dd88f885",
+      "source_url": "https://raw.githubusercontent.com/OLIMEX/ESP32-S3-DevKit-LiPo/98e62ae2b9b1e52448ec585089730defb45ba869/HARDWARE/ESP32-S3-DevKit-LiPo_Rev_B/ESP32-S3-DevKit-LiPo_Rev_B.sch",
+      "record_source_url": "https://github.com/OLIMEX/ESP32-S3-DevKit-LiPo/tree/98e62ae2b9b1e52448ec585089730defb45ba869",
+      "license_as_recorded": "hardware/document scope declared in README; per-file legal coverage unverified",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:olimex:esp32-s3-devkit-lipo-rev-b",
+      "filename": "ESP32-S3-DevKit-LiPo_Rev_B.kicad_pcb",
+      "sha256": "381719f1a1124874a4369bfedebbc98d378fe6abf39d009a775668859eee8cab",
+      "source_url": "https://raw.githubusercontent.com/OLIMEX/ESP32-S3-DevKit-LiPo/98e62ae2b9b1e52448ec585089730defb45ba869/HARDWARE/ESP32-S3-DevKit-LiPo_Rev_B/ESP32-S3-DevKit-LiPo_Rev_B.kicad_pcb",
+      "record_source_url": "https://github.com/OLIMEX/ESP32-S3-DevKit-LiPo/tree/98e62ae2b9b1e52448ec585089730defb45ba869",
+      "license_as_recorded": "hardware/document scope declared in README; per-file legal coverage unverified",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:olimex:esp32-s3-devkit-lipo-rev-b",
+      "filename": "ESP32-S3-DevKit-LiPo_Rev_B.kicad_pro",
+      "sha256": "19ac77c009eb9784a9bc6175576219b716e1663f635cb0884bf28aa9aed0463b",
+      "source_url": "https://raw.githubusercontent.com/OLIMEX/ESP32-S3-DevKit-LiPo/98e62ae2b9b1e52448ec585089730defb45ba869/HARDWARE/ESP32-S3-DevKit-LiPo_Rev_B/ESP32-S3-DevKit-LiPo_Rev_B.kicad_pro",
+      "record_source_url": "https://github.com/OLIMEX/ESP32-S3-DevKit-LiPo/tree/98e62ae2b9b1e52448ec585089730defb45ba869",
+      "license_as_recorded": "hardware/document scope declared in README; per-file legal coverage unverified",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:olimex:esp32-s3-devkit-lipo-rev-b",
+      "filename": "ESP32-S3-DevKit-LiPo_Rev_B-BOM.ods",
+      "sha256": "a974345095c1aa196989dc406895861ce37d492987e2a89d660e29d36e56ca90",
+      "source_url": "https://raw.githubusercontent.com/OLIMEX/ESP32-S3-DevKit-LiPo/98e62ae2b9b1e52448ec585089730defb45ba869/HARDWARE/ESP32-S3-DevKit-LiPo_Rev_B/ESP32-S3-DevKit-LiPo_Rev_B-BOM.ods",
+      "record_source_url": "https://github.com/OLIMEX/ESP32-S3-DevKit-LiPo/tree/98e62ae2b9b1e52448ec585089730defb45ba869",
+      "license_as_recorded": "hardware/document scope declared in README; per-file legal coverage unverified",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:olimex:esp32-s3-devkit-lipo-rev-b",
+      "filename": "ESP32-S3-DevKit-LiPo_Rev_B-BOM.pdf",
+      "sha256": "f3a643e06c260b304234a35378b8bd5b3c1f5d8dc1dfab9743a1459fc3da09dc",
+      "source_url": "https://raw.githubusercontent.com/OLIMEX/ESP32-S3-DevKit-LiPo/98e62ae2b9b1e52448ec585089730defb45ba869/HARDWARE/ESP32-S3-DevKit-LiPo_Rev_B/ESP32-S3-DevKit-LiPo_Rev_B-BOM.pdf",
+      "record_source_url": "https://github.com/OLIMEX/ESP32-S3-DevKit-LiPo/tree/98e62ae2b9b1e52448ec585089730defb45ba869",
+      "license_as_recorded": "hardware/document scope declared in README; per-file legal coverage unverified",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:olimex:esp32-s3-devkit-lipo-rev-b",
+      "filename": "LICENSE",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "source_url": "https://raw.githubusercontent.com/OLIMEX/ESP32-S3-DevKit-LiPo/98e62ae2b9b1e52448ec585089730defb45ba869/LICENSE",
+      "record_source_url": "https://github.com/OLIMEX/ESP32-S3-DevKit-LiPo/tree/98e62ae2b9b1e52448ec585089730defb45ba869",
+      "license_as_recorded": "GPLv3 text in repository root; do not treat as hardware license",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:olimex:esp32-s3-devkit-lipo-rev-b",
+      "filename": "README.md",
+      "sha256": "9f5fce24dbf02e1ba215cb050cf28633aedf94a10ce3619f664037af3aeca456",
+      "source_url": "https://raw.githubusercontent.com/OLIMEX/ESP32-S3-DevKit-LiPo/98e62ae2b9b1e52448ec585089730defb45ba869/README.md",
+      "record_source_url": "https://github.com/OLIMEX/ESP32-S3-DevKit-LiPo/tree/98e62ae2b9b1e52448ec585089730defb45ba869",
+      "license_as_recorded": "Hardware CERN-OHL-S-2.0 declared; full text not captured",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:sparkfun:thing-plus-esp32-s3",
+      "filename": "SparkFun_Thing_Plus_ESP32-S3.kicad_pcb",
+      "sha256": "38dbc5e1b5ebdc0f622ec8591afb2f30244c49ccfe7c8545d302fa5eb0cce3fc",
+      "source_url": "https://raw.githubusercontent.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242/Hardware/SparkFun_Thing_Plus_ESP32-S3.kicad_pcb",
+      "record_source_url": "https://github.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/tree/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242",
+      "license_as_recorded": "CC-BY-SA-4.0 (hardware files as declared in LICENSE.md; obligations retained)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:sparkfun:thing-plus-esp32-s3",
+      "filename": "SparkFun_Thing_Plus_ESP32-S3.kicad_pro",
+      "sha256": "ae5573559c0be77988636ff722c7efdd4468f4cc4295be039a844d4452f509ec",
+      "source_url": "https://raw.githubusercontent.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242/Hardware/SparkFun_Thing_Plus_ESP32-S3.kicad_pro",
+      "record_source_url": "https://github.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/tree/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242",
+      "license_as_recorded": "CC-BY-SA-4.0 (hardware files as declared in LICENSE.md; obligations retained)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:sparkfun:thing-plus-esp32-s3",
+      "filename": "SparkFun_Thing_Plus_ESP32-S3.kicad_sch",
+      "sha256": "3d846c16c067a87dfea3dac4a258ab5f51054414b766be45f935a45d63c39c22",
+      "source_url": "https://raw.githubusercontent.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242/Hardware/SparkFun_Thing_Plus_ESP32-S3.kicad_sch",
+      "record_source_url": "https://github.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/tree/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242",
+      "license_as_recorded": "CC-BY-SA-4.0 (hardware files as declared in LICENSE.md; obligations retained)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:sparkfun:thing-plus-esp32-s3",
+      "filename": "SparkFun_Thing_Plus_ESP32-S3_Peripherals.kicad_sch",
+      "sha256": "f26e5bc409347af22baf7f4c05d229033e94ea5d76cf18559e3eb395b71ecfe5",
+      "source_url": "https://raw.githubusercontent.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242/Hardware/SparkFun_Thing_Plus_ESP32-S3_Peripherals.kicad_sch",
+      "record_source_url": "https://github.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/tree/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242",
+      "license_as_recorded": "CC-BY-SA-4.0 (hardware files as declared in LICENSE.md; obligations retained)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:sparkfun:thing-plus-esp32-s3",
+      "filename": "LICENSE.md",
+      "sha256": "eb0ab46fdbb3806278560b35092564c28d0739b51efe52400fe4826500e8fc9b",
+      "source_url": "https://raw.githubusercontent.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242/LICENSE.md",
+      "record_source_url": "https://github.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/tree/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242",
+      "license_as_recorded": "CC-BY-SA-4.0 (hardware files as declared in LICENSE.md; obligations retained)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    },
+    {
+      "record_id": "reference_design:sparkfun:thing-plus-esp32-s3",
+      "filename": "README.md",
+      "sha256": "fb096a768f350edb55da0b77c59f8009c07589f367446d3a3d0f6bd25bfba061",
+      "source_url": "https://raw.githubusercontent.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242/README.md",
+      "record_source_url": "https://github.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/tree/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242",
+      "license_as_recorded": "CC-BY-SA-4.0 (hardware files as declared in LICENSE.md; obligations retained)",
+      "included_in_database_directory": false,
+      "next_step": "从原作者官方来源自行取得并核对SHA；没有逐文件URL时需在记录来源查找，不能保证链接仍有效。许可未知/none需先明确用途与分发权限。"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "format": "lib03-pg-export-0.2",
+  "source_fingerprint": "3905f2810dd47e8676859f0269fd803f254932beceeabca3c50cdd632759a546",
+  "records": [
+    {
+      "id": "component:lcsc:C21190",
+      "version": "c62b7e15ef712590ec6d37379c5ea36ec026399499f58184f99deeb7b4388139",
+      "entity": "parts",
+      "source_only": false
+    },
+    {
+      "id": "component:module:GY-BME280",
+      "version": "104f456a138c00fe7d1494307cdba956d3be70c81e3abb7a576f636b40ccb30a",
+      "entity": "parts",
+      "source_only": false
+    },
+    {
+      "id": "component:bosch:BME280",
+      "version": "05f88b48cf68ed148ad2097de69afae26244181e129682324932eec27293b7d5",
+      "entity": "parts",
+      "source_only": false
+    },
+    {
+      "id": "component:diodes:AP2112K-3.3TRG1",
+      "version": "c3994b025e167367e1fc3e32c8c466e65451af238f835a21ad7607c0b07c8b9a",
+      "entity": "parts",
+      "source_only": false
+    },
+    {
+      "id": "component:gct:USB4085-GF-A",
+      "version": "0ade6b32a198b96008622495c594feab0e2211faf1df125cdcc5ffe9f0bcb88f",
+      "entity": "parts",
+      "source_only": false
+    },
+    {
+      "id": "component:espressif:ESP32-S3-WROOM-1-N8R8",
+      "version": "063d785b9fd3c67ee7ada25354b1de5a6b02c5fbb1ba78f8e51ed9c1691c2c75",
+      "entity": "parts",
+      "source_only": false
+    },
+    {
+      "id": "reference_design:espressif:esp32-s3-devkitc-1-v1.1",
+      "version": "42ee1b144af84c3b96e6cb04be55393a067f833086882f55f5e7ebf9940272ea",
+      "entity": "reference_designs",
+      "source_only": false
+    },
+    {
+      "id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+      "version": "6593393d3275289df4d716a7ad31b4cb320be553608e376b4e886b946619aa09",
+      "entity": "reference_designs",
+      "source_only": false
+    },
+    {
+      "id": "reference_design:olimex:esp32-s3-devkit-lipo-rev-b",
+      "version": "8d1b15c5b31d67033143d9ab142121d63e70c67ccf8e8ed39ea17791ee547339",
+      "entity": "reference_designs",
+      "source_only": false
+    },
+    {
+      "id": "reference_design:sparkfun:thing-plus-esp32-s3",
+      "version": "20cd93f6c5ee3bad41735478e23020ec3b22d16198d7fa78fea4b60cca97fc5d",
+      "entity": "reference_designs",
+      "source_only": false
+    },
+    {
+      "id": "document:github:esp-labs-web",
+      "version": "0c4f5f1390a60f35e819d093eb4aaec5155005b8f63018f10784e6539ac1644c",
+      "entity": null,
+      "source_only": true
+    },
+    {
+      "id": "document:espressif:esp-idf-zh",
+      "version": "0e3c46e848bb3906e32fc19b4964aaa1b0deff9acc8cb6f07e00c4de0c208381",
+      "entity": null,
+      "source_only": true
+    },
+    {
+      "id": "document:espressif:hw-design-guidelines-zh",
+      "version": "020231bbb99d8323661ba35b441c627b97837e85c62f6e9d371ca160cae595e7",
+      "entity": null,
+      "source_only": true
+    }
+  ],
+  "counts": {
+    "parts": 6,
+    "reference_designs": 4,
+    "modules": 0,
+    "projects": 0,
+    "validation_runs": 0
+  },
+  "links": [
+    {
+      "from_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
+      "from_version": "6593393d3275289df4d716a7ad31b4cb320be553608e376b4e886b946619aa09",
+      "to_id": "component:bosch:BME280",
+      "to_version": "05f88b48cf68ed148ad2097de69afae26244181e129682324932eec27293b7d5",
+      "relation": "uses_part"
+    }
+  ],
+  "relations_inserted": 1,
+  "limitations": [
+    "仅支持有明确来源事实审核的reference_design到component uses_part；不代表工程批准",
+    "projects/modules/validation_runs空表不代表已有记录",
+    "schema已存在时事务失败，不覆盖旧库"
+  ]
+}

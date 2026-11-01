@@ -1,0 +1,25 @@
+{
+  "id": "component:gct:USB4085-GF-A",
+  "kind": "component",
+  "name": "GCT USB4085-GF-A USB-C 插座候选",
+  "status": "downloaded",
+  "manufacturer": "GCT",
+  "mpn": "USB4085-GF-A",
+  "package": "through-hole",
+  "source": {
+    "type": "manufacturer-datasheet",
+    "url": "https://gct.co/files/specs/usb4085-spec.pdf",
+    "revision": "USB4085 family Product Specification Rev B, date literal 05/04/23; exact -GF-A drawing not present in this PDF",
+    "license": "unknown",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {},
+  "files": [],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  }
+}

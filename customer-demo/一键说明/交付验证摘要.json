@@ -1,0 +1,20 @@
+{
+  "scope": "customer-copy delivery verification, not engineering acceptance",
+  "frontend_version": "boardflow-customer-r1",
+  "reference_version": "boardflow-customer-reference-20261101-r1",
+  "reference_snapshot_sha256": "93a6657e315bc0582712001381dde9c55ea52354134dd706df9317cb19f1f5da",
+  "all_five_assets_hash_checked_by_real_browser_load": true,
+  "schematic_and_pcb_displayed": true,
+  "actual_engineering_browser_download_sha256": "7ec07a36aafeae83a3694c48e9606b73b552e9e3e755d00878ba8b7faa1e2f94",
+  "actual_engineering_bytes": 556689,
+  "OLED_conflict_blocked": true,
+  "explicit_correction_reviewed": true,
+  "changed_requirements_hide_old_board_and_links": true,
+  "tutorial_images_loaded": 9,
+  "pcb_drc_status": "FAIL",
+  "pcb_drc_count": 223,
+  "redacted_project_reopened_in_EDA": false,
+  "pg_scope": "same public derived 13/1 and SQL already tested in PG17.6; this package check does not connect PG",
+  "engineering_approved": false,
+  "manufacturing_allowed": false
+}

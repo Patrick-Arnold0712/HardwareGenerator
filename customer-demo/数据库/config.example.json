@@ -1,0 +1,7 @@
+{
+  "host": "127.0.0.1",
+  "port": 55439,
+  "database": "hg_lib03_customer_demo",
+  "user": "REPLACE_WITH_YOUR_LOCAL_PG_USER",
+  "psql": "REPLACE_WITH_YOUR_PSQL_EXECUTABLE_ABSOLUTE_PATH"
+}

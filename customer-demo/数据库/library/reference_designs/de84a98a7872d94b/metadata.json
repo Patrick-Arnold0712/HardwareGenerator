@@ -1,0 +1,25 @@
+{
+  "id": "reference_design:sparkfun:thing-plus-esp32-s3",
+  "kind": "reference_design",
+  "name": "SparkFun Thing Plus ESP32-S3 fixed-commit KiCad reference candidate",
+  "status": "downloaded",
+  "manufacturer": "SparkFun Electronics",
+  "mpn": "",
+  "package": "",
+  "source": {
+    "type": "fixed-commit-original-hardware-repository",
+    "url": "https://github.com/sparkfun/SparkFun_Thing_Plus_ESP32-S3/tree/c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242",
+    "revision": "commit c9fc69fc1d79e1f3e45f7f2e50d5e357b4dd9242",
+    "license": "CC-BY-SA-4.0 (hardware files as declared in LICENSE.md; obligations retained)",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {},
+  "files": [],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  }
+}

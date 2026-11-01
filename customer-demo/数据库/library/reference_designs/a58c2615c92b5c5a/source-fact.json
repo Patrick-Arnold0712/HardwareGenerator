@@ -1,0 +1,8 @@
+{
+  "scope": "public source fact summary, not original Eagle file or engineering approval",
+  "source_url": "https://github.com/adafruit/Adafruit-Feather-ESP32-S3-PCB/tree/2c95ed51a500d929fd6d8f519b895f0c4daeb982",
+  "original_file_sha256": "b71cdf533f043c30c1b8ab87d476214c6a857b4f92245debe98694e88a69d398",
+  "locator": "XPath:/eagle/drawing/schematic/parts/part[@name='U4']; selected library/deviceset/device; /eagle/drawing/schematic/sheets/sheet/nets/net/.../pinref[@part='U4']",
+  "fact": "Native source schematic identifies U4 as BME280",
+  "original_license": "CC-BY-SA-3.0-Unported (README hardware statement + license.txt; obligations retained)"
+}

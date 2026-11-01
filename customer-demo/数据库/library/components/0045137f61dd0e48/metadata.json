@@ -1,0 +1,25 @@
+{
+  "id": "component:lcsc:C21190",
+  "kind": "component",
+  "name": "1kΩ ±1% 0.1W 0603 厚膜电阻",
+  "status": "verified",
+  "manufacturer": "UNI-ROYAL",
+  "mpn": "0603WAF1001T5E",
+  "package": "0603",
+  "source": {
+    "type": "eda-library",
+    "url": "",
+    "revision": "嘉立创 EDA 专业版 V4.1.71 系统库",
+    "license": "unknown",
+    "retrieved_at": "2026-11-01"
+  },
+  "params": {},
+  "files": [],
+  "evidence": [],
+  "public_demo": {
+    "version": "public-facts-13-20261101",
+    "not_original_v5": true,
+    "engineering_approved": false,
+    "reusable": false
+  }
+}
