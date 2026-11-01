@@ -1,5 +1,5 @@
 {
-  "version": "boardflow-reference-20261101-r1-eda1",
+  "version": "boardflow-customer-reference-20261101-r1",
   "reference_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
   "name": "Adafruit Feather ESP32-S3 · 8MB No PSRAM",
   "source": {
@@ -63,8 +63,9 @@
     "manufacturing": "NOT_RUN"
   },
   "publication": {
-    "status": "LOCAL_CANDIDATE_NOT_PUBLISHED",
-    "license_review": "SOURCE_LICENSE_RETAINED_PUBLICATION_REQUIRES_MANAGEMENT",
+    "status": "CUSTOMER_DELIVERY_REFERENCE_ONLY",
+    "public_reference_deployment_commit": "9c6337a39730d3f201f3a6850e49d6c944534fb7",
+    "scope": "reference demonstration only; not engineering or manufacturing approval",
     "customer_materials_included": false
   },
   "assets": [
@@ -91,12 +92,12 @@
     {
       "role": "editable_project",
       "path": "assets/adafruit-editable-reference.zip",
-      "filename": "Adafruit-Feather-ESP32-S3-8MB-No-PSRAM-editable-reference.zip",
+      "filename": "Adafruit-Feather-ESP32-S3-customer-redacted-reference.zip",
       "mime": "application/zip",
-      "sha256": "cda1018b50b418829724bba8aa02de674862295efc86a55e7f325f20e25c52d8",
-      "bytes": 553607,
+      "sha256": "7ec07a36aafeae83a3694c48e9606b73b552e9e3e755d00878ba8b7faa1e2f94",
+      "bytes": 556689,
       "origin": "Adafruit fixed Eagle source, LCEDA Pro V4.1.71 conversion/export",
-      "scope": "same reference geometry, DRC FAIL 223, not target/manufacturing approval"
+      "scope": "same reference geometry, DRC FAIL 223, not target/manufacturing approval; customer owner metadata directory removed, geometry identical"
     },
     {
       "role": "audit_report",
@@ -122,7 +123,6 @@
   "artifact_review": {
     "status": "LOCAL_EDA_HANDOFF_REVIEWED",
     "local_preview_approved": true,
-    "public_release_approved": false,
     "eda_evidence": [
       "docs/repro/EDA-ADAFRUIT-IMPORT-20261101-r1/EDA-ADAFRUIT-IMPORT-report.md",
       "docs/repro/EDA-ADAFRUIT-IMPORT-20261101-r1/asset-manifest.json",
@@ -138,7 +138,7 @@
     ],
     "asset_capture": "同一转换参考工程由LCEDA原生导出PNG；两图不含账号界面，未编辑像素或隐藏飞线",
     "license_note": "Adafruit Industries CC-BY-SA-3.0 original README/license retained in source and editable ZIP. Local preview only; public release compliance pending management review.",
-    "reference_modified": "原生Eagle源未改；客户端格式转换及6处符号引脚编号自动修复。包为DRC前首次导入目录；之后eprj3/ecfg元数据自动变化，esch2/epcb2图纸字节未变，未改线或填铜。",
+    "reference_modified": "原生Eagle源未改；客户端格式转换及6处符号引脚编号自动修复。包为DRC前首次导入目录；之后eprj3/ecfg元数据自动变化，esch2/epcb2图纸字节未变，未改线或填铜。 Customer-copy privacy change only: removed profile.owner.uuid machine directory from project index; all SCH/PCB/other entries byte-identical. Redacted project not independently reopened in EDA.",
     "drc_summary": {
       "schema_version": "0.1",
       "reference_id": "reference_design:adafruit:feather-esp32-s3-8mb-no-psram",
@@ -164,7 +164,9 @@
       "engineering_approved": false,
       "manufacturing_allowed": false,
       "scope": "Actual client DRC on imported geometry. ZIP preserves pre-DRC initial project metadata; SCH/PCB geometry unchanged. ZIP extracted project not reopened independently."
-    }
+    },
+    "historical_candidate_public_release_approved": false,
+    "reference_publication_approval": "Management approved original 19-file public reference demonstration on 2026-11-01; this customer copy only changes labels/documentation/identity; engineering not approved"
   },
   "comparison_policy": {
     "vdd_v": {
@@ -182,5 +184,11 @@
       "condition_snapshot_sha256": "3ad599c884aedab51d96843e417df0de928ff7ef586960ac35370392a0edf1f9",
       "scope": "bounded demo input limit; not ambient accuracy or system approval"
     }
+  },
+  "origin": {
+    "published_source_tree_sha256": "dba3d33ef9cfc5289ff0cd78e98e20a38d655008079ca122395eaeeec8e4f9a2",
+    "published_source_snapshot_sha256": "27b97288a6016673f37e7ca4de8e25c3ed60a235d819cbdc7a8bb0469d005e82",
+    "original_candidate_public_release_approved": false,
+    "scope": "original frozen candidate flag retained here as history; customer copy is a new identity"
   }
 }
