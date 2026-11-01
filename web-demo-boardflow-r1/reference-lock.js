@@ -1,0 +1,1 @@
+(function(r){r.BoardReferenceLock={"version":"boardflow-reference-20261101-r1-eda1","sha256":"27b97288a6016673f37e7ca4de8e25c3ed60a235d819cbdc7a8bb0469d005e82"};if(typeof module!=='undefined')module.exports=r.BoardReferenceLock;})(globalThis);
