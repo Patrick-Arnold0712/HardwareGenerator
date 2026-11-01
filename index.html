@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>温度计小实验 · HardwareGenerator</title><link rel="stylesheet" href="./styles.css"><script src="./snapshot.js" defer></script><script src="./engine.js" defer></script><script src="./app.js" defer></script><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'"></head>
+<body>
+<a class="skip" href="#request">跳到需求输入</a>
+<header class="topbar"><a class="brand" href="./" aria-label="HardwareGenerator 首页"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M12 19V8a4 4 0 0 1 8 0v11a7 7 0 1 1-8 0Z"/><path d="M16 11v12m0 0h.01"/></svg><span>HardwareGenerator<small>温度计小实验</small></span></a><span class="local"><i aria-hidden="true"></i>浏览器本地计算 · 不上传需求</span></header>
+<main>
+<section class="intro"><p class="eyebrow">公开元数据快照演示 · 20261101-r1</p><h1>先把想法说清楚，<br>再找有来源的资料。</h1><p>需求只在浏览器内处理，不上传。使用公开资料快照，不是实时查库。<br>你来描述想做的温度计，我们先补齐条件，再筛选随站资料快照。<br class="desktop">有资料不等于能直接选用，不确定的地方会明确告诉你。</p></section>
+<div class="workspace">
+<aside class="guide" aria-label="操作步骤"><ol id="steps"><li class="current" aria-current="step"><span>01</span><div><strong>说说你的想法</strong><small>一句自然语言就可以</small></div></li><li><span>02</span><div><strong>补充必要条件</strong><small>不清楚的地方，先问你</small></div></li><li><span>03</span><div><strong>查看资料与缺口</strong><small>每条候选都有来源和限制</small></div></li></ol><div class="library"><p class="eyebrow">本次使用的资料</p><strong id="db-count">正在读取资料快照…</strong><p id="db-description">只筛选随网站发布的9条元数据，不连接实时SQLite。</p><details><summary>版本与资料身份</summary><pre id="service-info">正在读取…</pre></details></div></aside>
+<div class="content">
+<section class="card input-card" aria-labelledby="input-title"><div class="section-heading"><span class="step-mark">01</span><h2 id="input-title">你想做什么样的温度计？</h2></div>
+<form id="request-form" novalidate><label for="request">描述你的想法</label><textarea id="request" name="text" rows="4" maxlength="4000" aria-describedby="request-help" placeholder="例如：我想做一个温控计"></textarea><p class="help" id="request-help">支持测温与资料查询；加热、制冷控制方案不在本次范围内。</p>
+<div class="examples"><span>试试看：</span><button class="text-button" type="button" id="example-simple">只说一句想法</button><button class="text-button" type="button" id="example-full">填入完整示例</button></div>
+<div id="clarification" class="clarification" hidden><h3>还需要你确认这些事</h3><ol id="questions"></ol><label id="answer-label" for="answers">补充说明</label><textarea id="answers" rows="4" maxlength="4000" aria-describedby="answer-help" placeholder="用自己的话补充即可"></textarea><p id="answer-help" class="help"></p></div>
+<p id="error" class="error" role="alert" hidden></p><div class="action-row"><button id="submit" class="primary" type="submit"><span id="submit-label">分析这句话</span><span class="arrow" aria-hidden="true">→</span></button><span id="status" class="status" role="status" aria-live="polite">输入后，点击按钮开始。</span></div></form>
+</section>
+<section id="results" class="results" aria-labelledby="result-title" hidden tabindex="-1"><div class="result-heading"><div><p class="eyebrow">本次快照筛选结果</p><h2 id="result-title">资料候选与未确认项</h2></div><span class="badge">仅供核查，不是选型批准</span></div><p id="result-summary"></p><div id="candidate-list" class="candidate-list"></div><section class="card gaps"><h3>还缺什么？</h3><ul id="gaps"></ul></section><details class="card technical"><summary>查看原始结果与查询过程</summary><p class="help">供复核使用：快照过滤描述、参数、命中ID及JSON。不执行SQL。</p><pre id="raw-result"></pre></details></section>
+<div id="empty-state" class="empty-state"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="11" y="7" width="26" height="34" rx="3"/><path d="M18 16h12m-12 7h12m-12 7h7"/></svg><p>结果会出现在这里</p><small>先澄清需求，不会偷偷替你选器件。</small></div>
+</div></div>
+<footer><strong>能力边界</strong><p>这是链路验证演示，不是可直接生产的设计。不批准器件选型或复用，不生成整板、PCB或制造文件，也不代表硬件测试或客户验收通过。</p><span>公开静态演示 0.1 · 受限解析0.3 · 元数据快照20261101-r1</span><p><a href="./THIRD_PARTY_NOTICES.md">来源与许可说明</a> · <a href="./README.md">使用说明</a></p></footer>
+</main><noscript><p class="error">此交互页面需要启用JavaScript。页面不会用静态假数据替代查询。</p></noscript>
+</body></html>
